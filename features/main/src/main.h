@@ -35,6 +35,8 @@ freely, subject to the following restrictions:
 // FEATURE Application+Rendering/Include
 // FEATURE Application+WindowResizing-web/Include
 
+// FEATURE Example+loadCLIScript/Include
+
 // FEATURE Example+ScriptingEnvironment/Include
 // FEATURE Example+VBO/Include
 
@@ -98,6 +100,8 @@ namespace main
         // FEATURE Example+application.camera.clearColor/TearDown
         // FEATURE Example+ScriptingEnvironment/TearDown
 // FEATURE Example/Impl
+    // FEATURE Example+loadCLIScript/Impl
+
     // FEATURE Example+Parameters/Impl
     // FEATURE Example+ScriptingEnvironment/Impl
     // FEATURE Example+ToggleBackgroundColorTest/Impl

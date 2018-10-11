@@ -14,6 +14,7 @@ Example+01
 Example+Parameters
 Example+ScriptingEnvironment
 Example+ToggleBackgroundColorTest
+Example+loadCLIScript
 
 Example+application.camera.clearColor
 
