@@ -1,0 +1,121 @@
+#!/bin/bash
+# This script generats complete source code for each LCP example
+# by using the same source base with the help of
+# Feature Tool ( https://bitbucket.org/ogstudio/feature-tool )
+
+# Make sure we have at least Bash 3.
+# NOTE Why not Bash 4? Because Apple sucks: https://apple.stackexchange.com/a/197172
+if ((BASH_VERSINFO[0] < 3)); then
+    echo "ERROR You need to have Bash 3+"
+    exit 1
+fi
+
+DIR=`dirname $0`
+DIR_OSGCPE=$DIR/../openscenegraph-cross-platform-examples
+FEATURES_FILENAME=Features.txt
+
+# List of examples.
+EXAMPLES="
+01.ToggleBackgroundColor
+"
+
+# Platform -> Path to Features.txt
+PLATFORMS=(
+    "desktop"
+)
+#    "android"
+#    "ios"
+#    "web"
+
+FEATURES_TXT_DIR="src" 
+FEATURE_DIRS=(
+    "/core"
+    "/format"
+    "/input"
+    "/log"
+    "/mahjong"
+    "/main"
+    "/network"
+    "/render"
+    "/resource"
+    "/scene"
+)
+#    "/debug"
+
+FEATURES_TXT_DIR_ANDROID_CPP="app/src/main/cpp"
+FEATURES_TXT_DIR_ANDROID_JAVA="app/src/main/java"
+FEATURE_DIR_ANDROID="/android"
+
+FEATURE_DIR_IOS="/ios"
+
+processFeatureDir()
+{
+    PATH_TO_FEATURES_FILENAME=$1
+    FEATURES_FILENAME=$2
+    PATH_TO_FEATURES_OSGCPE=$3
+    PATH_TO_FEATURES=$4
+
+    PATH_TO_FEATURES_TXT=$PATH_TO_FEATURES_FILENAME/$FEATURES_FILENAME
+    PATH_TO_SRC=$PATH_TO_FEATURES/src
+
+    echo "feature-tool $PATH_TO_FEATURES_TXT $PATH_TO_SRC $PATH_TO_FEATURES_OSGCPE $PATH_TO_FEATURES"
+    feature-tool $PATH_TO_FEATURES_TXT $PATH_TO_SRC $PATH_TO_FEATURES_OSGCPE $PATH_TO_FEATURES
+}
+
+processFeatureDirs()
+{
+    dirFeaturesAbs=$1
+
+    for ((id=0; id < ${#FEATURE_DIRS[@]}; id++)); do
+        dirFeatures=${FEATURE_DIRS[$id]}
+        dirFeaturesOSGCPE=$DIR_OSGCPE/features$dirFeatures
+        dirFeaturesLCPE=$DIR/features$dirFeatures
+        processFeatureDir $dirFeaturesAbs Features.txt $dirFeaturesOSGCPE $dirFeaturesLCPE
+    done
+}
+
+main()
+{
+    for example in $EXAMPLES; do
+        echo "Generating example '$example'"
+
+        # For each platform.
+        for ((platformId=0; platformId < ${#PLATFORMS[@]}; platformId++)); do
+            platform=${PLATFORMS[$platformId]}
+
+            # C++ features for desktop, web, and iOS.
+            if [ $platform == "desktop" ] || [ $platform == "web" ] || [ $platform == "ios" ]; then
+                echo "process C++ features for '$platform'"
+                dirFeaturesAbs=$DIR/$example/$platform/$FEATURES_TXT_DIR
+                processFeatureDirs $dirFeaturesAbs
+            fi
+
+            # Objective-C features for iOS.
+            if [ $platform == "ios" ]; then
+                echo "process Objective-C features for '$platform'"
+                dirFeaturesAbs=$DIR/$example/$platform/$FEATURES_TXT_DIR
+                dir=$DIR/features${FEATURE_DIR_IOS}
+                dirFeaturesOSGCPE=$DIR_OSGCPE/features${FEATURE_DIR_IOS}
+                dirFeaturesLCPE=$DIR/features${FEATURE_DIR_IOS}
+                processFeatureDir $dirFeaturesAbs Features.txt $dirFeaturesOSGCPE $dirFeaturesLCPE
+            fi
+
+            # C++ and Java features for Android.
+            if [ $platform == "android" ]; then
+                echo "process C++ features for '$platform'"
+                dirFeaturesAbs=$DIR/$example/$platform/$FEATURES_TXT_DIR_ANDROID_CPP
+                processFeatureDirs $dirFeaturesAbs
+
+                echo "process Java features for '$platform'"
+                dirFeaturesAbs=$DIR/$example/$platform/$FEATURES_TXT_DIR_ANDROID_JAVA
+                dir=$DIR/features${FEATURE_DIR_ANDROID}
+                dirFeaturesOSGCPE=$DIR_OSGCPE/features${FEATURE_DIR_ANDROID}
+                dirFeaturesLCPE=$DIR/features${FEATURE_DIR_ANDROID}
+                processFeatureDir $dirFeaturesAbs Features.txt $dirFeaturesOSGCPE $dirFeaturesLCPE
+            fi
+        done
+    done
+}
+
+main
+
