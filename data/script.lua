@@ -1,27 +1,30 @@
 
 application = {}
 
-camera = {}
-application.camera = camera
+application.camera = {}
+
+local clearColorKey = "clearColor"
+local applicationCameraClearColorKey = "application.camera.clearColor"
 
 -- clearColor property.
 local clearColorMT =
 {
     -- Getter.
     __index = function(table, key)
-        if (key == "clearColor") then
-            return ENV:call("application.camera.clearColor", {})
+        if (key == clearColorKey) then
+            return ENV:call(applicationCameraClearColorKey, {})
         end
         return nil
     end,
+
     -- Setter.
     __newindex = function(table, key, value)
-        if (key == "clearColor") then
-            ENV:call("application.camera.clearColor", value)
+        if (key == clearColorKey) then
+            ENV:call(applicationCameraClearColorKey, value)
         end
     end,
 }
-setmetatable(camera, clearColorMT)
+setmetatable(application.camera, clearColorMT)
 
 print("Set background color")
 
