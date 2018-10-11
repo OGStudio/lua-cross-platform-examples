@@ -3,28 +3,62 @@ application = {}
 
 application.camera = {}
 
+function createPropertiesMetatable()
+    local mt =
+    {
+        callbacks = {},
+        -- Register property with callbacks.
+        register = function(mtself, key, getter, setter)
+            local callback = {}
+            callback.getter = getter
+            callback.setter = setter
+            mtself.callbacks[key] = callback
+        end,
+
+        -- Getter.
+        __index = function(self, key)
+            local mtself = getmetatable(self)
+            local callback = mtself.callbacks[key]
+            if 
+                callback and
+                callback.getter
+            then
+                return callback.getter()
+            end
+            return nil
+        end,
+
+        -- Setter.
+        __newindex = function(self, key, value)
+            local mtself = getmetatable(self)
+            local callback = mtself.callbacks[key]
+            if 
+                callback and
+                callback.setter
+            then
+                callback.setter(value)
+            end
+        end,
+    }
+    return mt
+end
+
+local cameraProperties = createPropertiesMetatable()
 local clearColorKey = "clearColor"
 local applicationCameraClearColorKey = "application.camera.clearColor"
-
--- clearColor property.
-local clearColorMT =
-{
+cameraProperties:register(
+    "clearColor", 
     -- Getter.
-    __index = function(table, key)
-        if (key == clearColorKey) then
-            return ENV:call(applicationCameraClearColorKey, {})
-        end
-        return nil
+    function()
+        return ENV:call(applicationCameraClearColorKey, {})
     end,
-
     -- Setter.
-    __newindex = function(table, key, value)
-        if (key == clearColorKey) then
-            ENV:call(applicationCameraClearColorKey, value)
-        end
-    end,
-}
-setmetatable(application.camera, clearColorMT)
+    function(values)
+        ENV:call(applicationCameraClearColorKey, values)
+    end
+)
+
+setmetatable(application.camera, cameraProperties)
 
 print("Set background color")
 
