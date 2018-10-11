@@ -91,15 +91,19 @@ namespace main
         // FEATURE Example+Parameters/Setup
         // FEATURE Example+VBO/Setup
         // FEATURE Example+ScriptingEnvironment/Setup
+        // FEATURE Example+application.camera.clearColor/Setup
         // FEATURE Example+ToggleBackgroundColorTest/Setup
 // FEATURE Example/TearDown
         // FEATURE Example+ToggleBackgroundColorTest/TearDown
+        // FEATURE Example+application.camera.clearColor/TearDown
         // FEATURE Example+ScriptingEnvironment/TearDown
 // FEATURE Example/Impl
     // FEATURE Example+Parameters/Impl
     // FEATURE Example+ScriptingEnvironment/Impl
     // FEATURE Example+ToggleBackgroundColorTest/Impl
     // FEATURE Example+VBO/Impl
+
+    // FEATURE Example+application.camera.clearColor/Impl
 // FEATURE Example/End
 
 } // namespace main
