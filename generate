@@ -33,14 +33,14 @@ FEATURE_DIRS=(
     "/format"
     "/input"
     "/log"
-    "/mahjong"
     "/main"
-    "/network"
     "/render"
     "/resource"
-    "/scene"
+    "/script"
 )
 #    "/debug"
+#    "/network"
+#    "/scene"
 
 FEATURES_TXT_DIR_ANDROID_CPP="app/src/main/cpp"
 FEATURES_TXT_DIR_ANDROID_JAVA="app/src/main/java"

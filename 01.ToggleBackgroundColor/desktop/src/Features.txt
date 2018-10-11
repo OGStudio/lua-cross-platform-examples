@@ -12,7 +12,8 @@ MAIN_EXAMPLE_LOG
 Example
 Example+01
 Example+Parameters
-Example+Scripting
+Example+ScriptingEnvironment
+Example+ToggleBackgroundColorTest
 
 main-desktop
 main+Arguments-desktop

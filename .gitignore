@@ -1,0 +1,17 @@
+build
+# Mac.
+.DS_Store
+# Xcode.
+*.xcuserdatad
+IDEWorkspaceChecks.plist
+# Android Studio.
+.gradle
+.idea
+.externalNativeBuild
+local.properties
+# Ignore NodeJS files.
+package-lock.json
+
+# Ignore Blender related files.
+*.blend1
+*.log
