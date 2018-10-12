@@ -465,7 +465,6 @@ struct Example
     
         void setupApplicationMouse()
         {
-            MAIN_EXAMPLE_LOG("setupApplicationMouse");
             // Transmit pressed buttons.
             this->app->mouse->pressedButtonsChanged.addCallback(
                 [=] {
@@ -487,7 +486,6 @@ struct Example
         }
         void tearApplicationMouseDown()
         {
-            MAIN_EXAMPLE_LOG("tearApplicationMouseDown");
             this->app->mouse->pressedButtonsChanged.removeCallback(
                 this->applicationMouseCallbackName
             );
@@ -497,7 +495,6 @@ struct Example
         }
         void transmitApplicationMouseButtons()
         {
-            MAIN_EXAMPLE_LOG("transmit mouse buttons");
             // Convert buttons to string representation.
             auto buttons = this->app->mouse->pressedButtons;
             std::vector<std::string> strbuttons;
@@ -513,7 +510,6 @@ struct Example
         }
         void transmitApplicationMousePosition()
         {
-            MAIN_EXAMPLE_LOG("transmit mouse position");
             // Convert position to string representation.
             auto position = this->app->mouse->position;
             std::vector<std::string> strposition = {

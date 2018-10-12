@@ -7,6 +7,7 @@ application.mouse = {
 
 -- Configure it.
 do
+    local mouse = application.mouse
     -- Create and configure environment client.
     local client = EnvironmentClient.new()
     -- Define keys.
@@ -28,10 +29,11 @@ do
             mouse.pressedButtons = values
             print("accepted mouse pressed buttons")
         end
+
+        return {}
     end
 
     -- Register client.
     application.mouse.client = client
     ENV:addClient(application.mouse.client);
-    print("registered mouse client")
 end

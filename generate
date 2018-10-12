@@ -119,3 +119,5 @@ main()
 
 main
 
+# Generate scripts, too.
+$DIR/scripts/generate
