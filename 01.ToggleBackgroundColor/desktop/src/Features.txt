@@ -17,6 +17,7 @@ Example+ToggleBackgroundColorTest
 Example+loadCLIScript
 
 Example+application.camera.clearColor
+Example+application.mouse
 
 main-desktop
 main+Arguments-desktop
@@ -48,6 +49,7 @@ createGraphicsContext-desktop
 setupCamera
 
 # input
+INPUT_MOUSE_LOG
 Mouse
 MouseButtons
 

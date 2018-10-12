@@ -1,5 +1,5 @@
 FEATURE main.lua/Impl
-local function toggleBackgroundColor(camera)
+local function testBackgroundColorToggle(camera)
     print("TODO Toggle background color")
 
     local color = camera.clearColor
@@ -12,4 +12,4 @@ local function toggleBackgroundColor(camera)
     print("Current background color:", color[1], color[2], color[3])
 end
 
-toggleBackgroundColor(application.camera)
+testBackgroundColorToggle(application.camera)

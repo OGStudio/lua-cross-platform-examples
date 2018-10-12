@@ -94,10 +94,12 @@ namespace main
         // FEATURE Example+VBO/Setup
         // FEATURE Example+ScriptingEnvironment/Setup
         // FEATURE Example+application.camera.clearColor/Setup
+        // FEATURE Example+application.mouse/Setup
         // FEATURE Example+ToggleBackgroundColorTest/Setup
 // FEATURE Example/TearDown
         // FEATURE Example+ToggleBackgroundColorTest/TearDown
         // FEATURE Example+application.camera.clearColor/TearDown
+        // FEATURE Example+application.mouse/TearDown
         // FEATURE Example+ScriptingEnvironment/TearDown
 // FEATURE Example/Impl
     // FEATURE Example+loadCLIScript/Impl
@@ -108,6 +110,7 @@ namespace main
     // FEATURE Example+VBO/Impl
 
     // FEATURE Example+application.camera.clearColor/Impl
+    // FEATURE Example+application.mouse/Impl
 // FEATURE Example/End
 
 } // namespace main

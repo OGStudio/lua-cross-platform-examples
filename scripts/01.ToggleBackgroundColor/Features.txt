@@ -5,6 +5,7 @@ createPropertiesMetatable
 application
 application.camera
 application.camera.clearColor
+application.mouse
 
-# example
-toggleBackgroundColor
+# test
+testBackgroundColorToggle

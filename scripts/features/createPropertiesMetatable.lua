@@ -19,7 +19,7 @@ function createPropertiesMetatable()
                 callback and
                 callback.getter
             then
-                return callback.getter()
+                return callback.getter(self)
             end
             return nil
         end,
@@ -32,7 +32,7 @@ function createPropertiesMetatable()
                 callback and
                 callback.setter
             then
-                callback.setter(value)
+                callback.setter(self, value)
             end
         end,
     }

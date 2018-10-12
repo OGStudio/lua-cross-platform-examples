@@ -4,10 +4,10 @@ local function registerApplicationCameraClearColorProperty(mt)
     local key = "application.camera." .. shortKey
     mt:register(
         shortKey,
-        function()
+        function(self)
             return ENV:call(key, {})
         end,
-        function(value)
+        function(self, value)
             ENV:call(key, value)
         end
     )

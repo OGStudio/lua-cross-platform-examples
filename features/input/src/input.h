@@ -27,6 +27,8 @@ freely, subject to the following restrictions:
 
 // FEATURE Mouse/Include
 
+// FEATURE INPUT_MOUSE_LOG/Impl
+
 namespace lcpe
 {
 namespace input

@@ -45,7 +45,7 @@ function createPropertiesMetatable()
                 callback and
                 callback.getter
             then
-                return callback.getter()
+                return callback.getter(self)
             end
             return nil
         end,
@@ -58,7 +58,7 @@ function createPropertiesMetatable()
                 callback and
                 callback.setter
             then
-                callback.setter(value)
+                callback.setter(self, value)
             end
         end,
     }
@@ -80,23 +80,61 @@ local function registerApplicationCameraClearColorProperty(mt)
     local key = "application.camera." .. shortKey
     mt:register(
         shortKey,
-        function()
+        function(self)
             return ENV:call(key, {})
         end,
-        function(value)
+        function(self, value)
             ENV:call(key, value)
         end
     )
 end
 registerApplicationCameraClearColorProperty(applicationCameraMetatable)
 -- application.camera.clearColor End
+-- application.mouse Start
+-- Create mouse.
+application.mouse = {
+    position = {},
+    pressedButtons = {},
+}
+
+-- Configure it.
+do
+    -- Create and configure environment client.
+    local client = EnvironmentClient.new()
+    -- Define keys.
+    local buttonsKey = "application.mouse.pressedButtons"
+    local positionKey = "application.mouse.position"
+    -- Define methods.
+    client.respondsToKey = function(key)
+        return
+            (key == buttonsKey) or
+            (key == positionKey)
+    end
+    client.call = function(key, values)
+        if (key == buttonsKey)
+        then
+            mouse.position = values
+            print("accepted mouse position")
+        elseif (key == positionKey)
+        then
+            mouse.pressedButtons = values
+            print("accepted mouse pressed buttons")
+        end
+    end
+
+    -- Register client.
+    application.mouse.client = client
+    ENV:addClient(application.mouse.client);
+    print("registered mouse client")
+end
+-- application.mouse End
 
 -- Library domain ends --
 
 -- Example domain begins --
 
--- toggleBackgroundColor Start
-local function toggleBackgroundColor(camera)
+-- testBackgroundColorToggle Start
+local function testBackgroundColorToggle(camera)
     print("TODO Toggle background color")
 
     local color = camera.clearColor
@@ -109,8 +147,8 @@ local function toggleBackgroundColor(camera)
     print("Current background color:", color[1], color[2], color[3])
 end
 
-toggleBackgroundColor(application.camera)
--- toggleBackgroundColor End
+testBackgroundColorToggle(application.camera)
+-- testBackgroundColorToggle End
 
 -- Example domain ends --
 
