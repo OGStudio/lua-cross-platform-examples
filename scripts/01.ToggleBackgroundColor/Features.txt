@@ -1,5 +1,6 @@
 # components
 createPropertiesMetatable
+createReporter
 
 # api
 application
