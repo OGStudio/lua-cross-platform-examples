@@ -1,0 +1,38 @@
+#!/bin/bash
+# This script generats complete source code for each LCP example
+# by using the same source base with the help of
+# Feature Tool ( https://bitbucket.org/ogstudio/feature-tool )
+
+# Make sure we have at least Bash 3.
+# NOTE Why not Bash 4? Because Apple sucks: https://apple.stackexchange.com/a/197172
+if ((BASH_VERSINFO[0] < 3)); then
+    echo "ERROR You need to have Bash 3+"
+    exit 1
+fi
+
+DIR=`dirname $0`
+FEATURES_FILENAME=Features.txt
+FEATURES_SRC_DIR=src 
+FEATURES_DIR=features
+
+# List of scripts.
+SCRIPTS="
+01.ToggleBackgroundColor
+"
+
+
+main()
+{
+    for script in $SCRIPTS; do
+        echo "Generating script '$script'"
+
+        featuresFile=$DIR/$script/$FEATURES_FILENAME
+        featuresDir=$DIR/$FEATURES_DIR
+        srcDir=$featuresDir/$FEATURES_SRC_DIR
+        echo "feature-tool $featuresFile $srcDir $featuresDir --comment-string=--"
+        feature-tool $featuresFile $srcDir $featuresDir --comment-string=--
+    done
+}
+
+main
+
