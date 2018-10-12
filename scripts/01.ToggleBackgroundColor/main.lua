@@ -114,12 +114,12 @@ do
     client.call = function(key, values)
         if (key == buttonsKey)
         then
-            mouse.position = values
-            print("accepted mouse position")
-        elseif (key == positionKey)
-        then
             mouse.pressedButtons = values
             print("accepted mouse pressed buttons")
+        elseif (key == positionKey)
+        then
+            mouse.position = values
+            print("accepted mouse position")
         end
 
         return {}

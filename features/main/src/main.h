@@ -97,7 +97,6 @@ namespace main
         // FEATURE Example+application.mouse/Setup
         // FEATURE Example+ToggleBackgroundColorTest/Setup
 // FEATURE Example/TearDown
-        // FEATURE Example+ToggleBackgroundColorTest/TearDown
         // FEATURE Example+application.camera.clearColor/TearDown
         // FEATURE Example+application.mouse/TearDown
         // FEATURE Example+ScriptingEnvironment/TearDown

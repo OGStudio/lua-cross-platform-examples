@@ -268,10 +268,6 @@ struct Example
     {
 
 // Example End
-        // Example+ToggleBackgroundColorTest Start
-        this->tearToggleBackgroundColorTestDown();
-        
-        // Example+ToggleBackgroundColorTest End
         // Example+application.camera.clearColor Start
         this->tearApplicationCameraClearColorDown();
         
@@ -385,12 +381,7 @@ struct Example
     private:
         void setupToggleBackgroundColorTest()
         {
-            this->setupApplicationCameraClearColor();
             this->loadCLIScript();
-        }
-        void tearToggleBackgroundColorTestDown()
-        {
-            this->tearApplicationCameraClearColorDown();
         }
     // Example+ToggleBackgroundColorTest End
 
