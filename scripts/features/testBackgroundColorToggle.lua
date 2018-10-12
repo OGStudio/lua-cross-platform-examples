@@ -1,15 +1,40 @@
 FEATURE main.lua/Impl
-local function testBackgroundColorToggle(camera)
-    print("TODO Toggle background color")
+do
+    -- Define toggling function.
+    local function toggleCameraColor(camera, color1, color2)
+        -- Get current camera color.
+        local color = camera.clearColor
+        -- Toggle color.
+        if 
+            (color[1] == color1[1]) and
+            (color[2] == color1[2]) and
+            (color[3] == color1[3])
+        then
+            color = color2
+        else
+            color = color1
+        end
+        -- Apply new color.
+        camera.clearColor = color
+    end
 
-    local color = camera.clearColor
-    print("Previous background color:", color[1], color[2], color[3])
+    -- Define shortcuts to globals.
+    local camera = application.camera
+    local mouse = application.mouse
+    -- Define colors to toggle between.
+    local colorSrc = camera.clearColor
+    local colorDst = {0.5, 0.5, 0.5}
 
-    -- Set new color.
-    camera.clearColor = {0.5, 0.5, 0.5}
+    -- Subscribe to mouse button presses.
+    mouse.pressedButtonsChanged:addCallback(
+        function()
+            -- Detect click.
+            if (#mouse.pressedButtons > 0)
+            then
+                toggleCameraColor(camera, colorSrc, colorDst)
+            end
+        end
+    )
 
-    color = camera.clearColor
-    print("Current background color:", color[1], color[2], color[3])
+    print("Message to user: click to change background color")
 end
-
-testBackgroundColorToggle(application.camera)

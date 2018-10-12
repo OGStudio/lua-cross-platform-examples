@@ -102,7 +102,7 @@ function createReporter()
         removeCallback = function(self, name)
             -- This call only deactivates a callback for
             -- later removal that happens during next report() call.
-            for callback in self.__callbacks
+            for _, callback in pairs(self.__callbacks)
             do
                 if 
                     callback.name and
@@ -117,7 +117,7 @@ function createReporter()
             self:__removeInactiveCallbacks()
             
             -- Call normal callbacks.
-            for callback in self.__callbacks
+            for _, callback in pairs(self.__callbacks)
             do
                 callback.callback()
             end
@@ -127,7 +127,7 @@ function createReporter()
             -- Remove one-time callbacks.
             self.__oneTimeCallbacks = {}
             -- Call one-time callbacks.
-            for callback in oneTimeCallbacks
+            for _, callback in pairs(oneTimeCallbacks)
             do
                 callback()
             end
@@ -147,10 +147,10 @@ function createReporter()
 
         __removeInactiveCallbacks = function(self)
             -- Loop through the names of inactive callbacks.
-            for name in self.__inactiveCallbackNames
+            for _, name in pairs(self.__inactiveCallbackNames)
             do
                 -- Loop through callbacks to find matching name.
-                for id, callback in self.__callbacks
+                for id, callback in pairs(self.__callbacks)
                 do
                     if 
                         callback.name and
@@ -198,13 +198,16 @@ registerApplicationCameraClearColorProperty(applicationCameraMetatable)
 -- Create mouse.
 application.mouse = {
     position = {},
+    positionChanged = createReporter(),
+
     pressedButtons = {},
+    pressedButtonsChanged = createReporter(),
 }
 
 -- Configure it.
 do
     local mouse = application.mouse
-    -- Create and configure environment client.
+    -- Create environment client.
     local client = EnvironmentClient.new()
     -- Define keys.
     local buttonsKey = "application.mouse.pressedButtons"
@@ -219,19 +222,18 @@ do
         if (key == buttonsKey)
         then
             mouse.pressedButtons = values
-            print("accepted mouse pressed buttons")
+            mouse.pressedButtonsChanged:report()
         elseif (key == positionKey)
         then
             mouse.position = values
-            print("accepted mouse position")
+            mouse.positionChanged:report()
         end
 
         return {}
     end
-
     -- Register client.
-    application.mouse.client = client
-    ENV:addClient(application.mouse.client);
+    mouse.client = client
+    ENV:addClient(mouse.client);
 end
 -- application.mouse End
 
@@ -240,20 +242,45 @@ end
 -- Example domain begins --
 
 -- testBackgroundColorToggle Start
-local function testBackgroundColorToggle(camera)
-    print("TODO Toggle background color")
+do
+    -- Define toggling function.
+    local function toggleCameraColor(camera, color1, color2)
+        -- Get current camera color.
+        local color = camera.clearColor
+        -- Toggle color.
+        if 
+            (color[1] == color1[1]) and
+            (color[2] == color1[2]) and
+            (color[3] == color1[3])
+        then
+            color = color2
+        else
+            color = color1
+        end
+        -- Apply new color.
+        camera.clearColor = color
+    end
 
-    local color = camera.clearColor
-    print("Previous background color:", color[1], color[2], color[3])
+    -- Define shortcuts to globals.
+    local camera = application.camera
+    local mouse = application.mouse
+    -- Define colors to toggle between.
+    local colorSrc = camera.clearColor
+    local colorDst = {0.5, 0.5, 0.5}
 
-    -- Set new color.
-    camera.clearColor = {0.5, 0.5, 0.5}
+    -- Subscribe to mouse button presses.
+    mouse.pressedButtonsChanged:addCallback(
+        function()
+            -- Detect click.
+            if (#mouse.pressedButtons > 0)
+            then
+                toggleCameraColor(camera, colorSrc, colorDst)
+            end
+        end
+    )
 
-    color = camera.clearColor
-    print("Current background color:", color[1], color[2], color[3])
+    print("Message to user: click to change background color")
 end
-
-testBackgroundColorToggle(application.camera)
 -- testBackgroundColorToggle End
 
 -- Example domain ends --

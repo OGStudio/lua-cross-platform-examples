@@ -35,7 +35,7 @@ function createReporter()
         removeCallback = function(self, name)
             -- This call only deactivates a callback for
             -- later removal that happens during next report() call.
-            for callback in self.__callbacks
+            for _, callback in pairs(self.__callbacks)
             do
                 if 
                     callback.name and
@@ -50,7 +50,7 @@ function createReporter()
             self:__removeInactiveCallbacks()
             
             -- Call normal callbacks.
-            for callback in self.__callbacks
+            for _, callback in pairs(self.__callbacks)
             do
                 callback.callback()
             end
@@ -60,7 +60,7 @@ function createReporter()
             -- Remove one-time callbacks.
             self.__oneTimeCallbacks = {}
             -- Call one-time callbacks.
-            for callback in oneTimeCallbacks
+            for _, callback in pairs(oneTimeCallbacks)
             do
                 callback()
             end
@@ -80,10 +80,10 @@ function createReporter()
 
         __removeInactiveCallbacks = function(self)
             -- Loop through the names of inactive callbacks.
-            for name in self.__inactiveCallbackNames
+            for _, name in pairs(self.__inactiveCallbackNames)
             do
                 -- Loop through callbacks to find matching name.
-                for id, callback in self.__callbacks
+                for id, callback in pairs(self.__callbacks)
                 do
                     if 
                         callback.name and

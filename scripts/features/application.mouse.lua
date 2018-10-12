@@ -2,13 +2,16 @@ FEATURE main.lua/Impl
 -- Create mouse.
 application.mouse = {
     position = {},
+    positionChanged = createReporter(),
+
     pressedButtons = {},
+    pressedButtonsChanged = createReporter(),
 }
 
 -- Configure it.
 do
     local mouse = application.mouse
-    -- Create and configure environment client.
+    -- Create environment client.
     local client = EnvironmentClient.new()
     -- Define keys.
     local buttonsKey = "application.mouse.pressedButtons"
@@ -23,17 +26,16 @@ do
         if (key == buttonsKey)
         then
             mouse.pressedButtons = values
-            print("accepted mouse pressed buttons")
+            mouse.pressedButtonsChanged:report()
         elseif (key == positionKey)
         then
             mouse.position = values
-            print("accepted mouse position")
+            mouse.positionChanged:report()
         end
 
         return {}
     end
-
     -- Register client.
-    application.mouse.client = client
-    ENV:addClient(application.mouse.client);
+    mouse.client = client
+    ENV:addClient(mouse.client);
 end
