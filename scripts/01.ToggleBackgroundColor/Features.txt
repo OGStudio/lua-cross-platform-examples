@@ -1,0 +1,10 @@
+# components
+createPropertiesMetatable
+
+# api
+application
+application.camera
+application.camera.clearColor
+
+# example
+toggleBackgroundColor
