@@ -1,5 +1,6 @@
-# components
-createPropertiesMetatable
+# core
+core.PropertiesMT
+
 createReporter
 
 # api

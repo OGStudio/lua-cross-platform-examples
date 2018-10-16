@@ -1,20 +1,19 @@
 FEATURE main.lua/Impl
-function createPropertiesMetatable()
-    local mt =
-    {
+function core.createPropertiesMT()
+    local mt = {
         -- Register properties with callbacks.
-        callbacks = {},
+        __callbacks = {},
         register = function(mtself, key, getter, setter)
             local callback = {}
             callback.getter = getter
             callback.setter = setter
-            mtself.callbacks[key] = callback
+            mtself.__callbacks[key] = callback
         end,
 
         -- Getter.
         __index = function(self, key)
             local mtself = getmetatable(self)
-            local callback = mtself.callbacks[key]
+            local callback = mtself.__callbacks[key]
             if 
                 callback and
                 callback.getter
@@ -27,7 +26,7 @@ function createPropertiesMetatable()
         -- Setter.
         __newindex = function(self, key, value)
             local mtself = getmetatable(self)
-            local callback = mtself.callbacks[key]
+            local callback = mtself.__callbacks[key]
             if 
                 callback and
                 callback.setter

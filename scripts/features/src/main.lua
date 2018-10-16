@@ -27,6 +27,10 @@ freely, subject to the following restrictions:
 -- FEATURE createPropertiesMetatable/Impl
 -- FEATURE createReporter/Impl
 
+core = {}
+
+-- FEATURE core.PropertiesMT/Impl
+
 -- FEATURE application/Impl
 -- FEATURE application.camera/Impl
 -- FEATURE application.camera.clearColor/Impl

@@ -12,4 +12,4 @@ local function registerApplicationCameraClearColorProperty(mt)
         end
     )
 end
-registerApplicationCameraClearColorProperty(applicationCameraMetatable)
+registerApplicationCameraClearColorProperty(applicationCameraMT)
