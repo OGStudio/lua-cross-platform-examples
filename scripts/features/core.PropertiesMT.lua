@@ -1,6 +1,6 @@
 FEATURE main.lua/Impl
 function core.createPropertiesMT()
-    local mt = {
+    local instance = {
         -- Register properties with callbacks.
         __callbacks = {},
         register = function(mtself, key, getter, setter)
@@ -35,5 +35,5 @@ function core.createPropertiesMT()
             end
         end,
     }
-    return mt
+    return instance
 end

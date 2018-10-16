@@ -1,8 +1,7 @@
 FEATURE main.lua/Impl
--- NOTE This is an (osgcpe::)core::Reporter (C++) adaptation to Lua.
-function createReporter()
-    local reporter =
-    {
+-- NOTE This is a core::Reporter (C++) implementation in Lua.
+function core.createReporter()
+    local instance = {
         -- Internal list of callbacks.
         __callbacks = {},
 
@@ -99,5 +98,5 @@ function createReporter()
             self.__inactiveCallbackNames = {}
         end,
     }
-    return reporter
+    return instance
 end

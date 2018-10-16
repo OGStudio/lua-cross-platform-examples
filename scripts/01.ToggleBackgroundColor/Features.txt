@@ -1,7 +1,6 @@
 # core
 core.PropertiesMT
-
-createReporter
+core.Reporter
 
 # api
 application

@@ -24,12 +24,12 @@ freely, subject to the following restrictions:
 
 -- Library domain begins --
 
--- FEATURE createPropertiesMetatable/Impl
--- FEATURE createReporter/Impl
-
 core = {}
 
 -- FEATURE core.PropertiesMT/Impl
+-- FEATURE core.Reporter/Impl
+
+main = {}
 
 -- FEATURE application/Impl
 -- FEATURE application.camera/Impl

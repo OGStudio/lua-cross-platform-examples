@@ -24,11 +24,52 @@ freely, subject to the following restrictions:
 
 -- Library domain begins --
 
--- createReporter Start
--- NOTE This is an (osgcpe::)core::Reporter (C++) adaptation to Lua.
-function createReporter()
-    local reporter =
-    {
+core = {}
+
+-- core.PropertiesMT Start
+function core.createPropertiesMT()
+    local instance = {
+        -- Register properties with callbacks.
+        __callbacks = {},
+        register = function(mtself, key, getter, setter)
+            local callback = {}
+            callback.getter = getter
+            callback.setter = setter
+            mtself.__callbacks[key] = callback
+        end,
+
+        -- Getter.
+        __index = function(self, key)
+            local mtself = getmetatable(self)
+            local callback = mtself.__callbacks[key]
+            if 
+                callback and
+                callback.getter
+            then
+                return callback.getter(self)
+            end
+            return nil
+        end,
+
+        -- Setter.
+        __newindex = function(self, key, value)
+            local mtself = getmetatable(self)
+            local callback = mtself.__callbacks[key]
+            if 
+                callback and
+                callback.setter
+            then
+                callback.setter(self, value)
+            end
+        end,
+    }
+    return instance
+end
+-- core.PropertiesMT End
+-- core.Reporter Start
+-- NOTE This is a core::Reporter (C++) implementation in Lua.
+function core.createReporter()
+    local instance = {
         -- Internal list of callbacks.
         __callbacks = {},
 
@@ -125,52 +166,11 @@ function createReporter()
             self.__inactiveCallbackNames = {}
         end,
     }
-    return reporter
+    return instance
 end
--- createReporter End
+-- core.Reporter End
 
-core = {}
-
--- core.PropertiesMT Start
-function core.createPropertiesMT()
-    local mt = {
-        -- Register properties with callbacks.
-        __callbacks = {},
-        register = function(mtself, key, getter, setter)
-            local callback = {}
-            callback.getter = getter
-            callback.setter = setter
-            mtself.__callbacks[key] = callback
-        end,
-
-        -- Getter.
-        __index = function(self, key)
-            local mtself = getmetatable(self)
-            local callback = mtself.__callbacks[key]
-            if 
-                callback and
-                callback.getter
-            then
-                return callback.getter(self)
-            end
-            return nil
-        end,
-
-        -- Setter.
-        __newindex = function(self, key, value)
-            local mtself = getmetatable(self)
-            local callback = mtself.__callbacks[key]
-            if 
-                callback and
-                callback.setter
-            then
-                callback.setter(self, value)
-            end
-        end,
-    }
-    return mt
-end
--- core.PropertiesMT End
+main = {}
 
 -- application Start
 application = {}
@@ -200,10 +200,10 @@ registerApplicationCameraClearColorProperty(applicationCameraMT)
 -- Create mouse.
 application.mouse = {
     position = {},
-    positionChanged = createReporter(),
+    positionChanged = core.createReporter(),
 
     pressedButtons = {},
-    pressedButtonsChanged = createReporter(),
+    pressedButtonsChanged = core.createReporter(),
 }
 
 -- Configure it.

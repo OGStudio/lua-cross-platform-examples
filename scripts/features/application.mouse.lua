@@ -2,10 +2,10 @@ FEATURE main.lua/Impl
 -- Create mouse.
 application.mouse = {
     position = {},
-    positionChanged = createReporter(),
+    positionChanged = core.createReporter(),
 
     pressedButtons = {},
-    pressedButtonsChanged = createReporter(),
+    pressedButtonsChanged = core.createReporter(),
 }
 
 -- Configure it.
