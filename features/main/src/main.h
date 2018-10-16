@@ -95,7 +95,7 @@ namespace main
         // FEATURE Example+ScriptingEnvironment/Setup
         // FEATURE Example+application.camera.clearColor/Setup
         // FEATURE Example+application.mouse/Setup
-        // FEATURE Example+ToggleBackgroundColorTest/Setup
+        // FEATURE Example+LoadScriptTest/Setup
 // FEATURE Example/TearDown
         // FEATURE Example+application.camera.clearColor/TearDown
         // FEATURE Example+application.mouse/TearDown
@@ -103,9 +103,9 @@ namespace main
 // FEATURE Example/Impl
     // FEATURE Example+loadCLIScript/Impl
 
+    // FEATURE Example+LoadScriptTest/Impl
     // FEATURE Example+Parameters/Impl
     // FEATURE Example+ScriptingEnvironment/Impl
-    // FEATURE Example+ToggleBackgroundColorTest/Impl
     // FEATURE Example+VBO/Impl
 
     // FEATURE Example+application.camera.clearColor/Impl

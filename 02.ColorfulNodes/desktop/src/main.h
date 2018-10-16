@@ -226,9 +226,9 @@ class Application
 };
 // Application End
 
-// Example+01 Start
-const auto EXAMPLE_TITLE = "LCPE-01: Toggle background color";
-// Example+01 End
+// Example+02 Start
+const auto EXAMPLE_TITLE = "LCPE-02: Colorful nodes";
+// Example+02 End
 
 // Example Start
 struct Example
@@ -250,10 +250,6 @@ struct Example
         this->setupScriptingEnvironment();
         
         // Example+ScriptingEnvironment End
-        // Example+application.camera.clearColor Start
-        this->setupApplicationCameraClearColor();
-        
-        // Example+application.camera.clearColor End
         // Example+application.mouse Start
         this->setupApplicationMouse();
         
@@ -268,10 +264,6 @@ struct Example
     {
 
 // Example End
-        // Example+application.camera.clearColor Start
-        this->tearApplicationCameraClearColorDown();
-        
-        // Example+application.camera.clearColor End
         // Example+application.mouse Start
         this->tearApplicationMouseDown();
         
@@ -385,66 +377,6 @@ struct Example
         }
     // Example+ScriptingEnvironment End
 
-    // Example+application.camera.clearColor Start
-    private:
-        script::EnvironmentClient *applicationCameraClearColorClient;
-        const std::string applicationCameraClearColorKey =
-            "application.camera.clearColor";
-    
-        void setupApplicationCameraClearColor()
-        {
-            this->applicationCameraClearColorClient = new script::EnvironmentClient;
-            this->environment->addClient(this->applicationCameraClearColorClient);
-    
-            this->applicationCameraClearColorClient->respondsToKey =
-                SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
-                    return key == this->applicationCameraClearColorKey;
-                );
-            this->applicationCameraClearColorClient->call =
-                SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                    return this->processApplicationCameraClearColor(key, values);
-                );
-        }
-        void tearApplicationCameraClearColorDown()
-        {
-            delete this->applicationCameraClearColorClient;
-        }
-        script::EnvironmentClient::Values processApplicationCameraClearColor(
-            const std::string &key,
-            const script::EnvironmentClient::Values &values
-        ) {
-            auto camera = this->app->camera();
-            // Set.
-            if (!values.empty())
-            {
-                // Make sure there are three components.
-                if (values.size() != 3)
-                {
-                    MAIN_EXAMPLE_LOG(
-                        "ERROR Could not set value for key '%s' "
-                        "because values' count is not 3"
-                    );
-                    script::EnvironmentClient::Values empty;
-                    return empty;
-                }
-    
-                // Apply color.
-                auto color = camera->getClearColor();
-                color.r() = atof(values[0].c_str());
-                color.g() = atof(values[1].c_str());
-                color.b() = atof(values[2].c_str());
-                camera->setClearColor(color);
-            }
-    
-            // Return current color for Get and after successful Set.
-            auto color = camera->getClearColor();
-            return {
-                format::printfString("%f", color.r()),
-                format::printfString("%f", color.g()),
-                format::printfString("%f", color.b()),
-            };
-        }
-    // Example+application.camera.clearColor End
     // Example+application.mouse Start
     private:
         const std::string applicationMousePressedButtonsKey =

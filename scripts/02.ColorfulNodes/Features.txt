@@ -1,0 +1,12 @@
+# core
+core.PropertiesMT
+core.Reporter
+
+# main
+main.application
+main.application.camera
+#main.application.camera.clearColor
+main.application.mouse
+
+# test
+testColorfulNodes

@@ -18,8 +18,8 @@ FEATURES_DIR=features
 # List of scripts.
 SCRIPTS="
 01.ToggleBackgroundColor
+02.ColorfulNodes
 "
-
 
 main()
 {

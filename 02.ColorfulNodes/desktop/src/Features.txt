@@ -10,13 +10,13 @@ Application+setupWindow-desktop
 
 MAIN_EXAMPLE_LOG
 Example
-Example+01
+Example+02
 Example+LoadScriptTest
 Example+Parameters
 Example+ScriptingEnvironment
 Example+loadCLIScript
 
-Example+application.camera.clearColor
+#Example+application.camera.clearColor
 Example+application.mouse
 
 main-desktop

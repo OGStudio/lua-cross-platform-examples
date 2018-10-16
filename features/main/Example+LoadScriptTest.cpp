@@ -1,9 +1,9 @@
 FEATURE main.h/Setup
-this->setupToggleBackgroundColorTest();
+this->setupLoadScriptTest();
 
 FEATURE main.h/Impl
 private:
-    void setupToggleBackgroundColorTest()
+    void setupLoadScriptTest()
     {
         this->loadCLIScript();
     }

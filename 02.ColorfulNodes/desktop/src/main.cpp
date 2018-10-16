@@ -1,5 +1,5 @@
 
---[[
+/*
 This file is part of Lua cross-platform examples:
   https://github.com/OGStudio/lua-cross-platform-examples
 
@@ -20,28 +20,36 @@ freely, subject to the following restrictions:
 2. Altered source versions must be plainly marked as such, and must not be
    misrepresented as being the original software.
 3. This notice may not be removed or altered from any source distribution.
---]]
+*/
 
--- Library domain begins --
+// main-desktop Start
+#include "main.h"
 
-core = {}
+// main-desktop End
 
--- FEATURE core.PropertiesMT/Impl
--- FEATURE core.Reporter/Impl
+using namespace lcpe;
 
-main = {}
 
--- FEATURE main.application/Impl
--- FEATURE main.application.camera/Impl
--- FEATURE main.application.camera.clearColor/Impl
--- FEATURE main.application.mouse/Impl
+int main(int argc, char *argv[])
+{
+    // main-desktop Start
+    main::Example::Parameters parameters;
+    
+    // main-desktop End
+        // main+Arguments-desktop Start
+        parameters = format::commandLineArgumentsToParameters(argc, argv);
+        // main+Arguments-desktop End
+    // main-desktop Start
+    auto example = new main::Example(parameters);
+    example->app->setupWindow(main::EXAMPLE_TITLE, 100, 100, 480, 320);
+    
+    // main-desktop End
+    // main-desktop Start
+    example->app->run();
+    delete example;
+    // main-desktop End
+ 
 
--- Library domain ends --
-
--- Example domain begins --
-
--- FEATURE testBackgroundColorToggle/Impl
--- FEATURE testColorfulNodes/Impl
-
--- Example domain ends --
+    return 0;
+}
 
