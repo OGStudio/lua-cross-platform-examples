@@ -170,6 +170,9 @@ function core.createReporter()
 end
 -- core.Reporter End
 
+scene = {}
+
+
 main = {}
 
 -- main.application Start

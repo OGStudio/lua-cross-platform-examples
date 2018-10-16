@@ -29,6 +29,10 @@ core = {}
 -- FEATURE core.PropertiesMT/Impl
 -- FEATURE core.Reporter/Impl
 
+scene = {}
+
+-- FEATURE scene.createSphere/Impl
+
 main = {}
 
 -- FEATURE main.application/Impl

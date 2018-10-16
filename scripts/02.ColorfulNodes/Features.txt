@@ -8,5 +8,8 @@ main.application.camera
 #main.application.camera.clearColor
 main.application.mouse
 
+# scene
+scene.createSphere
+
 # test
 testColorfulNodes
