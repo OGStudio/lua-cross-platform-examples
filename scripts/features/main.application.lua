@@ -1,2 +1,2 @@
 FEATURE main.lua/Impl
-application = {}
+main.application = {}

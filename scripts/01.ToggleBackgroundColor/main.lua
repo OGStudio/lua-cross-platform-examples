@@ -172,19 +172,19 @@ end
 
 main = {}
 
--- application Start
-application = {}
--- application End
--- application.camera Start
-application.camera = {}
-local applicationCameraMT = core.createPropertiesMT()
-setmetatable(application.camera, applicationCameraMT)
--- application.camera End
--- application.camera.clearColor Start
-local function registerApplicationCameraClearColorProperty(mt)
+-- main.application Start
+main.application = {}
+-- main.application End
+-- main.application.camera Start
+main.application.camera = {}
+local cameraMT = core.createPropertiesMT()
+setmetatable(main.application.camera, cameraMT)
+-- main.application.camera End
+-- main.application.camera.clearColor Start
+do
     local shortKey = "clearColor"
     local key = "application.camera." .. shortKey
-    mt:register(
+    cameraMT:register(
         shortKey,
         function(self)
             return ENV:call(key, {})
@@ -194,11 +194,10 @@ local function registerApplicationCameraClearColorProperty(mt)
         end
     )
 end
-registerApplicationCameraClearColorProperty(applicationCameraMT)
--- application.camera.clearColor End
--- application.mouse Start
+-- main.application.camera.clearColor End
+-- main.application.mouse Start
 -- Create mouse.
-application.mouse = {
+main.application.mouse = {
     position = {},
     positionChanged = core.createReporter(),
 
@@ -206,9 +205,9 @@ application.mouse = {
     pressedButtonsChanged = core.createReporter(),
 }
 
--- Configure it.
+-- Configure mouse.
 do
-    local mouse = application.mouse
+    local mouse = main.application.mouse
     -- Create environment client.
     local client = EnvironmentClient.new()
     -- Define keys.
@@ -237,7 +236,7 @@ do
     mouse.client = client
     ENV:addClient(mouse.client);
 end
--- application.mouse End
+-- main.application.mouse End
 
 -- Library domain ends --
 
@@ -264,8 +263,8 @@ do
     end
 
     -- Define shortcuts to globals.
-    local camera = application.camera
-    local mouse = application.mouse
+    local camera = main.application.camera
+    local mouse = main.application.mouse
     -- Define colors to toggle between.
     local colorSrc = camera.clearColor
     local colorDst = {0.5, 0.5, 0.5}

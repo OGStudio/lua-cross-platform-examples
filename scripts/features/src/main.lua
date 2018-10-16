@@ -31,10 +31,10 @@ core = {}
 
 main = {}
 
--- FEATURE application/Impl
--- FEATURE application.camera/Impl
--- FEATURE application.camera.clearColor/Impl
--- FEATURE application.mouse/Impl
+-- FEATURE main.application/Impl
+-- FEATURE main.application.camera/Impl
+-- FEATURE main.application.camera.clearColor/Impl
+-- FEATURE main.application.mouse/Impl
 
 -- Library domain ends --
 

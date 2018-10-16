@@ -19,8 +19,8 @@ do
     end
 
     -- Define shortcuts to globals.
-    local camera = application.camera
-    local mouse = application.mouse
+    local camera = main.application.camera
+    local mouse = main.application.mouse
     -- Define colors to toggle between.
     local colorSrc = camera.clearColor
     local colorDst = {0.5, 0.5, 0.5}

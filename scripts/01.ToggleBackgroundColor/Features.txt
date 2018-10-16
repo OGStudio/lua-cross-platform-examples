@@ -2,11 +2,11 @@
 core.PropertiesMT
 core.Reporter
 
-# api
-application
-application.camera
-application.camera.clearColor
-application.mouse
+# main
+main.application
+main.application.camera
+main.application.camera.clearColor
+main.application.mouse
 
 # test
 testBackgroundColorToggle

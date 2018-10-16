@@ -1,6 +1,6 @@
 FEATURE main.lua/Impl
 -- Create mouse.
-application.mouse = {
+main.application.mouse = {
     position = {},
     positionChanged = core.createReporter(),
 
@@ -8,9 +8,9 @@ application.mouse = {
     pressedButtonsChanged = core.createReporter(),
 }
 
--- Configure it.
+-- Configure mouse.
 do
-    local mouse = application.mouse
+    local mouse = main.application.mouse
     -- Create environment client.
     local client = EnvironmentClient.new()
     -- Define keys.

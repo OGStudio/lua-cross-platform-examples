@@ -1,8 +1,8 @@
 FEATURE main.lua/Impl
-local function registerApplicationCameraClearColorProperty(mt)
+do
     local shortKey = "clearColor"
     local key = "application.camera." .. shortKey
-    mt:register(
+    cameraMT:register(
         shortKey,
         function(self)
             return ENV:call(key, {})
@@ -12,4 +12,3 @@ local function registerApplicationCameraClearColorProperty(mt)
         end
     )
 end
-registerApplicationCameraClearColorProperty(applicationCameraMT)
