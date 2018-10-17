@@ -31,13 +31,18 @@ core = {}
 
 scene = {}
 
--- FEATURE scene.createSphere/Impl
+-- FEATURE scene.Node/Start
+        -- FEATURE scene.Node.addChild/Impl
+-- FEATURE scene.Node/End
 
 main = {}
 
 -- FEATURE main.application/Impl
 -- FEATURE main.application.camera/Impl
 -- FEATURE main.application.camera.clearColor/Impl
+-- FEATURE main.application.scene/Impl
+-- FEATURE main.application.scene.createSphere/Impl
+-- FEATURE main.application.scene.node/Impl
 -- FEATURE main.application.mouse/Impl
 
 -- Library domain ends --

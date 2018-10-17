@@ -7,9 +7,13 @@ main.application
 main.application.camera
 #main.application.camera.clearColor
 main.application.mouse
+main.application.scene
+main.application.scene.createSphere
+main.application.scene.node
 
 # scene
-scene.createSphere
+scene.Node
+scene.Node.addChild
 
 # test
 testColorfulNodes

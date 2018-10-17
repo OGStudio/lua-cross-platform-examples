@@ -172,6 +172,27 @@ end
 
 scene = {}
 
+-- scene.Node Start
+-- NOTE This is only a wrapper for valid node at C++ side.
+-- NOTE This does NOT create anything at C++ side.
+function scene.createNode(name)
+    local instance = {
+        __name = name,
+
+-- scene.Node End
+        -- scene.Node.addChild Start
+        addChild = function(self, node)
+            local key = "application.scene.node.addChild"
+            local parent = self.__name
+            local child = node.__name
+            ENV:call(key, {parent, child})
+        end,
+        -- scene.Node.addChild End
+-- scene.Node Start
+    }
+    return instance
+end
+-- scene.Node End
 
 main = {}
 
@@ -183,6 +204,31 @@ main.application.camera = {}
 local cameraMT = core.createPropertiesMT()
 setmetatable(main.application.camera, cameraMT)
 -- main.application.camera End
+-- main.application.scene Start
+main.application.scene = {}
+--local sceneMT = core.createPropertiesMT()
+--setmetatable(main.application.scene, sceneMT)
+-- main.application.scene End
+-- main.application.scene.createSphere Start
+main.application.scene.createSphere = function(self, name, radius)
+    local key = "application.scene.createSphere"
+    ENV:call(key, {name, radius})
+    return scene.createNode(name)
+end
+-- main.application.scene.createSphere End
+-- main.application.scene.node Start
+function main.application.scene.node(self, name)
+    local key = "application.scene.node.exists"
+    -- Find out if node exists in C++.
+    local result = ENV:call(key, {name})
+    -- Return nothing if node does not exist.
+    if (result.length == 0) then
+        return nil
+    end
+    -- Return Lua node representation inf node exists in C++.
+    return scene.createNode(name)
+end
+-- main.application.scene.node End
 -- main.application.mouse Start
 -- Create mouse.
 main.application.mouse = {
@@ -232,15 +278,11 @@ end
 
 -- testColorfulNodes Start
 do
-    --[[
-    local poolName = "sample"
-    main.application.nodePools:createPool("sample")
-    local pool = main.application.nodePools["sample"]
-    local sphereName = "sphere"
+    local name = "sphere"
     local radius = 1
-    pool:createSphere(sphereName, radius)
-    main.application:setScene(pool, sphereName)
-    --]]
+    local sphere = main.application.scene:createSphere(name, radius)
+    local root = main.application.scene:node("root")
+    root:addChild(sphere)
 
     local mouse = main.application.mouse
     -- Subscribe to mouse button presses.
