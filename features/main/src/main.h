@@ -33,6 +33,7 @@ freely, subject to the following restrictions:
 // FEATURE Application+Logging/Include
 // FEATURE Application+Mouse/Include
 // FEATURE Application+Rendering/Include
+// FEATURE Application+Scene/Include
 // FEATURE Application+WindowResizing-web/Include
 
 // FEATURE Example+loadCLIScript/Include
@@ -55,12 +56,14 @@ namespace main
             // FEATURE Application+Logging/Setup
             // FEATURE Application+Rendering/Setup
             // FEATURE Application+Mouse/Setup
+            // FEATURE Application+Scene/Setup
             // FEATURE Application+HTTPClient/Setup
             // FEATURE Application+HTTPClientProcessor/Setup
             // FEATURE Application+WindowResizing-web/Setup
 // FEATURE Application/TearDown
             // FEATURE Application+HTTPClientProcessor/TearDown
             // FEATURE Application+HTTPClient/TearDown
+            // FEATURE Application+Scene/TearDown
             // FEATURE Application+Mouse/TearDown
             // FEATURE Application+Rendering/TearDown
             // FEATURE Application+Logging/TearDown
@@ -80,6 +83,7 @@ namespace main
     // FEATURE Application+Logging/Impl
     // FEATURE Application+Mouse/Impl
     // FEATURE Application+Rendering/Impl
+    // FEATURE Application+Scene/Impl
     // FEATURE Application+WindowResizing-web/Impl
 // FEATURE Application/End
 
@@ -95,10 +99,12 @@ namespace main
         // FEATURE Example+ScriptingEnvironment/Setup
         // FEATURE Example+application.camera.clearColor/Setup
         // FEATURE Example+application.mouse/Setup
+        // FEATURE Example+application.scene.createSphere/Setup
         // FEATURE Example+LoadScriptTest/Setup
 // FEATURE Example/TearDown
         // FEATURE Example+application.camera.clearColor/TearDown
         // FEATURE Example+application.mouse/TearDown
+        // FEATURE Example+application.scene.createSphere/TearDown
         // FEATURE Example+ScriptingEnvironment/TearDown
 // FEATURE Example/Impl
     // FEATURE Example+loadCLIScript/Impl
@@ -110,6 +116,7 @@ namespace main
 
     // FEATURE Example+application.camera.clearColor/Impl
     // FEATURE Example+application.mouse/Impl
+    // FEATURE Example+application.scene.createSphere/Impl
 // FEATURE Example/End
 
 } // namespace main

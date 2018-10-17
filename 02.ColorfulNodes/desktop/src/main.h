@@ -45,6 +45,10 @@ freely, subject to the following restrictions:
 #include <osgGA/TrackballManipulator>
 
 // Application+Rendering End
+// Application+Scene Start
+#include "scene.h"
+
+// Application+Scene End
 
 // Example+loadCLIScript Start
 #include <fstream>
@@ -95,12 +99,20 @@ class Application
             this->setupMouse();
             
             // Application+Mouse End
+            // Application+Scene Start
+            this->setupScene();
+            
+            // Application+Scene End
 // Application Start
         }
         ~Application()
         {
 
 // Application End
+            // Application+Scene Start
+            this->tearSceneDown();
+            
+            // Application+Scene End
             // Application+Mouse Start
             this->tearMouseDown();
             
@@ -222,6 +234,23 @@ class Application
             delete this->viewer;
         }
     // Application+Rendering End
+    // Application+Scene Start
+    public:
+        scene::Scene *scene;
+    private:
+        void setupScene()
+        {
+            this->scene = new scene::Scene;
+            // Set scene's root node to viewer.
+            auto root = this->scene->node("root");
+            this->setScene(root);
+        }
+        void tearSceneDown()
+        {
+            this->setScene(0);
+            delete this->scene;
+        }
+    // Application+Scene End
 // Application Start
 };
 // Application End
@@ -254,6 +283,10 @@ struct Example
         this->setupApplicationMouse();
         
         // Example+application.mouse End
+        // Example+application.scene.createSphere Start
+        this->setup_application_scene_createSphere();
+        
+        // Example+application.scene.createSphere End
         // Example+LoadScriptTest Start
         this->setupLoadScriptTest();
         
@@ -268,6 +301,10 @@ struct Example
         this->tearApplicationMouseDown();
         
         // Example+application.mouse End
+        // Example+application.scene.createSphere Start
+        this->tearDown_application_scene_createSphere();
+        
+        // Example+application.scene.createSphere End
         // Example+ScriptingEnvironment Start
         this->tearScriptingEnvironmentDown();
         
@@ -446,6 +483,57 @@ struct Example
             );
         }
     // Example+application.mouse End
+    // Example+application.scene.createSphere Start
+    private:
+        script::EnvironmentClient *client_application_scene_createSphere;
+        const std::string key_application_scene_createSphere =
+            "application.scene.createSphere";
+    
+        void setup_application_scene_createSphere()
+        {
+            this->client_application_scene_createSphere = new script::EnvironmentClient;
+            this->environment->addClient(this->client_application_scene_createSphere);
+    
+            this->client_application_scene_createSphere->respondsToKey =
+                SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
+                    return key == this->key_application_scene_createSphere;
+                );
+            this->client_application_scene_createSphere->call =
+                SCRIPT_ENVIRONMENT_CLIENT_CALL(
+                    return this->process_application_scene_createSphere(key, values);
+                );
+        }
+        void tearDown_application_scene_createSphere()
+        {
+            delete this->client_application_scene_createSphere;
+        }
+        script::EnvironmentClient::Values process_application_scene_createSphere(
+            const std::string &key,
+            const script::EnvironmentClient::Values &values
+        ) {
+            auto scene = this->app->scene;
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there are two components.
+                if (values.size() != 2)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 2"
+                    );
+                    return { };
+                }
+    
+                // Create sphere.
+                auto name = values[0];
+                auto radius = atof(values[1].c_str());
+                scene->createSphere(name, radius);
+            }
+    
+            return { };
+        }
+    // Example+application.scene.createSphere End
 // Example Start
 };
 // Example End

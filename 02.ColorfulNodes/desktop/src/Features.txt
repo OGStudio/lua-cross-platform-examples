@@ -3,6 +3,7 @@ Application
 Application+Logging
 Application+Mouse
 Application+Rendering
+Application+Scene
 Application+camera
 Application+frame+Reporting
 Application+run
@@ -18,12 +19,20 @@ Example+loadCLIScript
 
 #Example+application.camera.clearColor
 Example+application.mouse
+Example+application.scene.createSphere
+Example+application.scene.node.addChild
+Example+application.scene.node.exists
 
 main-desktop
 main+Arguments-desktop
 
 # core
 Reporter
+
+# input
+INPUT_MOUSE_LOG
+Mouse
+MouseButtons
 
 # log
 Logger
@@ -48,10 +57,13 @@ extension
 createGraphicsContext-desktop
 setupCamera
 
-# input
-INPUT_MOUSE_LOG
-Mouse
-MouseButtons
+# scene
+Scene
+Scene+Root
+Scene+createSphere
+Scene+node
+createShape
+createSphere
 
 # script
 SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY

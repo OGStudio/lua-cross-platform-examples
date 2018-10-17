@@ -38,10 +38,10 @@ FEATURE_DIRS=(
     "/render"
     "/resource"
     "/script"
+    "/scene"
 )
 #    "/debug"
 #    "/network"
-#    "/scene"
 
 FEATURES_TXT_DIR_ANDROID_CPP="app/src/main/cpp"
 FEATURES_TXT_DIR_ANDROID_JAVA="app/src/main/java"
