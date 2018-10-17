@@ -32,7 +32,6 @@ private:
         const std::string &key,
         const script::EnvironmentClient::Values &values
     ) {
-        auto scene = this->app->scene;
         // Set.
         if (!values.empty())
         {
@@ -47,6 +46,7 @@ private:
             }
 
             // Create sphere.
+            auto scene = this->app->scene;
             auto name = values[0];
             auto radius = atof(values[1].c_str());
             scene->createSphere(name, radius);

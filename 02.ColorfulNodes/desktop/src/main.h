@@ -287,6 +287,10 @@ struct Example
         this->setup_application_scene_createSphere();
         
         // Example+application.scene.createSphere End
+        // Example+application.scene.node.exists Start
+        this->setup_application_scene_node_exists();
+        
+        // Example+application.scene.node.exists End
         // Example+LoadScriptTest Start
         this->setupLoadScriptTest();
         
@@ -305,6 +309,10 @@ struct Example
         this->tearDown_application_scene_createSphere();
         
         // Example+application.scene.createSphere End
+        // Example+application.scene.node.exists Start
+        this->tearDown_application_scene_node_exists();
+        
+        // Example+application.scene.node.exists End
         // Example+ScriptingEnvironment Start
         this->tearScriptingEnvironmentDown();
         
@@ -511,7 +519,6 @@ struct Example
             const std::string &key,
             const script::EnvironmentClient::Values &values
         ) {
-            auto scene = this->app->scene;
             // Set.
             if (!values.empty())
             {
@@ -526,6 +533,7 @@ struct Example
                 }
     
                 // Create sphere.
+                auto scene = this->app->scene;
                 auto name = values[0];
                 auto radius = atof(values[1].c_str());
                 scene->createSphere(name, radius);
@@ -534,6 +542,63 @@ struct Example
             return { };
         }
     // Example+application.scene.createSphere End
+    // Example+application.scene.node.exists Start
+    private:
+        script::EnvironmentClient *client_application_scene_node_exists;
+        const std::string key_application_scene_node_exists =
+            "application.scene.node.exists";
+    
+        void setup_application_scene_node_exists()
+        {
+            this->client_application_scene_node_exists =
+                new script::EnvironmentClient;
+            this->environment->addClient(
+                this->client_application_scene_node_exists
+            );
+    
+            this->client_application_scene_node_exists->respondsToKey =
+                SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
+                    return key == this->key_application_scene_node_exists;
+                );
+            this->client_application_scene_node_exists->call =
+                SCRIPT_ENVIRONMENT_CLIENT_CALL(
+                    return
+                        this->process_application_scene_node_exists(key, values);
+                );
+        }
+        void tearDown_application_scene_node_exists()
+        {
+            delete this->client_application_scene_node_exists;
+        }
+        script::EnvironmentClient::Values process_application_scene_node_exists(
+            const std::string &key,
+            const script::EnvironmentClient::Values &values
+        ) {
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there is one component.
+                if (values.size() != 1)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 1"
+                    );
+                    return { };
+                }
+    
+                auto scene = this->app->scene;
+                auto name = values[0];
+                auto node = scene->node(name);
+                if (node != 0)
+                {
+                    return { "true" };
+                }
+            }
+    
+            return { };
+        }
+    // Example+application.scene.node.exists End
 // Example Start
 };
 // Example End

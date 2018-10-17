@@ -100,11 +100,15 @@ namespace main
         // FEATURE Example+application.camera.clearColor/Setup
         // FEATURE Example+application.mouse/Setup
         // FEATURE Example+application.scene.createSphere/Setup
+        // FEATURE Example+application.scene.node.addChild/Setup
+        // FEATURE Example+application.scene.node.exists/Setup
         // FEATURE Example+LoadScriptTest/Setup
 // FEATURE Example/TearDown
         // FEATURE Example+application.camera.clearColor/TearDown
         // FEATURE Example+application.mouse/TearDown
         // FEATURE Example+application.scene.createSphere/TearDown
+        // FEATURE Example+application.scene.node.addChild/TearDown
+        // FEATURE Example+application.scene.node.exists/TearDown
         // FEATURE Example+ScriptingEnvironment/TearDown
 // FEATURE Example/Impl
     // FEATURE Example+loadCLIScript/Impl
@@ -117,6 +121,8 @@ namespace main
     // FEATURE Example+application.camera.clearColor/Impl
     // FEATURE Example+application.mouse/Impl
     // FEATURE Example+application.scene.createSphere/Impl
+    // FEATURE Example+application.scene.node.addChild/Impl
+    // FEATURE Example+application.scene.node.exists/Impl
 // FEATURE Example/End
 
 } // namespace main
