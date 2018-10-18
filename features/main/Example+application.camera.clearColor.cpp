@@ -1,36 +1,34 @@
 FEATURE main.h/Setup
-this->setupApplicationCameraClearColor();
+this->setup_application_camera_clearColor();
 
 FEATURE main.h/TearDown
-this->tearApplicationCameraClearColorDown();
+this->tearDown_application_camera_clearColor();
 
 FEATURE main.h/Impl
 private:
-    script::EnvironmentClient *applicationCameraClearColorClient;
-    const std::string applicationCameraClearColorKey =
-        "application.camera.clearColor";
-
-    void setupApplicationCameraClearColor()
+    script::EnvironmentClient *client_application_camera_clearColor;
+    void setup_application_camera_clearColor()
     {
-        this->applicationCameraClearColorClient = new script::EnvironmentClient;
-        this->environment->addClient(this->applicationCameraClearColorClient);
-
-        this->applicationCameraClearColorClient->respondsToKey =
-            SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
-                return key == this->applicationCameraClearColorKey;
-            );
-        this->applicationCameraClearColorClient->call =
+        auto client = new script::EnvironmentClient;
+        this->environment->addClient(
+            client,
+            {
+                "application.camera.clearColor"
+            }
+        );
+        client->call =
             SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                return this->processApplicationCameraClearColor(key, values);
+                return this->process_application_camera_clearColor(key, values);
             );
+        this->client_application_camera_clearColor = client;
     }
-    void tearApplicationCameraClearColorDown()
+    void tearDown_application_camera_clearColor()
     {
-        delete this->applicationCameraClearColorClient;
+        delete this->client_application_camera_clearColor;
     }
-    script::EnvironmentClient::Values processApplicationCameraClearColor(
+    std::vector<std::string> process_application_camera_clearColor(
         const std::string &key,
-        const script::EnvironmentClient::Values &values
+        const std::vector<std::string> &values
     ) {
         auto camera = this->app->camera();
         // Set.
@@ -43,8 +41,7 @@ private:
                     "ERROR Could not set value for key '%s' "
                     "because values' count is not 3"
                 );
-                script::EnvironmentClient::Values empty;
-                return empty;
+                return { };
             }
 
             // Apply color.
@@ -55,7 +52,7 @@ private:
             camera->setClearColor(color);
         }
 
-        // Return current color for Get and after successful Set.
+        // Return current color for Get and after Set.
         auto color = camera->getClearColor();
         return {
             format::printfString("%f", color.r()),

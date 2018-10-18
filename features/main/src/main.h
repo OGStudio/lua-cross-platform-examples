@@ -104,12 +104,12 @@ namespace main
         // FEATURE Example+application.scene.node.exists/Setup
         // FEATURE Example+LoadScriptTest/Setup
 // FEATURE Example/TearDown
+        // FEATURE Example+ScriptingEnvironment/TearDown
         // FEATURE Example+application.camera.clearColor/TearDown
         // FEATURE Example+application.mouse/TearDown
         // FEATURE Example+application.scene.createSphere/TearDown
         // FEATURE Example+application.scene.node.addChild/TearDown
         // FEATURE Example+application.scene.node.exists/TearDown
-        // FEATURE Example+ScriptingEnvironment/TearDown
 // FEATURE Example/Impl
     // FEATURE Example+loadCLIScript/Impl
 

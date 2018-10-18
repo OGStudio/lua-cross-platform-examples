@@ -16,12 +16,7 @@ do
     -- Define keys.
     local buttonsKey = "application.mouse.pressedButtons"
     local positionKey = "application.mouse.position"
-    -- Define methods.
-    client.respondsToKey = function(key)
-        return
-            (key == buttonsKey) or
-            (key == positionKey)
-    end
+    -- Define callback.
     client.call = function(key, values)
         if (key == buttonsKey)
         then
@@ -37,5 +32,11 @@ do
     end
     -- Register client.
     mouse.client = client
-    ENV:addClient(mouse.client);
+    ENV:addClient(
+        mouse.client,
+        {
+            buttonsKey,
+            positionKey
+        }
+    );
 end

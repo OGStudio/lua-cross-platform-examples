@@ -1,9 +1,6 @@
 FEATURE main.h/Setup
 this->setup_application_scene_createSphere();
 
-FEATURE main.h/TearDown
-this->tearDown_application_scene_createSphere();
-
 FEATURE main.h/Impl
 private:
     script::EnvironmentClient *client_application_scene_createSphere;

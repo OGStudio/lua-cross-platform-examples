@@ -251,7 +251,7 @@ struct Example
         
         // Example+ScriptingEnvironment End
         // Example+application.camera.clearColor Start
-        this->setupApplicationCameraClearColor();
+        this->setup_application_camera_clearColor();
         
         // Example+application.camera.clearColor End
         // Example+application.mouse Start
@@ -268,18 +268,18 @@ struct Example
     {
 
 // Example End
+        // Example+ScriptingEnvironment Start
+        this->tearScriptingEnvironmentDown();
+        
+        // Example+ScriptingEnvironment End
         // Example+application.camera.clearColor Start
-        this->tearApplicationCameraClearColorDown();
+        this->tearDown_application_camera_clearColor();
         
         // Example+application.camera.clearColor End
         // Example+application.mouse Start
         this->tearApplicationMouseDown();
         
         // Example+application.mouse End
-        // Example+ScriptingEnvironment Start
-        this->tearScriptingEnvironmentDown();
-        
-        // Example+ScriptingEnvironment End
 // Example Start
         delete this->app;
     }
@@ -350,10 +350,14 @@ struct Example
                 "Environment",
                 // 'addClient' method.
                 "addClient",
-                &script::Environment::addClient,
+                [](script::Environment &env, script::EnvironmentClient *client, sol::nested<std::vector<std::string> > keys)
+                {
+                    env.addClient(client, keys);
+                },
+                //&script::Environment::addClient,
                 // 'call' method.
                 "call",
-                [](script::Environment &env, const std::string &key, sol::nested<script::EnvironmentClient::Values> values)
+                [](script::Environment &env, const std::string &key, sol::nested<std::vector<std::string> > values)
                 {
                     return env.call(key, values);
                 }
@@ -368,14 +372,12 @@ struct Example
                     {
                         ec.call =
                             SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                                sol::nested<script::EnvironmentClient::Values> result = luaCallback(key, sol::as_table(values));
+                                sol::nested<std::vector<std::string> > result =
+                                    luaCallback(key, sol::as_table(values));
                                 return std::move(result.source);
                             );
                     }
-                ),
-                // 'respondsToKey' method.
-                "respondsToKey",
-                &script::EnvironmentClient::respondsToKey
+                )
             );
         }
         void tearScriptingEnvironmentDown()
@@ -387,31 +389,29 @@ struct Example
 
     // Example+application.camera.clearColor Start
     private:
-        script::EnvironmentClient *applicationCameraClearColorClient;
-        const std::string applicationCameraClearColorKey =
-            "application.camera.clearColor";
-    
-        void setupApplicationCameraClearColor()
+        script::EnvironmentClient *client_application_camera_clearColor;
+        void setup_application_camera_clearColor()
         {
-            this->applicationCameraClearColorClient = new script::EnvironmentClient;
-            this->environment->addClient(this->applicationCameraClearColorClient);
-    
-            this->applicationCameraClearColorClient->respondsToKey =
-                SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
-                    return key == this->applicationCameraClearColorKey;
-                );
-            this->applicationCameraClearColorClient->call =
+            auto client = new script::EnvironmentClient;
+            this->environment->addClient(
+                client,
+                {
+                    "application.camera.clearColor"
+                }
+            );
+            client->call =
                 SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                    return this->processApplicationCameraClearColor(key, values);
+                    return this->process_application_camera_clearColor(key, values);
                 );
+            this->client_application_camera_clearColor = client;
         }
-        void tearApplicationCameraClearColorDown()
+        void tearDown_application_camera_clearColor()
         {
-            delete this->applicationCameraClearColorClient;
+            delete this->client_application_camera_clearColor;
         }
-        script::EnvironmentClient::Values processApplicationCameraClearColor(
+        std::vector<std::string> process_application_camera_clearColor(
             const std::string &key,
-            const script::EnvironmentClient::Values &values
+            const std::vector<std::string> &values
         ) {
             auto camera = this->app->camera();
             // Set.
@@ -424,8 +424,7 @@ struct Example
                         "ERROR Could not set value for key '%s' "
                         "because values' count is not 3"
                     );
-                    script::EnvironmentClient::Values empty;
-                    return empty;
+                    return { };
                 }
     
                 // Apply color.
@@ -436,7 +435,7 @@ struct Example
                 camera->setClearColor(color);
             }
     
-            // Return current color for Get and after successful Set.
+            // Return current color for Get and after Set.
             auto color = camera->getClearColor();
             return {
                 format::printfString("%f", color.r()),
