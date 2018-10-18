@@ -3,32 +3,17 @@ this->setup_application_scene_createSphere();
 
 FEATURE main.h/Impl
 private:
-    script::EnvironmentClient *client_application_scene_createSphere;
-    const std::string key_application_scene_createSphere =
-        "application.scene.createSphere";
-
     void setup_application_scene_createSphere()
     {
-        this->client_application_scene_createSphere = new script::EnvironmentClient;
-        this->environment->addClient(this->client_application_scene_createSphere);
-
-        this->client_application_scene_createSphere->respondsToKey =
-            SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
-                return key == this->key_application_scene_createSphere;
-            );
-        this->client_application_scene_createSphere->call =
-            SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                return this->process_application_scene_createSphere(key, values);
-            );
+        MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+            {
+                "application.scene.createSphere"
+            },
+            this->process_application_scene_createSphere
+        );
     }
-    void tearDown_application_scene_createSphere()
+    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_createSphere)
     {
-        delete this->client_application_scene_createSphere;
-    }
-    script::EnvironmentClient::Values process_application_scene_createSphere(
-        const std::string &key,
-        const script::EnvironmentClient::Values &values
-    ) {
         // Set.
         if (!values.empty())
         {

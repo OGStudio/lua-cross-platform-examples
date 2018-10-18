@@ -61,6 +61,13 @@ freely, subject to the following restrictions:
 
 // Example+ScriptingEnvironment End
 
+// MAIN_EXAMPLE_ENVIRONMENT_FUNCTION Start
+#define MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(NAME) \
+    std::vector<std::string> NAME ( \
+        const std::string &key, \
+        const std::vector<std::string> &values \
+    )
+// MAIN_EXAMPLE_ENVIRONMENT_FUNCTION End
 // MAIN_EXAMPLE_LOG Start
 #include "log.h"
 #include "format.h"
@@ -72,6 +79,13 @@ freely, subject to the following restrictions:
         format::printfString(__VA_ARGS__).c_str() \
     )
 // MAIN_EXAMPLE_LOG End
+// MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT Start
+#define MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(KEYS, FUNC) \
+    auto client = new script::EnvironmentClient; \
+    this->environment->addClient(client, KEYS); \
+    client->call = SCRIPT_ENVIRONMENT_CLIENT_CALL(return FUNC(key,values);); \
+    this->environmentClients.push_back(client);
+// MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT End
 
 
 namespace lcpe
@@ -309,6 +323,10 @@ struct Example
         this->tearScriptingEnvironmentDown();
         
         // Example+ScriptingEnvironment End
+        // Example+EnvironmentClients Start
+        this->tearEnvironmentClientsDown();
+        
+        // Example+EnvironmentClients End
         // Example+application.mouse Start
         this->tearApplicationMouseDown();
         
@@ -350,6 +368,18 @@ struct Example
         }
     // Example+loadCLIScript End
 
+    // Example+EnvironmentClients Start
+    private:
+        std::vector<script::EnvironmentClient *> environmentClients;
+        void tearEnvironmentClientsDown()
+        {
+            for (auto client : this->environmentClients)
+            {
+                delete client;
+            }
+            this->environmentClients.clear();
+        }
+    // Example+EnvironmentClients End
     // Example+LoadScriptTest Start
     private:
         void setupLoadScriptTest()
@@ -491,32 +521,17 @@ struct Example
     // Example+application.mouse End
     // Example+application.scene.createSphere Start
     private:
-        script::EnvironmentClient *client_application_scene_createSphere;
-        const std::string key_application_scene_createSphere =
-            "application.scene.createSphere";
-    
         void setup_application_scene_createSphere()
         {
-            this->client_application_scene_createSphere = new script::EnvironmentClient;
-            this->environment->addClient(this->client_application_scene_createSphere);
-    
-            this->client_application_scene_createSphere->respondsToKey =
-                SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
-                    return key == this->key_application_scene_createSphere;
-                );
-            this->client_application_scene_createSphere->call =
-                SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                    return this->process_application_scene_createSphere(key, values);
-                );
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.scene.createSphere"
+                },
+                this->process_application_scene_createSphere
+            );
         }
-        void tearDown_application_scene_createSphere()
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_createSphere)
         {
-            delete this->client_application_scene_createSphere;
-        }
-        script::EnvironmentClient::Values process_application_scene_createSphere(
-            const std::string &key,
-            const script::EnvironmentClient::Values &values
-        ) {
             // Set.
             if (!values.empty())
             {
@@ -542,36 +557,17 @@ struct Example
     // Example+application.scene.createSphere End
     // Example+application.scene.node.addChild Start
     private:
-        script::EnvironmentClient *client_application_scene_node_addChild;
-        const std::string key_application_scene_node_addChild =
-            "application.scene.node.addChild";
-    
         void setup_application_scene_node_addChild()
         {
-            this->client_application_scene_node_addChild =
-                new script::EnvironmentClient;
-            this->environment->addClient(
-                this->client_application_scene_node_addChild
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.scene.node.addChild"
+                },
+                this->process_application_scene_node_addChild
             );
-    
-            this->client_application_scene_node_addChild->respondsToKey =
-                SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
-                    return key == this->key_application_scene_node_addChild;
-                );
-            this->client_application_scene_node_addChild->call =
-                SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                    return
-                        this->process_application_scene_node_addChild(key, values);
-                );
         }
-        void tearDown_application_scene_node_addChild()
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_node_addChild)
         {
-            delete this->client_application_scene_node_addChild;
-        }
-        script::EnvironmentClient::Values process_application_scene_node_addChild(
-            const std::string &key,
-            const script::EnvironmentClient::Values &values
-        ) {
             // Set.
             if (!values.empty())
             {
@@ -611,36 +607,17 @@ struct Example
     // Example+application.scene.node.addChild End
     // Example+application.scene.node.exists Start
     private:
-        script::EnvironmentClient *client_application_scene_node_exists;
-        const std::string key_application_scene_node_exists =
-            "application.scene.node.exists";
-    
         void setup_application_scene_node_exists()
         {
-            this->client_application_scene_node_exists =
-                new script::EnvironmentClient;
-            this->environment->addClient(
-                this->client_application_scene_node_exists
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.scene.node.exists"
+                },
+                this->process_application_scene_node_exists
             );
-    
-            this->client_application_scene_node_exists->respondsToKey =
-                SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
-                    return key == this->key_application_scene_node_exists;
-                );
-            this->client_application_scene_node_exists->call =
-                SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                    return
-                        this->process_application_scene_node_exists(key, values);
-                );
         }
-        void tearDown_application_scene_node_exists()
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_node_exists)
         {
-            delete this->client_application_scene_node_exists;
-        }
-        script::EnvironmentClient::Values process_application_scene_node_exists(
-            const std::string &key,
-            const script::EnvironmentClient::Values &values
-        ) {
             // Set.
             if (!values.empty())
             {

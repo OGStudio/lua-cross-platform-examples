@@ -1,41 +1,19 @@
 FEATURE main.h/Setup
 this->setup_application_scene_node_exists();
 
-FEATURE main.h/TearDown
-this->tearDown_application_scene_node_exists();
-
 FEATURE main.h/Impl
 private:
-    script::EnvironmentClient *client_application_scene_node_exists;
-    const std::string key_application_scene_node_exists =
-        "application.scene.node.exists";
-
     void setup_application_scene_node_exists()
     {
-        this->client_application_scene_node_exists =
-            new script::EnvironmentClient;
-        this->environment->addClient(
-            this->client_application_scene_node_exists
+        MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+            {
+                "application.scene.node.exists"
+            },
+            this->process_application_scene_node_exists
         );
-
-        this->client_application_scene_node_exists->respondsToKey =
-            SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY(
-                return key == this->key_application_scene_node_exists;
-            );
-        this->client_application_scene_node_exists->call =
-            SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                return
-                    this->process_application_scene_node_exists(key, values);
-            );
     }
-    void tearDown_application_scene_node_exists()
+    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_node_exists)
     {
-        delete this->client_application_scene_node_exists;
-    }
-    script::EnvironmentClient::Values process_application_scene_node_exists(
-        const std::string &key,
-        const script::EnvironmentClient::Values &values
-    ) {
         // Set.
         if (!values.empty())
         {

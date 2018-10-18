@@ -9,9 +9,12 @@ Application+frame+Reporting
 Application+run
 Application+setupWindow-desktop
 
+MAIN_EXAMPLE_ENVIRONMENT_FUNCTION
 MAIN_EXAMPLE_LOG
+MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT
 Example
 Example+02
+Example+EnvironmentClients
 Example+LoadScriptTest
 Example+Parameters
 Example+ScriptingEnvironment
@@ -66,9 +69,7 @@ createShape
 createSphere
 
 # script
-SCRIPT_ENVIRONMENT_CLIENT_RESPONDS_TO_KEY
 SCRIPT_ENVIRONMENT_CLIENT_CALL
-#SCRIPT_ENVIRONMENT_CLIENT_CALL_NORETURN
 SCRIPT_ENVIRONMENT_LOG
 Environment
 EnvironmentClient
