@@ -42,7 +42,9 @@ freely, subject to the following restrictions:
 // FEATURE Example+VBO/Include
 
 // FEATURE MAIN_APPLICATION_LOG/Impl
+// FEATURE MAIN_EXAMPLE_ENVIRONMENT_FUNCTION/Impl
 // FEATURE MAIN_EXAMPLE_LOG/Impl
+// FEATURE MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT/Impl
 
 // FEATURE Example+StaticPluginOSG/Impl
 // FEATURE Example+StaticPluginPNG/Impl

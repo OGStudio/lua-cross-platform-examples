@@ -57,6 +57,13 @@ freely, subject to the following restrictions:
 
 // Example+ScriptingEnvironment End
 
+// MAIN_EXAMPLE_ENVIRONMENT_FUNCTION Start
+#define MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(NAME) \
+    std::vector<std::string> NAME ( \
+        const std::string &key, \
+        const std::vector<std::string> &values \
+    )
+// MAIN_EXAMPLE_ENVIRONMENT_FUNCTION End
 // MAIN_EXAMPLE_LOG Start
 #include "log.h"
 #include "format.h"
@@ -68,6 +75,13 @@ freely, subject to the following restrictions:
         format::printfString(__VA_ARGS__).c_str() \
     )
 // MAIN_EXAMPLE_LOG End
+// MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT Start
+#define MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(KEYS, FUNC) \
+    auto client = new script::EnvironmentClient; \
+    this->environment->addClient(client, KEYS); \
+    client->call = SCRIPT_ENVIRONMENT_CLIENT_CALL(return FUNC(key,values);); \
+    this->environmentClients.push_back(client);
+// MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT End
 
 
 namespace lcpe
@@ -403,24 +417,15 @@ struct Example
     private:
         void setup_application_camera_clearColor()
         {
-            auto client = new script::EnvironmentClient;
-            this->environment->addClient(
-                client,
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
                 {
                     "application.camera.clearColor"
-                }
+                },
+                this->process_application_camera_clearColor
             );
-            client->call =
-                SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                    return this->process_application_camera_clearColor(key, values);
-                );
-            // Register for deallocation.
-            this->environmentClients.push_back(client);
         }
-        std::vector<std::string> process_application_camera_clearColor(
-            const std::string &key,
-            const std::vector<std::string> &values
-        ) {
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_camera_clearColor)
+        {
             auto camera = this->app->camera();
             // Set.
             if (!values.empty())

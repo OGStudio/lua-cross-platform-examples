@@ -8,7 +8,9 @@ Application+frame+Reporting
 Application+run
 Application+setupWindow-desktop
 
+MAIN_EXAMPLE_ENVIRONMENT_FUNCTION
 MAIN_EXAMPLE_LOG
+MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT
 Example
 Example+01
 Example+EnvironmentClients

@@ -5,24 +5,15 @@ FEATURE main.h/Impl
 private:
     void setup_application_camera_clearColor()
     {
-        auto client = new script::EnvironmentClient;
-        this->environment->addClient(
-            client,
+        MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
             {
                 "application.camera.clearColor"
-            }
+            },
+            this->process_application_camera_clearColor
         );
-        client->call =
-            SCRIPT_ENVIRONMENT_CLIENT_CALL(
-                return this->process_application_camera_clearColor(key, values);
-            );
-        // Register for deallocation.
-        this->environmentClients.push_back(client);
     }
-    std::vector<std::string> process_application_camera_clearColor(
-        const std::string &key,
-        const std::vector<std::string> &values
-    ) {
+    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_camera_clearColor)
+    {
         auto camera = this->app->camera();
         // Set.
         if (!values.empty())
