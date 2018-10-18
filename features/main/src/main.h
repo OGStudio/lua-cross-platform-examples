@@ -105,14 +105,12 @@ namespace main
         // FEATURE Example+LoadScriptTest/Setup
 // FEATURE Example/TearDown
         // FEATURE Example+ScriptingEnvironment/TearDown
-        // FEATURE Example+application.camera.clearColor/TearDown
+        // FEATURE Example+EnvironmentClients/TearDown
         // FEATURE Example+application.mouse/TearDown
-        // FEATURE Example+application.scene.createSphere/TearDown
-        // FEATURE Example+application.scene.node.addChild/TearDown
-        // FEATURE Example+application.scene.node.exists/TearDown
 // FEATURE Example/Impl
     // FEATURE Example+loadCLIScript/Impl
 
+    // FEATURE Example+EnvironmentClients/Impl
     // FEATURE Example+LoadScriptTest/Impl
     // FEATURE Example+Parameters/Impl
     // FEATURE Example+ScriptingEnvironment/Impl

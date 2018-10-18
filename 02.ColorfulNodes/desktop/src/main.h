@@ -313,14 +313,6 @@ struct Example
         this->tearApplicationMouseDown();
         
         // Example+application.mouse End
-        // Example+application.scene.node.addChild Start
-        this->tearDown_application_scene_node_addChild();
-        
-        // Example+application.scene.node.addChild End
-        // Example+application.scene.node.exists Start
-        this->tearDown_application_scene_node_exists();
-        
-        // Example+application.scene.node.exists End
 // Example Start
         delete this->app;
     }

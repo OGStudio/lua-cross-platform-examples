@@ -11,6 +11,7 @@ Application+setupWindow-desktop
 MAIN_EXAMPLE_LOG
 Example
 Example+01
+Example+EnvironmentClients
 Example+LoadScriptTest
 Example+Parameters
 Example+ScriptingEnvironment

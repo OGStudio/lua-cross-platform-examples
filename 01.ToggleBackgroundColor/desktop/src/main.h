@@ -272,10 +272,10 @@ struct Example
         this->tearScriptingEnvironmentDown();
         
         // Example+ScriptingEnvironment End
-        // Example+application.camera.clearColor Start
-        this->tearDown_application_camera_clearColor();
+        // Example+EnvironmentClients Start
+        this->tearEnvironmentClientsDown();
         
-        // Example+application.camera.clearColor End
+        // Example+EnvironmentClients End
         // Example+application.mouse Start
         this->tearApplicationMouseDown();
         
@@ -317,6 +317,18 @@ struct Example
         }
     // Example+loadCLIScript End
 
+    // Example+EnvironmentClients Start
+    private:
+        std::vector<script::EnvironmentClient *> environmentClients;
+        void tearEnvironmentClientsDown()
+        {
+            for (auto client : this->environmentClients)
+            {
+                delete client;
+            }
+            this->environmentClients.clear();
+        }
+    // Example+EnvironmentClients End
     // Example+LoadScriptTest Start
     private:
         void setupLoadScriptTest()
@@ -389,7 +401,6 @@ struct Example
 
     // Example+application.camera.clearColor Start
     private:
-        script::EnvironmentClient *client_application_camera_clearColor;
         void setup_application_camera_clearColor()
         {
             auto client = new script::EnvironmentClient;
@@ -403,11 +414,8 @@ struct Example
                 SCRIPT_ENVIRONMENT_CLIENT_CALL(
                     return this->process_application_camera_clearColor(key, values);
                 );
-            this->client_application_camera_clearColor = client;
-        }
-        void tearDown_application_camera_clearColor()
-        {
-            delete this->client_application_camera_clearColor;
+            // Register for deallocation.
+            this->environmentClients.push_back(client);
         }
         std::vector<std::string> process_application_camera_clearColor(
             const std::string &key,

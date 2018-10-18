@@ -1,12 +1,8 @@
 FEATURE main.h/Setup
 this->setup_application_camera_clearColor();
 
-FEATURE main.h/TearDown
-this->tearDown_application_camera_clearColor();
-
 FEATURE main.h/Impl
 private:
-    script::EnvironmentClient *client_application_camera_clearColor;
     void setup_application_camera_clearColor()
     {
         auto client = new script::EnvironmentClient;
@@ -20,11 +16,8 @@ private:
             SCRIPT_ENVIRONMENT_CLIENT_CALL(
                 return this->process_application_camera_clearColor(key, values);
             );
-        this->client_application_camera_clearColor = client;
-    }
-    void tearDown_application_camera_clearColor()
-    {
-        delete this->client_application_camera_clearColor;
+        // Register for deallocation.
+        this->environmentClients.push_back(client);
     }
     std::vector<std::string> process_application_camera_clearColor(
         const std::string &key,
