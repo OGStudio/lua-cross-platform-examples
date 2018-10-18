@@ -1,9 +1,11 @@
 FEATURE main.lua/Impl
 do
+    local scene = main.application.scene
+    -- Create sphere node.
     local name = "sphere"
     local radius = 1
-    local sphere = main.application.scene:createSphere(name, radius)
-    local root = main.application.scene:node("root")
+    local sphere = scene:createSphere(name, radius)
+    local root = scene:node("root")
     root:addChild(sphere)
 
     local mouse = main.application.mouse
