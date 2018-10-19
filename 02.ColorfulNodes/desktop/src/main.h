@@ -297,6 +297,10 @@ struct Example
         this->setupApplicationMouse();
         
         // Example+application.mouse End
+        // Example+application.parameters Start
+        this->setup_application_parameters();
+        
+        // Example+application.parameters End
         // Example+application.scene.createSphere Start
         this->setup_application_scene_createSphere();
         
@@ -519,6 +523,30 @@ struct Example
             );
         }
     // Example+application.mouse End
+    // Example+application.parameters Start
+    private:
+        void setup_application_parameters()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.parameters"
+                },
+                this->process_application_parameters
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_parameters)
+        {
+            std::vector<std::string> keysAndValues;
+            for (auto parameter : this->parameters)
+            {
+                auto key = parameter.first;
+                auto value = parameter.second;
+                keysAndValues.push_back(key);
+                keysAndValues.push_back(value);
+            }
+            return keysAndValues;
+        }
+    // Example+application.parameters End
     // Example+application.scene.createSphere Start
     private:
         void setup_application_scene_createSphere()

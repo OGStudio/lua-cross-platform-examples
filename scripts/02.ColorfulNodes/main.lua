@@ -204,6 +204,22 @@ main.application.camera = {}
 local cameraMT = core.createPropertiesMT()
 setmetatable(main.application.camera, cameraMT)
 -- main.application.camera End
+-- main.application.parameters Start
+main.application.parameters = {}
+-- Transfer parameters from C++ to Lua.
+do
+    -- NOTE params = [key1, value1, key2, value2, ...].
+    local params = ENV:call("application.parameters", {})
+    local count = #params / 2
+    for i = 1, count
+    do
+        local id = i * 2 - 1
+        local key = params[id]
+        local value = params[id + 1]
+        main.application.parameters[key] = value
+    end
+end
+-- main.application.parameters End
 -- main.application.scene Start
 main.application.scene = {}
 --local sceneMT = core.createPropertiesMT()
@@ -279,6 +295,7 @@ end
 
 -- testColorfulNodes Start
 do
+    -- TODO Update to use nodePool
     local scene = main.application.scene
     -- Create sphere node.
     local name = "sphere"
@@ -286,6 +303,17 @@ do
     local sphere = scene:createSphere(name, radius)
     local root = scene:node("root")
     root:addChild(sphere)
+    -- Set data directory.
+    local dataDir = main.application.parameters["data"]
+    -- TODO local resourcePool = main.application.resourcePool
+    if (dataDir)
+    then
+        print("Data dir:", dataDir)
+        -- TODO resourcePool.setDataDir(dataDir)
+    end
+    -- Paint the node with single-color shader.
+    --[[
+    --]]
 
     local mouse = main.application.mouse
     -- Subscribe to mouse button presses.

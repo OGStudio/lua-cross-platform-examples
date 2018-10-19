@@ -7,6 +7,7 @@ main.application
 main.application.camera
 #main.application.camera.clearColor
 main.application.mouse
+main.application.parameters
 main.application.scene
 main.application.scene.createSphere
 main.application.scene.node

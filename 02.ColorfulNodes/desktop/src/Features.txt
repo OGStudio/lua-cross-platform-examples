@@ -22,6 +22,7 @@ Example+loadCLIScript
 
 #Example+application.camera.clearColor
 Example+application.mouse
+Example+application.parameters
 Example+application.scene.createSphere
 Example+application.scene.node.addChild
 Example+application.scene.node.exists
