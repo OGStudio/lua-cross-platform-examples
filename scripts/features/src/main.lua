@@ -41,6 +41,7 @@ main = {}
 -- FEATURE main.application.camera/Impl
 -- FEATURE main.application.camera.clearColor/Impl
 -- FEATURE main.application.parameters/Impl
+-- FEATURE main.application.resourcePool/Impl
 -- FEATURE main.application.scene/Impl
 -- FEATURE main.application.scene.createSphere/Impl
 -- FEATURE main.application.scene.node/Impl

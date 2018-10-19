@@ -20,7 +20,10 @@ do
         root:addChild(sphere)
     end
     function loadResources(resourcePool, dataDir)
-        resourcePool.setDataDir(dataDir)
+        -- Specify resource locations in the lookup order.
+        resourcePool:setLocations({
+            dataDir
+        })
         -- Load resources.
         resourcePool:loadResource(
             "shaders",
@@ -30,8 +33,6 @@ do
             "shaders",
             "plain.frag"
         )
-        -- TODO Specify list of sources to get resource from
-        -- TODO Specify dir1, web1, dir2, web2, only then fail.
     end
     function areResourcesValid(resourcePool)
         -- Make sure all resources have been loaded successfully.
