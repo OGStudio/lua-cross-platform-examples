@@ -5,6 +5,9 @@ SET(LCPE_DIR "${CMAKE_SOURCE_DIR}/../../../openscenegraph-cross-platform-example
 # Include common CMakeLists.txt.
 INCLUDE(${CMAKE_SOURCE_DIR}/../CMakeLists.txt)
 
+# Build mongoose statically.
+INCLUDE(${OSGCPE_DIR}/libs/mongoose/CMakeLists.txt)
+
 # Reference sources.
 INCLUDE_DIRECTORIES(src)
 # Create executable.
@@ -26,4 +29,5 @@ TARGET_LINK_LIBRARIES(
     ${LCPE_LINK_LIBS}
     ${IMAGE_LINK_LIBS}
     lua
+    mongoose
 )

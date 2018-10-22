@@ -36,6 +36,12 @@ main+Arguments-desktop
 # core
 Reporter
 
+# format
+commandLineArgumentsToParameters
+printfString
+splitString
+stringStartsWith
+
 # input
 INPUT_MOUSE_LOG
 Mouse
@@ -47,11 +53,16 @@ log-default
 logLevelToString
 logprintf
 
-# format
-commandLineArgumentsToParameters
-printfString
-splitString
-stringStartsWith
+# network
+HTTPClient
+HTTPClientProcessor
+HTTPRequest
+HTTPRequestProcessorMongoose
+mongoose
+
+# render
+createGraphicsContext-desktop
+setupCamera
 
 # resource
 RESOURCE_LOG
@@ -61,10 +72,6 @@ Resource
 ResourceStreamBuffer
 extension
 #string
-
-# render
-createGraphicsContext-desktop
-setupCamera
 
 # scene
 Scene
