@@ -24,6 +24,7 @@ Example+loadCLIScript
 #Example+application.camera.clearColor
 Example+application.mouse
 Example+application.parameters
+Example+application.resourcePool.locations
 Example+application.resourcePool.resource.exists
 Example+application.scene.createSphere
 Example+application.scene.node.addChild
@@ -55,6 +56,7 @@ stringStartsWith
 # resource
 RESOURCE_LOG
 Pool
+Pool+locations
 Resource
 ResourceStreamBuffer
 extension

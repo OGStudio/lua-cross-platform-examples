@@ -326,6 +326,10 @@ struct Example
         this->setup_application_parameters();
         
         // Example+application.parameters End
+        // Example+application.resourcePool.locations Start
+        this->setup_application_resourcePool_locations();
+        
+        // Example+application.resourcePool.locations End
         // Example+application.resourcePool.resource.exists Start
         this->setup_application_resourcePool_resource_exists();
         
@@ -576,6 +580,30 @@ struct Example
             return keysAndValues;
         }
     // Example+application.parameters End
+    // Example+application.resourcePool.locations Start
+    private:
+        void setup_application_resourcePool_locations()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.resourcePool.locations"
+                },
+                this->process_application_resourcePool_locations
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_resourcePool_locations)
+        {
+            auto pool = this->app->resourcePool;
+            // Set.
+            if (!values.empty())
+            {
+                pool->locations = values;
+            }
+    
+            // Return current locations for both Get and Set.
+            return pool->locations;
+        }
+    // Example+application.resourcePool.locations End
     // Example+application.resourcePool.resource.exists Start
     private:
         void setup_application_resourcePool_resource_exists()

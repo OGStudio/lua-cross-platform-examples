@@ -129,6 +129,10 @@ class Pool
         }
 
 // Pool End
+        // Pool+locations Start
+        public:
+            std::vector<std::string> locations;
+        // Pool+locations End
 // Pool Start
 };
 // Pool End
