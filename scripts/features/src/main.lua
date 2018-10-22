@@ -49,7 +49,7 @@ main = {}
 -- FEATURE main.application.resourcePool/Impl
 -- FEATURE main.application.resourcePool.loadResource/Impl
 -- FEATURE main.application.resourcePool.resource/Impl
--- FEATURE main.application.resourcePool.setLocation/Impl
+-- FEATURE main.application.resourcePool.setLocations/Impl
 -- FEATURE main.application.scene/Impl
 -- FEATURE main.application.scene.createSphere/Impl
 -- FEATURE main.application.scene.node/Impl

@@ -39,7 +39,9 @@ namespace resource
 
 // FEATURE Resource/Impl
 // FEATURE ResourceStreamBuffer/Impl
+
 // FEATURE Pool/Impl
+// FEATURE Pool/End
 
 // FEATURE extension/Impl
 // FEATURE node/Impl

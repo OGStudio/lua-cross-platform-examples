@@ -106,6 +106,7 @@ namespace main
         // FEATURE Example+application.camera.clearColor/Setup
         // FEATURE Example+application.mouse/Setup
         // FEATURE Example+application.parameters/Setup
+        // FEATURE Example+application.resourcePool.resource.exists/Setup
         // FEATURE Example+application.scene.createSphere/Setup
         // FEATURE Example+application.scene.node.addChild/Setup
         // FEATURE Example+application.scene.node.exists/Setup
@@ -126,6 +127,7 @@ namespace main
     // FEATURE Example+application.camera.clearColor/Impl
     // FEATURE Example+application.mouse/Impl
     // FEATURE Example+application.parameters/Impl
+    // FEATURE Example+application.resourcePool.resource.exists/Impl
     // FEATURE Example+application.scene.createSphere/Impl
     // FEATURE Example+application.scene.node.addChild/Impl
     // FEATURE Example+application.scene.node.exists/Impl

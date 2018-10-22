@@ -8,9 +8,16 @@ main.application.camera
 #main.application.camera.clearColor
 main.application.mouse
 main.application.parameters
+main.application.resourcePool
+main.application.resourcePool.loadResource
+main.application.resourcePool.resource
+main.application.resourcePool.setLocations
 main.application.scene
 main.application.scene.createSphere
 main.application.scene.node
+
+# resource
+resource.Resource
 
 # scene
 scene.Node

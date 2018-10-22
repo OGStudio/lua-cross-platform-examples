@@ -97,6 +97,7 @@ struct ResourceStreamBuffer : std::streambuf
     }
 };
 // ResourceStreamBuffer End
+
 // Pool Start
 class Pool
 {
@@ -126,6 +127,9 @@ class Pool
 
             return 0;
         }
+
+// Pool End
+// Pool Start
 };
 // Pool End
 

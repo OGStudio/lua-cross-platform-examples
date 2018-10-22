@@ -172,6 +172,20 @@ end
 
 resource = {}
 
+-- resource.Resource Start
+-- NOTE This is only a wrapper for a resource at C++ side.
+-- NOTE This does NOT create anything at C++ side.
+function resource.createResource(group, name)
+    local instance = {
+        __group = group,
+        __name = name,
+
+-- resource.Resource End
+-- resource.Resource Start
+    }
+    return instance
+end
+-- resource.Resource End
 
 scene = {}
 
@@ -223,6 +237,64 @@ do
     end
 end
 -- main.application.parameters End
+-- main.application.resourcePool Start
+-- Crate resource pool.
+main.application.resourcePool = {
+    -- Report when loaded all requested resources.
+    finishedLoading = core.createReporter(),
+}
+
+-- Configure resource pool.
+do
+    local pool = main.application.resourcePool
+    -- Create environment client.
+    local client = EnvironmentClient.new()
+    -- Define finish keys.
+    local finishKey = "application.resourcePool.finishedLoading"
+    -- Define callback.
+    client.call = function(key, values)
+        if (key == finishKey)
+        then
+            pool.finishedLoading:report()
+        end
+
+        return {}
+    end
+    -- Register client.
+    pool.client = client
+    ENV:addClient(
+        pool.client,
+        {
+            finishKey
+        }
+    );
+end
+-- main.application.resourcePool End
+-- main.application.resourcePool.loadResource Start
+main.application.resourcePool.loadResource = function(self, groupName, resourceName)
+    local key = "application.resourcePool.loadResource"
+    ENV:call(key, {groupName, resourceName})
+end
+-- main.application.resourcePool.loadResource End
+-- main.application.resourcePool.resource Start
+function main.application.resourcePool.resource(self, group, name)
+    local key = "application.resourcePool.resource.exists"
+    -- Find out if resource exists in C++.
+    local result = ENV:call(key, {group, name})
+    -- Return nothing if resource does not exist.
+    if (result.length == 0) then
+        return nil
+    end
+    -- Return Lua node representation if resource exists in C++.
+    return resource.createResource(group, name)
+end
+-- main.application.resourcePool.resource End
+-- main.application.resourcePool.setLocations Start
+main.application.resourcePool.setLocations = function(self, locations)
+    local key = "application.resourcePool.locations"
+    ENV:call(key, locations)
+end
+-- main.application.resourcePool.setLocations End
 -- main.application.scene Start
 main.application.scene = {}
 --local sceneMT = core.createPropertiesMT()

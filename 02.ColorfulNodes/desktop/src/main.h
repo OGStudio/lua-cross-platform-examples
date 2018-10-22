@@ -326,6 +326,10 @@ struct Example
         this->setup_application_parameters();
         
         // Example+application.parameters End
+        // Example+application.resourcePool.resource.exists Start
+        this->setup_application_resourcePool_resource_exists();
+        
+        // Example+application.resourcePool.resource.exists End
         // Example+application.scene.createSphere Start
         this->setup_application_scene_createSphere();
         
@@ -572,6 +576,45 @@ struct Example
             return keysAndValues;
         }
     // Example+application.parameters End
+    // Example+application.resourcePool.resource.exists Start
+    private:
+        void setup_application_resourcePool_resource_exists()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.resourcePool.resource.exists"
+                },
+                this->process_application_resourcePool_resource_exists
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_resourcePool_resource_exists)
+        {
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there are two components.
+                if (values.size() != 2)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 2"
+                    );
+                    return { };
+                }
+    
+                auto pool = this->app->resourcePool;
+                auto group = values[0];
+                auto name = values[1];
+                auto res = pool->resource(group, name);
+                if (res != 0)
+                {
+                    return { "true" };
+                }
+            }
+    
+            return { };
+        }
+    // Example+application.resourcePool.resource.exists End
     // Example+application.scene.createSphere Start
     private:
         void setup_application_scene_createSphere()
