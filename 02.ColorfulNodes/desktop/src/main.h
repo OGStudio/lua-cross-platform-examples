@@ -45,6 +45,10 @@ freely, subject to the following restrictions:
 #include <osgGA/TrackballManipulator>
 
 // Application+Rendering End
+// Application+ResourcePool Start
+#include "resource.h"
+
+// Application+ResourcePool End
 // Application+Scene Start
 #include "scene.h"
 
@@ -113,6 +117,10 @@ class Application
             this->setupMouse();
             
             // Application+Mouse End
+            // Application+ResourcePool Start
+            this->setupResourcePool();
+            
+            // Application+ResourcePool End
             // Application+Scene Start
             this->setupScene();
             
@@ -127,6 +135,10 @@ class Application
             this->tearSceneDown();
             
             // Application+Scene End
+            // Application+ResourcePool Start
+            this->tearResourcePoolDown();
+            
+            // Application+ResourcePool End
             // Application+Mouse Start
             this->tearMouseDown();
             
@@ -248,6 +260,19 @@ class Application
             delete this->viewer;
         }
     // Application+Rendering End
+    // Application+ResourcePool Start
+    public:
+        resource::Pool *resourcePool;
+    private:
+        void setupResourcePool()
+        {
+            this->resourcePool = new resource::Pool;
+        }
+        void tearResourcePoolDown()
+        {
+            delete this->resourcePool;
+        }
+    // Application+ResourcePool End
     // Application+Scene Start
     public:
         scene::Scene *scene;

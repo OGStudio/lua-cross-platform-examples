@@ -3,6 +3,7 @@ Application
 Application+Logging
 Application+Mouse
 Application+Rendering
+Application+ResourcePool
 Application+Scene
 Application+camera
 Application+frame+Reporting
@@ -52,6 +53,7 @@ stringStartsWith
 
 # resource
 RESOURCE_LOG
+Pool
 Resource
 ResourceStreamBuffer
 extension

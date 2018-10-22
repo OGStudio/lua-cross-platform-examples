@@ -39,7 +39,7 @@ do
         local shaderVert = resourcePool:resource("shaders", "plain.vert")
         local shaderFrag = resourcePool:resource("shaders", "plain.frag")
         if (
-            (shaderVert == nil) ||
+            (shaderVert == nil) or
             (shaderFrag == nil)
         ) then
             print("ERROR", "Could not load one or more shaders")

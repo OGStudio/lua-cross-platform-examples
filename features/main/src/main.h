@@ -33,6 +33,7 @@ freely, subject to the following restrictions:
 // FEATURE Application+Logging/Include
 // FEATURE Application+Mouse/Include
 // FEATURE Application+Rendering/Include
+// FEATURE Application+ResourcePool/Include
 // FEATURE Application+Scene/Include
 // FEATURE Application+WindowResizing-web/Include
 
@@ -58,6 +59,7 @@ namespace main
             // FEATURE Application+Logging/Setup
             // FEATURE Application+Rendering/Setup
             // FEATURE Application+Mouse/Setup
+            // FEATURE Application+ResourcePool/Setup
             // FEATURE Application+Scene/Setup
             // FEATURE Application+HTTPClient/Setup
             // FEATURE Application+HTTPClientProcessor/Setup
@@ -66,6 +68,7 @@ namespace main
             // FEATURE Application+HTTPClientProcessor/TearDown
             // FEATURE Application+HTTPClient/TearDown
             // FEATURE Application+Scene/TearDown
+            // FEATURE Application+ResourcePool/TearDown
             // FEATURE Application+Mouse/TearDown
             // FEATURE Application+Rendering/TearDown
             // FEATURE Application+Logging/TearDown
@@ -85,6 +88,7 @@ namespace main
     // FEATURE Application+Logging/Impl
     // FEATURE Application+Mouse/Impl
     // FEATURE Application+Rendering/Impl
+    // FEATURE Application+ResourcePool/Impl
     // FEATURE Application+Scene/Impl
     // FEATURE Application+WindowResizing-web/Impl
 // FEATURE Application/End
