@@ -7,6 +7,6 @@ function main.application.scene.node(self, name)
     if (result.length == 0) then
         return nil
     end
-    -- Return Lua node representation inf node exists in C++.
+    -- Return Lua node representation if node exists in C++.
     return scene.createNode(name)
 end

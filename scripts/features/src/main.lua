@@ -29,6 +29,11 @@ core = {}
 -- FEATURE core.PropertiesMT/Impl
 -- FEATURE core.Reporter/Impl
 
+resource = {}
+
+-- FEATURE resource.Resource/Start
+-- FEATURE resource.Resource/End
+
 scene = {}
 
 -- FEATURE scene.Node/Start
@@ -42,6 +47,9 @@ main = {}
 -- FEATURE main.application.camera.clearColor/Impl
 -- FEATURE main.application.parameters/Impl
 -- FEATURE main.application.resourcePool/Impl
+-- FEATURE main.application.resourcePool.loadResource/Impl
+-- FEATURE main.application.resourcePool.resource/Impl
+-- FEATURE main.application.resourcePool.setLocation/Impl
 -- FEATURE main.application.scene/Impl
 -- FEATURE main.application.scene.createSphere/Impl
 -- FEATURE main.application.scene.node/Impl
