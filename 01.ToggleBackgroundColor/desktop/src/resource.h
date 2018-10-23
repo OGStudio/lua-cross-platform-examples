@@ -98,7 +98,6 @@ struct ResourceStreamBuffer : std::streambuf
 };
 // ResourceStreamBuffer End
 
-
 // extension Start
 std::string extension(const Resource &resource)
 {
@@ -116,6 +115,7 @@ std::string extension(const Resource &resource)
     return resource.name.substr(dotPosition + 1);
 }
 // extension End
+
 
 
 } // namespace resource

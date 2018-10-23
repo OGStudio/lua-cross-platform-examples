@@ -25,12 +25,14 @@ freely, subject to the following restrictions:
 #ifndef LUA_CROSS_PLATFORM_EXAMPLES_RESOURCE_H
 #define LUA_CROSS_PLATFORM_EXAMPLES_RESOURCE_H
 
+// FEATURE Pool+loadResource/Include
 // FEATURE ResourceStreamBuffer/Include
 // FEATURE node/Include
 // FEATURE setTextureImage/Include
 // FEATURE createTexture/Include
 
 // FEATURE RESOURCE_LOG/Impl
+// FEATURE RESOURCE_POOL_LOG/Impl
 
 namespace lcpe
 {
@@ -40,17 +42,18 @@ namespace resource
 // FEATURE Resource/Impl
 // FEATURE ResourceStreamBuffer/Impl
 
-// FEATURE Pool/Impl
-        // FEATURE Pool+locations/Impl
-// FEATURE Pool/End
-
 // FEATURE extension/Impl
+// FEATURE isPathRemote/Impl
 // FEATURE node/Impl
 // FEATURE string/Impl
 // FEATURE stringToResourceContents/Impl
 
 // FEATURE setTextureImage/Impl
 // FEATURE createTexture/Impl
+
+// FEATURE Pool/Impl
+        // FEATURE Pool+loadResource/Impl
+// FEATURE Pool/End
 
 } // namespace resource
 } // namespace lcpe

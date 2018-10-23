@@ -50,13 +50,13 @@ namespace scene
 // FEATURE LinearInterpolator/Impl
 
 // FEATURE Scene/Setup
-        // FEATURE Scene+Root/Setup
+            // FEATURE Scene+Root/Setup
 // FEATURE Scene/TearDown
 // FEATURE Scene/Impl
-        // FEATURE Scene+Root/Impl
+    // FEATURE Scene+Root/Impl
 
-        // FEATURE Scene+createSphere/Impl
-        // FEATURE Scene+node/Impl
+    // FEATURE Scene+createSphere/Impl
+    // FEATURE Scene+node/Impl
 // FEATURE Scene/End
 
 } // namespace scene

@@ -30,6 +30,10 @@ freely, subject to the following restrictions:
 
 // Application+frame+Reporting End
 
+// Application+HTTPClient Start
+#include "network.h"
+
+// Application+HTTPClient End
 // Application+Logging Start
 #include "log.h"
 
@@ -125,12 +129,28 @@ class Application
             this->setupScene();
             
             // Application+Scene End
+            // Application+HTTPClient Start
+            this->setupHTTPClient();
+            
+            // Application+HTTPClient End
+            // Application+HTTPClientProcessor Start
+            this->setupHTTPClientProcessor();
+            
+            // Application+HTTPClientProcessor End
 // Application Start
         }
         ~Application()
         {
 
 // Application End
+            // Application+HTTPClientProcessor Start
+            this->tearHTTPClientProcessorDown();
+            
+            // Application+HTTPClientProcessor End
+            // Application+HTTPClient Start
+            this->tearHTTPClientDown();
+            
+            // Application+HTTPClient End
             // Application+Scene Start
             this->tearSceneDown();
             
@@ -198,6 +218,42 @@ class Application
         }
     // Application+setupWindow-desktop End
 
+    // Application+HTTPClient Start
+    public:
+        network::HTTPClient *httpClient;
+    private:
+        void setupHTTPClient()
+        {
+            this->httpClient = new network::HTTPClient;
+        }
+        void tearHTTPClientDown()
+        {
+            delete this->httpClient;
+        }
+    // Application+HTTPClient End
+    // Application+HTTPClientProcessor Start
+    public:
+        network::HTTPClientProcessor *httpClientProcessor;
+    private:
+        const std::string httpClientProcessorCallbackName = "HTTPClientProcessor";
+    
+        void setupHTTPClientProcessor()
+        {
+            this->httpClientProcessor = new network::HTTPClientProcessor(this->httpClient);
+            // Subscribe processor to be processed each frame.
+            this->frameReporter.addCallback(
+                [&] {
+                    this->httpClientProcessor->process();
+                },
+                this->httpClientProcessorCallbackName
+            );
+        }
+        void tearHTTPClientProcessorDown()
+        {
+            this->frameReporter.removeCallback(this->httpClientProcessorCallbackName);
+            delete this->httpClientProcessor;
+        }
+    // Application+HTTPClientProcessor End
     // Application+Logging Start
     private:
         log::Logger *logger;
@@ -280,6 +336,7 @@ class Application
         void setupScene()
         {
             this->scene = new scene::Scene;
+    
             // Set scene's root node to viewer.
             auto root = this->scene->node("root");
             this->setScene(root);
@@ -326,6 +383,10 @@ struct Example
         this->setup_application_parameters();
         
         // Example+application.parameters End
+        // Example+application.resourcePool.loadResource Start
+        this->setup_application_resourcePool_loadResource();
+        
+        // Example+application.resourcePool.loadResource End
         // Example+application.resourcePool.locations Start
         this->setup_application_resourcePool_locations();
         
@@ -580,6 +641,41 @@ struct Example
             return keysAndValues;
         }
     // Example+application.parameters End
+    // Example+application.resourcePool.loadResource Start
+    private:
+        void setup_application_resourcePool_loadResource()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.resourcePool.loadResource"
+                },
+                this->process_application_resourcePool_loadResource
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_resourcePool_loadResource)
+        {
+            auto pool = this->app->resourcePool;
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there are two components.
+                if (values.size() != 2)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 2"
+                    );
+                    return { };
+                }
+    
+                auto group = values[0];
+                auto name = values[1];
+                pool->loadResource(group, name);
+            }
+    
+            return { };
+        }
+    // Example+application.resourcePool.loadResource End
     // Example+application.resourcePool.locations Start
     private:
         void setup_application_resourcePool_locations()
@@ -634,6 +730,7 @@ struct Example
                 auto group = values[0];
                 auto name = values[1];
                 auto res = pool->resource(group, name);
+                MAIN_EXAMPLE_LOG("res(%s, %s): '%p'", group.c_str(), name.c_str(), res);
                 if (res != 0)
                 {
                     return { "true" };

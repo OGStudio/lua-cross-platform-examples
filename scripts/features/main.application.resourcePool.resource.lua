@@ -4,9 +4,9 @@ function main.application.resourcePool.resource(self, group, name)
     -- Find out if resource exists in C++.
     local result = ENV:call(key, {group, name})
     -- Return nothing if resource does not exist.
-    if (result.length == 0) then
+    if (not result[1]) then
         return nil
     end
-    -- Return Lua node representation if resource exists in C++.
+    -- Return Lua representation if resource exists in C++.
     return resource.createResource(group, name)
 end

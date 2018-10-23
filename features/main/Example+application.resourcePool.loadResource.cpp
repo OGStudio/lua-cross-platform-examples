@@ -1,19 +1,20 @@
 FEATURE main.h/Setup
-this->setup_application_resourcePool_resource_exists();
+this->setup_application_resourcePool_loadResource();
 
 FEATURE main.h/Impl
 private:
-    void setup_application_resourcePool_resource_exists()
+    void setup_application_resourcePool_loadResource()
     {
         MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
             {
-                "application.resourcePool.resource.exists"
+                "application.resourcePool.loadResource"
             },
-            this->process_application_resourcePool_resource_exists
+            this->process_application_resourcePool_loadResource
         );
     }
-    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_resourcePool_resource_exists)
+    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_resourcePool_loadResource)
     {
+        auto pool = this->app->resourcePool;
         // Set.
         if (!values.empty())
         {
@@ -27,15 +28,9 @@ private:
                 return { };
             }
 
-            auto pool = this->app->resourcePool;
             auto group = values[0];
             auto name = values[1];
-            auto res = pool->resource(group, name);
-            MAIN_EXAMPLE_LOG("res(%s, %s): '%p'", group.c_str(), name.c_str(), res);
-            if (res != 0)
-            {
-                return { "true" };
-            }
+            pool->loadResource(group, name);
         }
 
         return { };

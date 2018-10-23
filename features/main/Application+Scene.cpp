@@ -14,6 +14,7 @@ private:
     void setupScene()
     {
         this->scene = new scene::Scene;
+
         // Set scene's root node to viewer.
         auto root = this->scene->node("root");
         this->setScene(root);

@@ -25,6 +25,10 @@ freely, subject to the following restrictions:
 #ifndef LUA_CROSS_PLATFORM_EXAMPLES_RESOURCE_H
 #define LUA_CROSS_PLATFORM_EXAMPLES_RESOURCE_H
 
+// Pool+loadResource Start
+#include <fstream>
+
+// Pool+loadResource End
 // ResourceStreamBuffer Start
 #include <iostream>
 
@@ -41,6 +45,17 @@ freely, subject to the following restrictions:
     )
 
 // RESOURCE_LOG End
+// RESOURCE_POOL_LOG Start
+#include "log.h"
+#include "format.h"
+#define RESOURCE_POOL_LOG_PREFIX "resource::Pool(%p) %s"
+#define RESOURCE_POOL_LOG(...) \
+    log::logprintf( \
+        RESOURCE_POOL_LOG_PREFIX, \
+        this, \
+        format::printfString(__VA_ARGS__).c_str() \
+    )
+// RESOURCE_POOL_LOG End
 
 namespace lcpe
 {
@@ -98,6 +113,50 @@ struct ResourceStreamBuffer : std::streambuf
 };
 // ResourceStreamBuffer End
 
+// extension Start
+std::string extension(const Resource &resource)
+{
+    auto dotPosition = resource.name.rfind(".");
+    // Return empty extension if we cannot detect it.
+    if (dotPosition == std::string::npos)
+    {
+        RESOURCE_LOG(
+            "ERROR Could not detect file extension for '%s/%s' resource",
+            resource.group.c_str(),
+            resource.name.c_str()
+        );
+        return "";
+    }
+    return resource.name.substr(dotPosition + 1);
+}
+// extension End
+// stringToResourceContents Start
+unsigned char * stringToResourceContents(const std::string &str)
+{
+    auto dat = const_cast<char *>(str.data());
+    if (!dat)
+    {
+        RESOURCE_LOG(
+            "ERROR Could not convert string to resource contents "
+            "at 'const char * -> char *' stage"
+        );
+        return 0;
+    }
+    auto contents = reinterpret_cast<unsigned char *>(dat);
+    if (!contents)
+    {
+        RESOURCE_LOG(
+            "ERROR Could not convert string to resource contents "
+            "at 'char * -> usigned char *' stage"
+        );
+        return 0;
+    }
+
+    return contents;
+}
+// stringToResourceContents End
+
+
 // Pool Start
 class Pool
 {
@@ -129,32 +188,52 @@ class Pool
         }
 
 // Pool End
-        // Pool+locations Start
+        // Pool+loadResource Start
         public:
             std::vector<std::string> locations;
-        // Pool+locations End
+        
+            void loadResource(
+                const std::string &group,
+                const std::string &name
+            ) { 
+                // NOTE We only load local resources at the moment.
+                // TODO Load remote resources.
+        
+                for (auto location : this->locations)
+                {
+                    auto fileName = location + "/" + name;
+                    std::ifstream localResource(fileName);
+                    if (localResource)
+                    {
+                        // Read file contents into string.
+                        std::string fileContents(
+                            (std::istreambuf_iterator<char>(localResource)),
+                            (std::istreambuf_iterator<char>())
+                        );
+                        resource::Resource res(
+                            group,
+                            name,
+                            resource::stringToResourceContents(fileContents),
+                            fileContents.length()
+                        );
+                        // Add resource.
+                        this->addResource(res);
+                        // Stop checking other locations.
+                        return;
+                    }
+                }
+        
+                RESOURCE_POOL_LOG(
+                    "ERROR Could not find resource '%s/%s' at any "
+                    "of the specified locations",
+                    group.c_str(),
+                    name.c_str()
+                );
+            }
+        // Pool+loadResource End
 // Pool Start
 };
 // Pool End
-
-// extension Start
-std::string extension(const Resource &resource)
-{
-    auto dotPosition = resource.name.rfind(".");
-    // Return empty extension if we cannot detect it.
-    if (dotPosition == std::string::npos)
-    {
-        RESOURCE_LOG(
-            "ERROR Could not detect file extension for '%s/%s' resource",
-            resource.group.c_str(),
-            resource.name.c_str()
-        );
-        return "";
-    }
-    return resource.name.substr(dotPosition + 1);
-}
-// extension End
-
 
 } // namespace resource
 } // namespace lcpe

@@ -38,6 +38,8 @@ do
         -- Make sure all resources have been loaded successfully.
         local shaderVert = resourcePool:resource("shaders", "plain.vert")
         local shaderFrag = resourcePool:resource("shaders", "plain.frag")
+        print("shaderFrag", shaderFrag)
+        print("shaderVert", shaderVert)
         if (
             (shaderVert == nil) or
             (shaderFrag == nil)
@@ -62,13 +64,9 @@ do
     print("Loading resources...")
     loadResources(resourcePool, dataDir)
 
-    resourcePool.finishedLoading:addOneTimeCallback(
-        function()
-            print("Finished loading resources")
-            if (areResourcesValid(resourcePool))
-            then
-                finishSetup(resourcePool)
-            end
-        end
-    )
+    print("Finished loading resources")
+    if (areResourcesValid(resourcePool))
+    then
+        finishSetup(resourcePool)
+    end
 end

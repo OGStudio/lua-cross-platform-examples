@@ -282,10 +282,10 @@ function main.application.resourcePool.resource(self, group, name)
     -- Find out if resource exists in C++.
     local result = ENV:call(key, {group, name})
     -- Return nothing if resource does not exist.
-    if (result.length == 0) then
+    if (not result[1]) then
         return nil
     end
-    -- Return Lua node representation if resource exists in C++.
+    -- Return Lua representation if resource exists in C++.
     return resource.createResource(group, name)
 end
 -- main.application.resourcePool.resource End
@@ -313,7 +313,7 @@ function main.application.scene.node(self, name)
     -- Find out if node exists in C++.
     local result = ENV:call(key, {name})
     -- Return nothing if node does not exist.
-    if (result.length == 0) then
+    if (not result[1]) then
         return nil
     end
     -- Return Lua node representation if node exists in C++.
@@ -408,6 +408,8 @@ do
         -- Make sure all resources have been loaded successfully.
         local shaderVert = resourcePool:resource("shaders", "plain.vert")
         local shaderFrag = resourcePool:resource("shaders", "plain.frag")
+        print("shaderFrag", shaderFrag)
+        print("shaderVert", shaderVert)
         if (
             (shaderVert == nil) or
             (shaderFrag == nil)
@@ -432,15 +434,11 @@ do
     print("Loading resources...")
     loadResources(resourcePool, dataDir)
 
-    resourcePool.finishedLoading:addOneTimeCallback(
-        function()
-            print("Finished loading resources")
-            if (areResourcesValid(resourcePool))
-            then
-                finishSetup(resourcePool)
-            end
-        end
-    )
+    print("Finished loading resources")
+    if (areResourcesValid(resourcePool))
+    then
+        finishSetup(resourcePool)
+    end
 end
 -- testColorfulNodes End
 

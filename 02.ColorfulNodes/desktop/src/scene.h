@@ -73,10 +73,10 @@ class Scene
         {
 
 // Scene End
-        // Scene+Root Start
-        this->setupRoot();
-        
-        // Scene+Root End
+            // Scene+Root Start
+            this->setupRoot();
+            
+            // Scene+Root End
 // Scene Start
         }
         ~Scene()
@@ -90,42 +90,42 @@ class Scene
         std::map<std::string, osg::ref_ptr<osg::MatrixTransform> > nodes;
 
 // Scene End
-        // Scene+Root Start
-        private:
-            void setupRoot()
-            {
-                auto root = new osg::MatrixTransform;
-                this->nodes["root"] = root;
-            }
-        // Scene+Root End
+    // Scene+Root Start
+    private:
+        void setupRoot()
+        {
+            auto root = new osg::MatrixTransform;
+            this->nodes["root"] = root;
+        }
+    // Scene+Root End
 
-        // Scene+createSphere Start
-        public:
-            osg::MatrixTransform *createSphere(
-                const std::string &name,
-                float radius
-            ) {
-                auto sphere = scene::createSphere(radius);
-                this->nodes[name] = sphere;
-                return sphere;
-            }
-        // Scene+createSphere End
-        // Scene+node Start
-        public:
-            osg::MatrixTransform *node(const std::string &name)
+    // Scene+createSphere Start
+    public:
+        osg::MatrixTransform *createSphere(
+            const std::string &name,
+            float radius
+        ) {
+            auto sphere = scene::createSphere(radius);
+            this->nodes[name] = sphere;
+            return sphere;
+        }
+    // Scene+createSphere End
+    // Scene+node Start
+    public:
+        osg::MatrixTransform *node(const std::string &name)
+        {
+            auto it = this->nodes.find(name);
+    
+            // Return valid node.
+            if (it != this->nodes.end())
             {
-                auto it = this->nodes.find(name);
-        
-                // Return valid node.
-                if (it != this->nodes.end())
-                {
-                    return it->second.get();
-                }
-        
-                // Found noting.
-                return 0;
+                return it->second.get();
             }
-        // Scene+node End
+    
+            // Found noting.
+            return 0;
+        }
+    // Scene+node End
 // Scene Start
 };
 // Scene End
