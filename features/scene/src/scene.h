@@ -29,7 +29,7 @@ freely, subject to the following restrictions:
 // FEATURE simplePosition/Include
 // FEATURE setSimplePosition/Include
 
-// FEATURE Scene/Include
+// FEATURE Pool/Include
 
 namespace lcpe
 {
@@ -49,15 +49,15 @@ namespace scene
 
 // FEATURE LinearInterpolator/Impl
 
-// FEATURE Scene/Setup
-            // FEATURE Scene+Root/Setup
-// FEATURE Scene/TearDown
-// FEATURE Scene/Impl
-    // FEATURE Scene+Root/Impl
+// FEATURE Pool/Setup
+            // FEATURE Pool+Root/Setup
+// FEATURE Pool/TearDown
+// FEATURE Pool/Impl
+    // FEATURE Pool+Root/Impl
 
-    // FEATURE Scene+createSphere/Impl
-    // FEATURE Scene+node/Impl
-// FEATURE Scene/End
+    // FEATURE Pool+createSphere/Impl
+    // FEATURE Pool+node/Impl
+// FEATURE Pool/End
 
 } // namespace scene
 } // namespace lcpe

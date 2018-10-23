@@ -1,18 +1,18 @@
 FEATURE main.h/Setup
-this->setup_application_scene_createSphere();
+this->setup_application_nodePool_createSphere();
 
 FEATURE main.h/Impl
 private:
-    void setup_application_scene_createSphere()
+    void setup_application_nodePool_createSphere()
     {
         MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
             {
-                "application.scene.createSphere"
+                "application.nodePool.createSphere"
             },
-            this->process_application_scene_createSphere
+            this->process_application_nodePool_createSphere
         );
     }
-    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_createSphere)
+    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_nodePool_createSphere)
     {
         // Set.
         if (!values.empty())
@@ -28,10 +28,10 @@ private:
             }
 
             // Create sphere.
-            auto scene = this->app->scene;
+            auto pool = this->app->nodePool;
             auto name = values[0];
             auto radius = atof(values[1].c_str());
-            scene->createSphere(name, radius);
+            pool->createSphere(name, radius);
         }
 
         return { };

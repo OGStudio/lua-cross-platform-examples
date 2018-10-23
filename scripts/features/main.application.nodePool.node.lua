@@ -1,6 +1,6 @@
 FEATURE main.lua/Impl
-function main.application.scene.node(self, name)
-    local key = "application.scene.node.exists"
+function main.application.nodePool.node(self, name)
+    local key = "application.nodePool.node.exists"
     -- Find out if node exists in C++.
     local result = ENV:call(key, {name})
     -- Return nothing if node does not exist.

@@ -50,9 +50,9 @@ main = {}
 -- FEATURE main.application.resourcePool.loadResource/Impl
 -- FEATURE main.application.resourcePool.resource/Impl
 -- FEATURE main.application.resourcePool.setLocations/Impl
--- FEATURE main.application.scene/Impl
--- FEATURE main.application.scene.createSphere/Impl
--- FEATURE main.application.scene.node/Impl
+-- FEATURE main.application.nodePool/Impl
+-- FEATURE main.application.nodePool.createSphere/Impl
+-- FEATURE main.application.nodePool.node/Impl
 -- FEATURE main.application.mouse/Impl
 
 -- Library domain ends --

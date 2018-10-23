@@ -199,7 +199,7 @@ function scene.createNode(name)
 -- scene.Node End
         -- scene.Node.addChild Start
         addChild = function(self, node)
-            local key = "application.scene.node.addChild"
+            local key = "application.nodePool.node.addChild"
             local parent = self.__name
             local child = node.__name
             ENV:call(key, {parent, child})
@@ -295,21 +295,19 @@ main.application.resourcePool.setLocations = function(self, locations)
     ENV:call(key, locations)
 end
 -- main.application.resourcePool.setLocations End
--- main.application.scene Start
-main.application.scene = {}
---local sceneMT = core.createPropertiesMT()
---setmetatable(main.application.scene, sceneMT)
--- main.application.scene End
--- main.application.scene.createSphere Start
-main.application.scene.createSphere = function(self, name, radius)
-    local key = "application.scene.createSphere"
+-- main.application.nodePool Start
+main.application.nodePool = {}
+-- main.application.nodePool End
+-- main.application.nodePool.createSphere Start
+main.application.nodePool.createSphere = function(self, name, radius)
+    local key = "application.nodePool.createSphere"
     ENV:call(key, {name, radius})
     return scene.createNode(name)
 end
--- main.application.scene.createSphere End
--- main.application.scene.node Start
-function main.application.scene.node(self, name)
-    local key = "application.scene.node.exists"
+-- main.application.nodePool.createSphere End
+-- main.application.nodePool.node Start
+function main.application.nodePool.node(self, name)
+    local key = "application.nodePool.node.exists"
     -- Find out if node exists in C++.
     local result = ENV:call(key, {name})
     -- Return nothing if node does not exist.
@@ -319,7 +317,7 @@ function main.application.scene.node(self, name)
     -- Return Lua node representation if node exists in C++.
     return scene.createNode(name)
 end
--- main.application.scene.node End
+-- main.application.nodePool.node End
 -- main.application.mouse Start
 -- Create mouse.
 main.application.mouse = {
@@ -382,11 +380,11 @@ do
     end
 
     -- Define distinct setup stages.
-    function createSphereNode(scene)
+    function createSphereNode(nodePool)
         local name = "sphere"
         local radius = 1
-        local sphere = scene:createSphere(name, radius)
-        local root = scene:node("root")
+        local sphere = nodePool:createSphere(name, radius)
+        local root = nodePool:node("root")
         root:addChild(sphere)
     end
     function loadResources(resourcePool, dataDir)
@@ -408,8 +406,6 @@ do
         -- Make sure all resources have been loaded successfully.
         local shaderVert = resourcePool:resource("shaders", "plain.vert")
         local shaderFrag = resourcePool:resource("shaders", "plain.frag")
-        print("shaderFrag", shaderFrag)
-        print("shaderVert", shaderVert)
         if (
             (shaderVert == nil) or
             (shaderFrag == nil)
@@ -426,9 +422,8 @@ do
 
     end
 
-    -- TODO Use nodePool
-    local scene = main.application.scene
-    createSphereNode(scene)
+    local nodePool = main.application.nodePool
+    createSphereNode(nodePool)
 
     local resourcePool = main.application.resourcePool
     print("Loading resources...")

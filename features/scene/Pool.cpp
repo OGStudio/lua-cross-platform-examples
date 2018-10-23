@@ -2,15 +2,15 @@ FEATURE scene.h/Include
 #include <osg/MatrixTransform>
 
 FEATURE scene.h/Setup
-class Scene
+class Pool
 {
     public:
-        Scene()
+        Pool()
         {
 
 FEATURE scene.h/TearDown
         }
-        ~Scene()
+        ~Pool()
         {
 
 FEATURE scene.h/Impl

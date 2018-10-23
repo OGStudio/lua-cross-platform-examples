@@ -4,9 +4,9 @@ Application+HTTPClient
 Application+HTTPClientProcessor
 Application+Logging
 Application+Mouse
+Application+NodePool
 Application+Rendering
 Application+ResourcePool
-Application+Scene
 Application+camera
 Application+frame+Reporting
 Application+run
@@ -29,9 +29,9 @@ Example+application.parameters
 Example+application.resourcePool.loadResource
 Example+application.resourcePool.locations
 Example+application.resourcePool.resource.exists
-Example+application.scene.createSphere
-Example+application.scene.node.addChild
-Example+application.scene.node.exists
+Example+application.nodePool.createSphere
+Example+application.nodePool.node.addChild
+Example+application.nodePool.node.exists
 
 main-desktop
 main+Arguments-desktop
@@ -78,10 +78,10 @@ extension
 stringToResourceContents
 
 # scene
-Scene
-Scene+Root
-Scene+createSphere
-Scene+node
+Pool
+Pool+Root
+Pool+createSphere
+Pool+node
 createShape
 createSphere
 

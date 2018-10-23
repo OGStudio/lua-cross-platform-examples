@@ -32,10 +32,10 @@ freely, subject to the following restrictions:
 
 // createShape End
 
-// Scene Start
+// Pool Start
 #include <osg/MatrixTransform>
 
-// Scene End
+// Pool End
 
 namespace lcpe
 {
@@ -65,41 +65,41 @@ osg::MatrixTransform *createSphere(float radius)
 
 
 
-// Scene Start
-class Scene
+// Pool Start
+class Pool
 {
     public:
-        Scene()
+        Pool()
         {
 
-// Scene End
-            // Scene+Root Start
+// Pool End
+            // Pool+Root Start
             this->setupRoot();
             
-            // Scene+Root End
-// Scene Start
+            // Pool+Root End
+// Pool Start
         }
-        ~Scene()
+        ~Pool()
         {
 
-// Scene End
-// Scene Start
+// Pool End
+// Pool Start
         }
 
     private:
         std::map<std::string, osg::ref_ptr<osg::MatrixTransform> > nodes;
 
-// Scene End
-    // Scene+Root Start
+// Pool End
+    // Pool+Root Start
     private:
         void setupRoot()
         {
             auto root = new osg::MatrixTransform;
             this->nodes["root"] = root;
         }
-    // Scene+Root End
+    // Pool+Root End
 
-    // Scene+createSphere Start
+    // Pool+createSphere Start
     public:
         osg::MatrixTransform *createSphere(
             const std::string &name,
@@ -109,8 +109,8 @@ class Scene
             this->nodes[name] = sphere;
             return sphere;
         }
-    // Scene+createSphere End
-    // Scene+node Start
+    // Pool+createSphere End
+    // Pool+node Start
     public:
         osg::MatrixTransform *node(const std::string &name)
         {
@@ -125,10 +125,10 @@ class Scene
             // Found noting.
             return 0;
         }
-    // Scene+node End
-// Scene Start
+    // Pool+node End
+// Pool Start
 };
-// Scene End
+// Pool End
 
 } // namespace scene
 } // namespace lcpe

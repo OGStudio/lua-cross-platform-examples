@@ -1,18 +1,18 @@
 FEATURE main.h/Setup
-this->setup_application_scene_node_addChild();
+this->setup_application_nodePool_node_addChild();
 
 FEATURE main.h/Impl
 private:
-    void setup_application_scene_node_addChild()
+    void setup_application_nodePool_node_addChild()
     {
         MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
             {
-                "application.scene.node.addChild"
+                "application.nodePool.node.addChild"
             },
-            this->process_application_scene_node_addChild
+            this->process_application_nodePool_node_addChild
         );
     }
-    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_node_addChild)
+    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_nodePool_node_addChild)
     {
         // Set.
         if (!values.empty())
@@ -27,11 +27,11 @@ private:
                 return { };
             }
 
-            auto scene = this->app->scene;
+            auto pool = this->app->nodePool;
             auto parentName = values[0];
             auto childName = values[1];
-            auto parent = scene->node(parentName);
-            auto child = scene->node(childName);
+            auto parent = pool->node(parentName);
+            auto child = pool->node(childName);
 
             // Make sure parent and child exist.
             if (!parent || !child)

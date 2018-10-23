@@ -31,7 +31,6 @@ private:
             auto group = values[0];
             auto name = values[1];
             auto res = pool->resource(group, name);
-            MAIN_EXAMPLE_LOG("res(%s, %s): '%p'", group.c_str(), name.c_str(), res);
             if (res != 0)
             {
                 return { "true" };

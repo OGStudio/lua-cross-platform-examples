@@ -32,9 +32,9 @@ freely, subject to the following restrictions:
 // FEATURE Application+HTTPClient/Include
 // FEATURE Application+Logging/Include
 // FEATURE Application+Mouse/Include
+// FEATURE Application+NodePool/Include
 // FEATURE Application+Rendering/Include
 // FEATURE Application+ResourcePool/Include
-// FEATURE Application+Scene/Include
 // FEATURE Application+WindowResizing-web/Include
 
 // FEATURE Example+loadCLIScript/Include
@@ -59,15 +59,15 @@ namespace main
             // FEATURE Application+Logging/Setup
             // FEATURE Application+Rendering/Setup
             // FEATURE Application+Mouse/Setup
+            // FEATURE Application+NodePool/Setup
             // FEATURE Application+ResourcePool/Setup
-            // FEATURE Application+Scene/Setup
             // FEATURE Application+HTTPClient/Setup
             // FEATURE Application+HTTPClientProcessor/Setup
             // FEATURE Application+WindowResizing-web/Setup
 // FEATURE Application/TearDown
             // FEATURE Application+HTTPClientProcessor/TearDown
             // FEATURE Application+HTTPClient/TearDown
-            // FEATURE Application+Scene/TearDown
+            // FEATURE Application+NodePool/TearDown
             // FEATURE Application+ResourcePool/TearDown
             // FEATURE Application+Mouse/TearDown
             // FEATURE Application+Rendering/TearDown
@@ -87,9 +87,9 @@ namespace main
     // FEATURE Application+HTTPClientProcessor/Impl
     // FEATURE Application+Logging/Impl
     // FEATURE Application+Mouse/Impl
+    // FEATURE Application+NodePool/Impl
     // FEATURE Application+Rendering/Impl
     // FEATURE Application+ResourcePool/Impl
-    // FEATURE Application+Scene/Impl
     // FEATURE Application+WindowResizing-web/Impl
 // FEATURE Application/End
 
@@ -105,13 +105,13 @@ namespace main
         // FEATURE Example+ScriptingEnvironment/Setup
         // FEATURE Example+application.camera.clearColor/Setup
         // FEATURE Example+application.mouse/Setup
+        // FEATURE Example+application.nodePool.createSphere/Setup
+        // FEATURE Example+application.nodePool.node.addChild/Setup
+        // FEATURE Example+application.nodePool.node.exists/Setup
         // FEATURE Example+application.parameters/Setup
         // FEATURE Example+application.resourcePool.loadResource/Setup
         // FEATURE Example+application.resourcePool.locations/Setup
         // FEATURE Example+application.resourcePool.resource.exists/Setup
-        // FEATURE Example+application.scene.createSphere/Setup
-        // FEATURE Example+application.scene.node.addChild/Setup
-        // FEATURE Example+application.scene.node.exists/Setup
         // FEATURE Example+LoadScriptTest/Setup
 // FEATURE Example/TearDown
         // FEATURE Example+ScriptingEnvironment/TearDown
@@ -128,13 +128,13 @@ namespace main
 
     // FEATURE Example+application.camera.clearColor/Impl
     // FEATURE Example+application.mouse/Impl
+    // FEATURE Example+application.nodePool.createSphere/Impl
+    // FEATURE Example+application.nodePool.node.addChild/Impl
+    // FEATURE Example+application.nodePool.node.exists/Impl
     // FEATURE Example+application.parameters/Impl
     // FEATURE Example+application.resourcePool.loadResource/Impl
     // FEATURE Example+application.resourcePool.locations/Impl
     // FEATURE Example+application.resourcePool.resource.exists/Impl
-    // FEATURE Example+application.scene.createSphere/Impl
-    // FEATURE Example+application.scene.node.addChild/Impl
-    // FEATURE Example+application.scene.node.exists/Impl
 // FEATURE Example/End
 
 } // namespace main

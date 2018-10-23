@@ -12,9 +12,9 @@ main.application.resourcePool
 main.application.resourcePool.loadResource
 main.application.resourcePool.resource
 main.application.resourcePool.setLocations
-main.application.scene
-main.application.scene.createSphere
-main.application.scene.node
+main.application.nodePool
+main.application.nodePool.createSphere
+main.application.nodePool.node
 
 # resource
 resource.Resource

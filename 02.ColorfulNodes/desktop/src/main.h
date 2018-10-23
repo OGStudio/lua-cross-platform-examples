@@ -42,6 +42,10 @@ freely, subject to the following restrictions:
 #include "input.h"
 
 // Application+Mouse End
+// Application+NodePool Start
+#include "scene.h"
+
+// Application+NodePool End
 // Application+Rendering Start
 #include "render.h"
 
@@ -53,10 +57,6 @@ freely, subject to the following restrictions:
 #include "resource.h"
 
 // Application+ResourcePool End
-// Application+Scene Start
-#include "scene.h"
-
-// Application+Scene End
 
 // Example+loadCLIScript Start
 #include <fstream>
@@ -121,14 +121,14 @@ class Application
             this->setupMouse();
             
             // Application+Mouse End
+            // Application+NodePool Start
+            this->setupNodePool();
+            
+            // Application+NodePool End
             // Application+ResourcePool Start
             this->setupResourcePool();
             
             // Application+ResourcePool End
-            // Application+Scene Start
-            this->setupScene();
-            
-            // Application+Scene End
             // Application+HTTPClient Start
             this->setupHTTPClient();
             
@@ -151,10 +151,10 @@ class Application
             this->tearHTTPClientDown();
             
             // Application+HTTPClient End
-            // Application+Scene Start
-            this->tearSceneDown();
+            // Application+NodePool Start
+            this->tearNodePoolDown();
             
-            // Application+Scene End
+            // Application+NodePool End
             // Application+ResourcePool Start
             this->tearResourcePoolDown();
             
@@ -292,6 +292,24 @@ class Application
             this->viewer->removeEventHandler(this->mouse);
         }
     // Application+Mouse End
+    // Application+NodePool Start
+    public:
+        scene::Pool *nodePool;
+    private:
+        void setupNodePool()
+        {
+            this->nodePool = new scene::Pool;
+    
+            // Set pool's root node to viewer.
+            auto root = this->nodePool->node("root");
+            this->setScene(root);
+        }
+        void tearNodePoolDown()
+        {
+            this->setScene(0);
+            delete this->nodePool;
+        }
+    // Application+NodePool End
     // Application+Rendering Start
     public:
         void setScene(osg::Node *scene)
@@ -329,24 +347,6 @@ class Application
             delete this->resourcePool;
         }
     // Application+ResourcePool End
-    // Application+Scene Start
-    public:
-        scene::Scene *scene;
-    private:
-        void setupScene()
-        {
-            this->scene = new scene::Scene;
-    
-            // Set scene's root node to viewer.
-            auto root = this->scene->node("root");
-            this->setScene(root);
-        }
-        void tearSceneDown()
-        {
-            this->setScene(0);
-            delete this->scene;
-        }
-    // Application+Scene End
 // Application Start
 };
 // Application End
@@ -379,6 +379,18 @@ struct Example
         this->setupApplicationMouse();
         
         // Example+application.mouse End
+        // Example+application.nodePool.createSphere Start
+        this->setup_application_nodePool_createSphere();
+        
+        // Example+application.nodePool.createSphere End
+        // Example+application.nodePool.node.addChild Start
+        this->setup_application_nodePool_node_addChild();
+        
+        // Example+application.nodePool.node.addChild End
+        // Example+application.nodePool.node.exists Start
+        this->setup_application_nodePool_node_exists();
+        
+        // Example+application.nodePool.node.exists End
         // Example+application.parameters Start
         this->setup_application_parameters();
         
@@ -395,18 +407,6 @@ struct Example
         this->setup_application_resourcePool_resource_exists();
         
         // Example+application.resourcePool.resource.exists End
-        // Example+application.scene.createSphere Start
-        this->setup_application_scene_createSphere();
-        
-        // Example+application.scene.createSphere End
-        // Example+application.scene.node.addChild Start
-        this->setup_application_scene_node_addChild();
-        
-        // Example+application.scene.node.addChild End
-        // Example+application.scene.node.exists Start
-        this->setup_application_scene_node_exists();
-        
-        // Example+application.scene.node.exists End
         // Example+LoadScriptTest Start
         this->setupLoadScriptTest();
         
@@ -617,6 +617,130 @@ struct Example
             );
         }
     // Example+application.mouse End
+    // Example+application.nodePool.createSphere Start
+    private:
+        void setup_application_nodePool_createSphere()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.nodePool.createSphere"
+                },
+                this->process_application_nodePool_createSphere
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_nodePool_createSphere)
+        {
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there are two components.
+                if (values.size() != 2)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 2"
+                    );
+                    return { };
+                }
+    
+                // Create sphere.
+                auto pool = this->app->nodePool;
+                auto name = values[0];
+                auto radius = atof(values[1].c_str());
+                pool->createSphere(name, radius);
+            }
+    
+            return { };
+        }
+    // Example+application.nodePool.createSphere End
+    // Example+application.nodePool.node.addChild Start
+    private:
+        void setup_application_nodePool_node_addChild()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.nodePool.node.addChild"
+                },
+                this->process_application_nodePool_node_addChild
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_nodePool_node_addChild)
+        {
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there are two components.
+                if (values.size() != 2)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 2"
+                    );
+                    return { };
+                }
+    
+                auto pool = this->app->nodePool;
+                auto parentName = values[0];
+                auto childName = values[1];
+                auto parent = pool->node(parentName);
+                auto child = pool->node(childName);
+    
+                // Make sure parent and child exist.
+                if (!parent || !child)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not add '%s' child node to '%s' parent node "
+                        "because of the nodes does not exist",
+                        childName.c_str(),
+                        parentName.c_str()
+                    );
+                    return { };
+                }
+    
+                parent->addChild(child);
+            }
+    
+            return { };
+        }
+    // Example+application.nodePool.node.addChild End
+    // Example+application.nodePool.node.exists Start
+    private:
+        void setup_application_nodePool_node_exists()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.nodePool.node.exists"
+                },
+                this->process_application_nodePool_node_exists
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_nodePool_node_exists)
+        {
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there is one component.
+                if (values.size() != 1)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 1"
+                    );
+                    return { };
+                }
+    
+                auto pool = this->app->nodePool;
+                auto name = values[0];
+                auto node = pool->node(name);
+                if (node != 0)
+                {
+                    return { "true" };
+                }
+            }
+    
+            return { };
+        }
+    // Example+application.nodePool.node.exists End
     // Example+application.parameters Start
     private:
         void setup_application_parameters()
@@ -730,7 +854,6 @@ struct Example
                 auto group = values[0];
                 auto name = values[1];
                 auto res = pool->resource(group, name);
-                MAIN_EXAMPLE_LOG("res(%s, %s): '%p'", group.c_str(), name.c_str(), res);
                 if (res != 0)
                 {
                     return { "true" };
@@ -740,130 +863,6 @@ struct Example
             return { };
         }
     // Example+application.resourcePool.resource.exists End
-    // Example+application.scene.createSphere Start
-    private:
-        void setup_application_scene_createSphere()
-        {
-            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
-                {
-                    "application.scene.createSphere"
-                },
-                this->process_application_scene_createSphere
-            );
-        }
-        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_createSphere)
-        {
-            // Set.
-            if (!values.empty())
-            {
-                // Make sure there are two components.
-                if (values.size() != 2)
-                {
-                    MAIN_EXAMPLE_LOG(
-                        "ERROR Could not set value for key '%s' "
-                        "because values' count is not 2"
-                    );
-                    return { };
-                }
-    
-                // Create sphere.
-                auto scene = this->app->scene;
-                auto name = values[0];
-                auto radius = atof(values[1].c_str());
-                scene->createSphere(name, radius);
-            }
-    
-            return { };
-        }
-    // Example+application.scene.createSphere End
-    // Example+application.scene.node.addChild Start
-    private:
-        void setup_application_scene_node_addChild()
-        {
-            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
-                {
-                    "application.scene.node.addChild"
-                },
-                this->process_application_scene_node_addChild
-            );
-        }
-        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_node_addChild)
-        {
-            // Set.
-            if (!values.empty())
-            {
-                // Make sure there are two components.
-                if (values.size() != 2)
-                {
-                    MAIN_EXAMPLE_LOG(
-                        "ERROR Could not set value for key '%s' "
-                        "because values' count is not 2"
-                    );
-                    return { };
-                }
-    
-                auto scene = this->app->scene;
-                auto parentName = values[0];
-                auto childName = values[1];
-                auto parent = scene->node(parentName);
-                auto child = scene->node(childName);
-    
-                // Make sure parent and child exist.
-                if (!parent || !child)
-                {
-                    MAIN_EXAMPLE_LOG(
-                        "ERROR Could not add '%s' child node to '%s' parent node "
-                        "because of the nodes does not exist",
-                        childName.c_str(),
-                        parentName.c_str()
-                    );
-                    return { };
-                }
-    
-                parent->addChild(child);
-            }
-    
-            return { };
-        }
-    // Example+application.scene.node.addChild End
-    // Example+application.scene.node.exists Start
-    private:
-        void setup_application_scene_node_exists()
-        {
-            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
-                {
-                    "application.scene.node.exists"
-                },
-                this->process_application_scene_node_exists
-            );
-        }
-        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_scene_node_exists)
-        {
-            // Set.
-            if (!values.empty())
-            {
-                // Make sure there is one component.
-                if (values.size() != 1)
-                {
-                    MAIN_EXAMPLE_LOG(
-                        "ERROR Could not set value for key '%s' "
-                        "because values' count is not 1"
-                    );
-                    return { };
-                }
-    
-                auto scene = this->app->scene;
-                auto name = values[0];
-                auto node = scene->node(name);
-                if (node != 0)
-                {
-                    return { "true" };
-                }
-            }
-    
-            return { };
-        }
-    // Example+application.scene.node.exists End
 // Example Start
 };
 // Example End

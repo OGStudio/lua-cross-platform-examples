@@ -12,11 +12,11 @@ do
     end
 
     -- Define distinct setup stages.
-    function createSphereNode(scene)
+    function createSphereNode(nodePool)
         local name = "sphere"
         local radius = 1
-        local sphere = scene:createSphere(name, radius)
-        local root = scene:node("root")
+        local sphere = nodePool:createSphere(name, radius)
+        local root = nodePool:node("root")
         root:addChild(sphere)
     end
     function loadResources(resourcePool, dataDir)
@@ -38,8 +38,6 @@ do
         -- Make sure all resources have been loaded successfully.
         local shaderVert = resourcePool:resource("shaders", "plain.vert")
         local shaderFrag = resourcePool:resource("shaders", "plain.frag")
-        print("shaderFrag", shaderFrag)
-        print("shaderVert", shaderVert)
         if (
             (shaderVert == nil) or
             (shaderFrag == nil)
@@ -56,9 +54,8 @@ do
 
     end
 
-    -- TODO Use nodePool
-    local scene = main.application.scene
-    createSphereNode(scene)
+    local nodePool = main.application.nodePool
+    createSphereNode(nodePool)
 
     local resourcePool = main.application.resourcePool
     print("Loading resources...")
