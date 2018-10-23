@@ -34,7 +34,7 @@ do
             "plain.frag"
         )
     end
-    function areResourcesValid(resourcePool)
+    function finishSetup(resourcePool, materialPool, nodePool)
         -- Make sure all resources have been loaded successfully.
         local shaderVert = resourcePool:resource("shaders", "plain.vert")
         local shaderFrag = resourcePool:resource("shaders", "plain.frag")
@@ -43,15 +43,14 @@ do
             (shaderFrag == nil)
         ) then
             print("ERROR", "Could not load one or more shaders")
-            return false
+            return
         end
 
-        return true
-    end
-    function finishSetup(resourcePool)
-        print("TODO Paint the node with single-color shader")
-        -- TODO Paint the node with single-color shader.
-
+        -- Create material to paint the whole scene.
+        local material = materialPool:createMaterial("plain")
+        material.setShaders(shaderVert, shaderFrag)
+        local root = nodePool:node("root")
+        root.setMaterial(material)
     end
 
     local nodePool = main.application.nodePool
@@ -60,10 +59,8 @@ do
     local resourcePool = main.application.resourcePool
     print("Loading resources...")
     loadResources(resourcePool, dataDir)
-
     print("Finished loading resources")
-    if (areResourcesValid(resourcePool))
-    then
-        finishSetup(resourcePool)
-    end
+
+    local materialPool = main.application.materialPool
+    finishSetup(resourcePool, materialPool, nodePool)
 end
