@@ -3,6 +3,7 @@ Application
 Application+HTTPClient
 Application+HTTPClientProcessor
 Application+Logging
+Application+MaterialPool
 Application+Mouse
 Application+NodePool
 Application+Rendering
@@ -24,14 +25,15 @@ Example+ScriptingEnvironment
 Example+loadCLIScript
 
 #Example+application.camera.clearColor
+Example+application.materialPool.createMaterial
 Example+application.mouse
+Example+application.nodePool.createSphere
+Example+application.nodePool.node.addChild
+Example+application.nodePool.node.exists
 Example+application.parameters
 Example+application.resourcePool.loadResource
 Example+application.resourcePool.locations
 Example+application.resourcePool.resource.exists
-Example+application.nodePool.createSphere
-Example+application.nodePool.node.addChild
-Example+application.nodePool.node.exists
 
 main-desktop
 main+Arguments-desktop
@@ -64,6 +66,7 @@ HTTPRequestProcessorMongoose
 mongoose
 
 # render
+MaterialPool
 createGraphicsContext-desktop
 setupCamera
 

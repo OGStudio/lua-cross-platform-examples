@@ -31,6 +31,7 @@ freely, subject to the following restrictions:
 
 // FEATURE Application+HTTPClient/Include
 // FEATURE Application+Logging/Include
+// FEATURE Application+MaterialPool/Include
 // FEATURE Application+Mouse/Include
 // FEATURE Application+NodePool/Include
 // FEATURE Application+Rendering/Include
@@ -60,6 +61,7 @@ namespace main
             // FEATURE Application+Rendering/Setup
             // FEATURE Application+Mouse/Setup
             // FEATURE Application+NodePool/Setup
+            // FEATURE Application+MaterialPool/Setup
             // FEATURE Application+ResourcePool/Setup
             // FEATURE Application+HTTPClient/Setup
             // FEATURE Application+HTTPClientProcessor/Setup
@@ -67,6 +69,7 @@ namespace main
 // FEATURE Application/TearDown
             // FEATURE Application+HTTPClientProcessor/TearDown
             // FEATURE Application+HTTPClient/TearDown
+            // FEATURE Application+MaterialPool/TearDown
             // FEATURE Application+NodePool/TearDown
             // FEATURE Application+ResourcePool/TearDown
             // FEATURE Application+Mouse/TearDown
@@ -86,6 +89,7 @@ namespace main
     // FEATURE Application+HTTPClient/Impl
     // FEATURE Application+HTTPClientProcessor/Impl
     // FEATURE Application+Logging/Impl
+    // FEATURE Application+MaterialPool/Impl
     // FEATURE Application+Mouse/Impl
     // FEATURE Application+NodePool/Impl
     // FEATURE Application+Rendering/Impl
@@ -104,6 +108,7 @@ namespace main
         // FEATURE Example+VBO/Setup
         // FEATURE Example+ScriptingEnvironment/Setup
         // FEATURE Example+application.camera.clearColor/Setup
+        // FEATURE Example+application.materialPool.createMaterial/Setup
         // FEATURE Example+application.mouse/Setup
         // FEATURE Example+application.nodePool.createSphere/Setup
         // FEATURE Example+application.nodePool.node.addChild/Setup
@@ -127,6 +132,7 @@ namespace main
     // FEATURE Example+VBO/Impl
 
     // FEATURE Example+application.camera.clearColor/Impl
+    // FEATURE Example+application.materialPool.createMaterial/Impl
     // FEATURE Example+application.mouse/Impl
     // FEATURE Example+application.nodePool.createSphere/Impl
     // FEATURE Example+application.nodePool.node.addChild/Impl

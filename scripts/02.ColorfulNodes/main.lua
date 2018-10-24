@@ -170,6 +170,22 @@ function core.createReporter()
 end
 -- core.Reporter End
 
+render = {}
+
+-- render.Material Start
+-- NOTE This is only a wrapper for a valid node at C++ side.
+-- NOTE This does NOT create anything at C++ side.
+function render.createMaterial(name)
+    local instance = {
+        __name = name,
+
+-- render.Material End
+-- render.Material Start
+    }
+    return instance
+end
+-- render.Material End
+
 resource = {}
 
 -- resource.Resource Start
@@ -221,6 +237,82 @@ main.application.camera = {}
 local cameraMT = core.createPropertiesMT()
 setmetatable(main.application.camera, cameraMT)
 -- main.application.camera End
+-- main.application.materialPool Start
+main.application.materialPool = {}
+-- main.application.materialPool End
+-- main.application.materialPool.createMaterial Start
+main.application.materialPool.createMaterial = function(self, name)
+    local key = "application.materialPool.createMaterial"
+    ENV:call(key, {name})
+    return render.createMaterial(name)
+end
+-- main.application.materialPool.createMaterial End
+-- main.application.mouse Start
+-- Create mouse.
+main.application.mouse = {
+    position = {},
+    positionChanged = core.createReporter(),
+
+    pressedButtons = {},
+    pressedButtonsChanged = core.createReporter(),
+}
+
+-- Configure mouse.
+do
+    local mouse = main.application.mouse
+    -- Create environment client.
+    local client = EnvironmentClient.new()
+    -- Define keys.
+    local buttonsKey = "application.mouse.pressedButtons"
+    local positionKey = "application.mouse.position"
+    -- Define callback.
+    client.call = function(key, values)
+        if (key == buttonsKey)
+        then
+            mouse.pressedButtons = values
+            mouse.pressedButtonsChanged:report()
+        elseif (key == positionKey)
+        then
+            mouse.position = values
+            mouse.positionChanged:report()
+        end
+
+        return {}
+    end
+    -- Register client.
+    mouse.client = client
+    ENV:addClient(
+        mouse.client,
+        {
+            buttonsKey,
+            positionKey
+        }
+    );
+end
+-- main.application.mouse End
+-- main.application.nodePool Start
+main.application.nodePool = {}
+-- main.application.nodePool End
+-- main.application.nodePool.createSphere Start
+main.application.nodePool.createSphere = function(self, name, radius)
+    local key = "application.nodePool.createSphere"
+    ENV:call(key, {name, radius})
+    return scene.createNode(name)
+end
+-- main.application.nodePool.createSphere End
+-- main.application.nodePool.node Start
+function main.application.nodePool.node(self, name)
+    local key = "application.nodePool.node.exists"
+    -- Find out if node exists in C++.
+    local result = ENV:call(key, {name})
+    -- Return nothing if node does not exist.
+    if (not result[1]) then
+        return nil
+    end
+    -- Return Lua node representation if node exists in C++.
+    return scene.createNode(name)
+end
+-- main.application.nodePool.node End
 -- main.application.parameters Start
 main.application.parameters = {}
 -- Transfer parameters from C++ to Lua.
@@ -295,72 +387,6 @@ main.application.resourcePool.setLocations = function(self, locations)
     ENV:call(key, locations)
 end
 -- main.application.resourcePool.setLocations End
--- main.application.nodePool Start
-main.application.nodePool = {}
--- main.application.nodePool End
--- main.application.nodePool.createSphere Start
-main.application.nodePool.createSphere = function(self, name, radius)
-    local key = "application.nodePool.createSphere"
-    ENV:call(key, {name, radius})
-    return scene.createNode(name)
-end
--- main.application.nodePool.createSphere End
--- main.application.nodePool.node Start
-function main.application.nodePool.node(self, name)
-    local key = "application.nodePool.node.exists"
-    -- Find out if node exists in C++.
-    local result = ENV:call(key, {name})
-    -- Return nothing if node does not exist.
-    if (not result[1]) then
-        return nil
-    end
-    -- Return Lua node representation if node exists in C++.
-    return scene.createNode(name)
-end
--- main.application.nodePool.node End
--- main.application.mouse Start
--- Create mouse.
-main.application.mouse = {
-    position = {},
-    positionChanged = core.createReporter(),
-
-    pressedButtons = {},
-    pressedButtonsChanged = core.createReporter(),
-}
-
--- Configure mouse.
-do
-    local mouse = main.application.mouse
-    -- Create environment client.
-    local client = EnvironmentClient.new()
-    -- Define keys.
-    local buttonsKey = "application.mouse.pressedButtons"
-    local positionKey = "application.mouse.position"
-    -- Define callback.
-    client.call = function(key, values)
-        if (key == buttonsKey)
-        then
-            mouse.pressedButtons = values
-            mouse.pressedButtonsChanged:report()
-        elseif (key == positionKey)
-        then
-            mouse.position = values
-            mouse.positionChanged:report()
-        end
-
-        return {}
-    end
-    -- Register client.
-    mouse.client = client
-    ENV:addClient(
-        mouse.client,
-        {
-            buttonsKey,
-            positionKey
-        }
-    );
-end
--- main.application.mouse End
 
 -- Library domain ends --
 
@@ -402,7 +428,7 @@ do
             "plain.frag"
         )
     end
-    function areResourcesValid(resourcePool)
+    function finishSetup(resourcePool, materialPool, nodePool)
         -- Make sure all resources have been loaded successfully.
         local shaderVert = resourcePool:resource("shaders", "plain.vert")
         local shaderFrag = resourcePool:resource("shaders", "plain.frag")
@@ -411,15 +437,14 @@ do
             (shaderFrag == nil)
         ) then
             print("ERROR", "Could not load one or more shaders")
-            return false
+            return
         end
 
-        return true
-    end
-    function finishSetup(resourcePool)
-        print("TODO Paint the node with single-color shader")
-        -- TODO Paint the node with single-color shader.
-
+        -- Create material to paint the whole scene.
+        local material = materialPool:createMaterial("plain")
+        -- TODO material.setShaders(shaderVert, shaderFrag)
+        local root = nodePool:node("root")
+        -- TODO root.setMaterial(material)
     end
 
     local nodePool = main.application.nodePool
@@ -428,12 +453,10 @@ do
     local resourcePool = main.application.resourcePool
     print("Loading resources...")
     loadResources(resourcePool, dataDir)
-
     print("Finished loading resources")
-    if (areResourcesValid(resourcePool))
-    then
-        finishSetup(resourcePool)
-    end
+
+    local materialPool = main.application.materialPool
+    finishSetup(resourcePool, materialPool, nodePool)
 end
 -- testColorfulNodes End
 

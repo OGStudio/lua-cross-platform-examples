@@ -29,6 +29,11 @@ core = {}
 -- FEATURE core.PropertiesMT/Impl
 -- FEATURE core.Reporter/Impl
 
+render = {}
+
+-- FEATURE render.Material/Start
+-- FEATURE render.Material/End
+
 resource = {}
 
 -- FEATURE resource.Resource/Start
@@ -45,15 +50,17 @@ main = {}
 -- FEATURE main.application/Impl
 -- FEATURE main.application.camera/Impl
 -- FEATURE main.application.camera.clearColor/Impl
+-- FEATURE main.application.materialPool/Impl
+-- FEATURE main.application.materialPool.createMaterial/Impl
+-- FEATURE main.application.mouse/Impl
+-- FEATURE main.application.nodePool/Impl
+-- FEATURE main.application.nodePool.createSphere/Impl
+-- FEATURE main.application.nodePool.node/Impl
 -- FEATURE main.application.parameters/Impl
 -- FEATURE main.application.resourcePool/Impl
 -- FEATURE main.application.resourcePool.loadResource/Impl
 -- FEATURE main.application.resourcePool.resource/Impl
 -- FEATURE main.application.resourcePool.setLocations/Impl
--- FEATURE main.application.nodePool/Impl
--- FEATURE main.application.nodePool.createSphere/Impl
--- FEATURE main.application.nodePool.node/Impl
--- FEATURE main.application.mouse/Impl
 
 -- Library domain ends --
 

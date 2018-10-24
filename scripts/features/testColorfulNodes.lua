@@ -48,9 +48,9 @@ do
 
         -- Create material to paint the whole scene.
         local material = materialPool:createMaterial("plain")
-        material.setShaders(shaderVert, shaderFrag)
+        -- TODO material.setShaders(shaderVert, shaderFrag)
         local root = nodePool:node("root")
-        root.setMaterial(material)
+        -- TODO root.setMaterial(material)
     end
 
     local nodePool = main.application.nodePool

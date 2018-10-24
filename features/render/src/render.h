@@ -41,6 +41,9 @@ namespace render
 // FEATURE createShaderProgram/Impl
 // FEATURE setupCamera/Impl
 
+// FEATURE MaterialPool/Impl
+// FEATURE MaterialPool/End
+
 // FEATURE VBOSetupVisitor/Impl
 
 } // namespace render

@@ -38,6 +38,10 @@ freely, subject to the following restrictions:
 #include "log.h"
 
 // Application+Logging End
+// Application+MaterialPool Start
+#include "render.h"
+
+// Application+MaterialPool End
 // Application+Mouse Start
 #include "input.h"
 
@@ -125,6 +129,10 @@ class Application
             this->setupNodePool();
             
             // Application+NodePool End
+            // Application+MaterialPool Start
+            this->setupMaterialPool();
+            
+            // Application+MaterialPool End
             // Application+ResourcePool Start
             this->setupResourcePool();
             
@@ -151,6 +159,10 @@ class Application
             this->tearHTTPClientDown();
             
             // Application+HTTPClient End
+            // Application+MaterialPool Start
+            this->tearMaterialPoolDown();
+            
+            // Application+MaterialPool End
             // Application+NodePool Start
             this->tearNodePoolDown();
             
@@ -275,6 +287,19 @@ class Application
             osg::setNotifyHandler(0);
         }
     // Application+Logging End
+    // Application+MaterialPool Start
+    public:
+        render::MaterialPool *materialPool;
+    private:
+        void setupMaterialPool()
+        {
+            this->materialPool = new render::MaterialPool;
+        }
+        void tearMaterialPoolDown()
+        {
+            delete this->materialPool;
+        }
+    // Application+MaterialPool End
     // Application+Mouse Start
     public:
         osg::ref_ptr<input::Mouse> mouse;
@@ -375,6 +400,10 @@ struct Example
         this->setupScriptingEnvironment();
         
         // Example+ScriptingEnvironment End
+        // Example+application.materialPool.createMaterial Start
+        this->setup_application_materialPool_createMaterial();
+        
+        // Example+application.materialPool.createMaterial End
         // Example+application.mouse Start
         this->setupApplicationMouse();
         
@@ -548,6 +577,41 @@ struct Example
         }
     // Example+ScriptingEnvironment End
 
+    // Example+application.materialPool.createMaterial Start
+    private:
+        void setup_application_materialPool_createMaterial()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.materialPool.createMaterial"
+                },
+                this->process_application_materialPool_createMaterial
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_materialPool_createMaterial)
+        {
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there is one component.
+                if (values.size() != 1)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 1"
+                    );
+                    return { };
+                }
+    
+                // Create material.
+                auto pool = this->app->materialPool;
+                auto name = values[0];
+                pool->createMaterial(name);
+            }
+    
+            return { };
+        }
+    // Example+application.materialPool.createMaterial End
     // Example+application.mouse Start
     private:
         const std::string applicationMousePressedButtonsKey =

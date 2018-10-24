@@ -6,15 +6,20 @@ core.Reporter
 main.application
 main.application.camera
 #main.application.camera.clearColor
+main.application.materialPool
+main.application.materialPool.createMaterial
 main.application.mouse
+main.application.nodePool
+main.application.nodePool.createSphere
+main.application.nodePool.node
 main.application.parameters
 main.application.resourcePool
 main.application.resourcePool.loadResource
 main.application.resourcePool.resource
 main.application.resourcePool.setLocations
-main.application.nodePool
-main.application.nodePool.createSphere
-main.application.nodePool.node
+
+# render
+render.Material
 
 # resource
 resource.Resource
