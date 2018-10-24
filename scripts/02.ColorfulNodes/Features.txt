@@ -28,6 +28,7 @@ resource.Resource
 # scene
 scene.Node
 scene.Node.addChild
+scene.Node.setMaterial
 
 # test
 testColorfulNodes

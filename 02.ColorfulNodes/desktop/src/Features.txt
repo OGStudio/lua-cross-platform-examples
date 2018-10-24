@@ -31,6 +31,7 @@ Example+application.mouse
 Example+application.nodePool.createSphere
 Example+application.nodePool.node.addChild
 Example+application.nodePool.node.exists
+Example+application.nodePool.node.setMaterial
 Example+application.parameters
 Example+application.resourcePool.loadResource
 Example+application.resourcePool.locations

@@ -44,6 +44,7 @@ scene = {}
 
 -- FEATURE scene.Node/Start
         -- FEATURE scene.Node.addChild/Impl
+        -- FEATURE scene.Node.setMaterial/Impl
 -- FEATURE scene.Node/End
 
 main = {}

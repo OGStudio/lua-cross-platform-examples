@@ -424,6 +424,10 @@ struct Example
         this->setup_application_nodePool_node_exists();
         
         // Example+application.nodePool.node.exists End
+        // Example+application.nodePool.node.setMaterial Start
+        this->setup_application_nodePool_node_setMaterial();
+        
+        // Example+application.nodePool.node.setMaterial End
         // Example+application.parameters Start
         this->setup_application_parameters();
         
@@ -637,7 +641,8 @@ struct Example
                 {
                     MAIN_EXAMPLE_LOG(
                         "ERROR Could not set value for key '%s' "
-                        "because values' count is not 5"
+                        "because values' count is not 5",
+                        key.c_str()
                     );
                     return { };
                 }
@@ -667,8 +672,14 @@ struct Example
                     !fragmentShader
                 ) {
                     MAIN_EXAMPLE_LOG(
-                        "ERROR Could not set value for key '%s' "
-                        "because material and/or shader(s) do(es) not exist"
+                        "ERROR Could not set vertex shader '%s/%s' and fragment "
+                        "shader '%s/%s' for material '%s' "
+                        "because material and/or shader(s) do(es) not exist",
+                        vertexShaderGroup.c_str(),
+                        vertexShaderName.c_str(),
+                        fragmentShaderGroup.c_str(),
+                        fragmentShaderName.c_str(),
+                        materialName.c_str()
                     );
                     return { };
                 }
@@ -877,6 +888,59 @@ struct Example
             return { };
         }
     // Example+application.nodePool.node.exists End
+    // Example+application.nodePool.node.setMaterial Start
+    private:
+        void setup_application_nodePool_node_setMaterial()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.nodePool.node.setMaterial"
+                },
+                this->process_application_nodePool_node_setMaterial
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_nodePool_node_setMaterial)
+        {
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there are two components.
+                if (values.size() != 2)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 2",
+                        key.c_str()
+                    );
+                    return { };
+                }
+    
+                auto nodeName = values[0];
+                auto materialName = values[1];
+    
+                auto node = this->app->nodePool->node(nodeName);
+                auto material = this->app->materialPool->material(materialName);
+    
+                // Make sure node and material exist.
+                if (
+                    !node ||
+                    !material
+                ) {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set material '%s' for node '%s' "
+                        "because node and/or material do(es) not exist",
+                        materialName.c_str(),
+                        nodeName.c_str()
+                    );
+                    return { };
+                }
+    
+                node->setStateSet(material);
+            }
+    
+            return { };
+        }
+    // Example+application.nodePool.node.setMaterial End
     // Example+application.parameters Start
     private:
         void setup_application_parameters()

@@ -22,7 +22,8 @@ private:
             {
                 MAIN_EXAMPLE_LOG(
                     "ERROR Could not set value for key '%s' "
-                    "because values' count is not 5"
+                    "because values' count is not 5",
+                    key.c_str()
                 );
                 return { };
             }
@@ -52,8 +53,14 @@ private:
                 !fragmentShader
             ) {
                 MAIN_EXAMPLE_LOG(
-                    "ERROR Could not set value for key '%s' "
-                    "because material and/or shader(s) do(es) not exist"
+                    "ERROR Could not set vertex shader '%s/%s' and fragment "
+                    "shader '%s/%s' for material '%s' "
+                    "because material and/or shader(s) do(es) not exist",
+                    vertexShaderGroup.c_str(),
+                    vertexShaderName.c_str(),
+                    fragmentShaderGroup.c_str(),
+                    fragmentShaderName.c_str(),
+                    materialName.c_str()
                 );
                 return { };
             }

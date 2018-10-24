@@ -50,7 +50,7 @@ do
         local material = materialPool:createMaterial("plain")
         material:setShaders(shaderVert, shaderFrag)
         local root = nodePool:node("root")
-        -- TODO root:setMaterial(material)
+        root:setMaterial(material)
     end
 
     local nodePool = main.application.nodePool
