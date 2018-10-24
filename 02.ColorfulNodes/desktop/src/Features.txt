@@ -26,6 +26,7 @@ Example+loadCLIScript
 
 #Example+application.camera.clearColor
 Example+application.materialPool.createMaterial
+Example+application.materialPool.material.setShaders
 Example+application.mouse
 Example+application.nodePool.createSphere
 Example+application.nodePool.node.addChild
@@ -68,6 +69,7 @@ mongoose
 # render
 MaterialPool
 createGraphicsContext-desktop
+createShaderProgram
 setupCamera
 
 # resource
@@ -78,6 +80,7 @@ Pool+loadResource
 Resource
 ResourceStreamBuffer
 extension
+string
 stringToResourceContents
 
 # scene

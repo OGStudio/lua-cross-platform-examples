@@ -130,6 +130,13 @@ std::string extension(const Resource &resource)
     return resource.name.substr(dotPosition + 1);
 }
 // extension End
+// string Start
+std::string string(const Resource &resource)
+{
+    const char *contents = reinterpret_cast<const char *>(resource.contents);
+    return std::string(contents, resource.len);
+}
+// string End
 // stringToResourceContents Start
 unsigned char * stringToResourceContents(const std::string &str)
 {

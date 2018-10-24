@@ -109,6 +109,7 @@ namespace main
         // FEATURE Example+ScriptingEnvironment/Setup
         // FEATURE Example+application.camera.clearColor/Setup
         // FEATURE Example+application.materialPool.createMaterial/Setup
+        // FEATURE Example+application.materialPool.material.setShaders/Setup
         // FEATURE Example+application.mouse/Setup
         // FEATURE Example+application.nodePool.createSphere/Setup
         // FEATURE Example+application.nodePool.node.addChild/Setup
@@ -133,6 +134,7 @@ namespace main
 
     // FEATURE Example+application.camera.clearColor/Impl
     // FEATURE Example+application.materialPool.createMaterial/Impl
+    // FEATURE Example+application.materialPool.material.setShaders/Impl
     // FEATURE Example+application.mouse/Impl
     // FEATURE Example+application.nodePool.createSphere/Impl
     // FEATURE Example+application.nodePool.node.addChild/Impl

@@ -20,6 +20,7 @@ main.application.resourcePool.setLocations
 
 # render
 render.Material
+render.Material.setShaders
 
 # resource
 resource.Resource

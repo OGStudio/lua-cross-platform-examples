@@ -180,6 +180,21 @@ function render.createMaterial(name)
         __name = name,
 
 -- render.Material End
+        -- render.Material.setShaders Start
+        setShaders = function(self, vertex, fragment)
+            local key = "application.materialPool.material.setShaders"
+            ENV:call(
+                key,
+                {
+                    self.__name,
+                    vertex.__group,
+                    vertex.__name,
+                    fragment.__group,
+                    fragment.__name
+                }
+            )
+        end,
+        -- render.Material.setShaders End
 -- render.Material Start
     }
     return instance
@@ -442,9 +457,9 @@ do
 
         -- Create material to paint the whole scene.
         local material = materialPool:createMaterial("plain")
-        -- TODO material.setShaders(shaderVert, shaderFrag)
+        material:setShaders(shaderVert, shaderFrag)
         local root = nodePool:node("root")
-        -- TODO root.setMaterial(material)
+        -- TODO root:setMaterial(material)
     end
 
     local nodePool = main.application.nodePool
