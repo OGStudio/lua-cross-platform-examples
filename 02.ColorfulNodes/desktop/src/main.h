@@ -911,31 +911,34 @@ struct Example
             // Set.
             if (!values.empty())
             {
-                // Make sure there are two components.
-                if (values.size() != 2)
+                // Make sure there is at least one component.
+                if (values.size() < 1)
                 {
                     MAIN_EXAMPLE_LOG(
                         "ERROR Could not set value for key '%s' "
-                        "because values' count is not 2",
+                        "because values' count is less than 1",
                         key.c_str()
                     );
                     return { };
                 }
     
                 auto nodeName = values[0];
-                auto materialName = values[1];
-    
                 auto node = this->app->nodePool->node(nodeName);
-                auto material = this->app->materialPool->material(materialName);
     
-                // Make sure node and material exist.
-                if (
-                    !node ||
-                    !material
-                ) {
+                std::string materialName = "(nil)";
+                osg::StateSet *material = 0;
+                if (values.size() == 2)
+                {
+                    materialName = values[1];
+                    material = this->app->materialPool->material(materialName);
+                }
+    
+                // Make sure node exists.
+                if (!node)
+                {
                     MAIN_EXAMPLE_LOG(
                         "ERROR Could not set material '%s' for node '%s' "
-                        "because node and/or material do(es) not exist",
+                        "because node do(es) not exist",
                         materialName.c_str(),
                         nodeName.c_str()
                     );

@@ -240,7 +240,13 @@ function scene.createNode(name)
         setMaterial = function(self, material)
             local key = "application.nodePool.node.setMaterial"
             local node = self.__name
-            ENV:call(key, {node, material.__name})
+            local params = {node}
+            -- If material does not exist, it's a nil material.
+            if (material)
+            then
+                table.insert(params, material.__name)
+            end
+            ENV:call(key, params)
         end,
         -- scene.Node.setMaterial End
 -- scene.Node Start
