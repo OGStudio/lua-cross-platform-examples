@@ -59,4 +59,7 @@ do
     local material = materialPool:createMaterial("plain")
     material:setShaders(shaderVert, shaderFrag)
     root:setMaterial(material)
+
+    -- Set material color.
+    material:setUniform("color", {0.5, 0.5, 0.5})
 end

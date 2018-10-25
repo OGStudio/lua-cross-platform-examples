@@ -33,6 +33,7 @@ render = {}
 
 -- FEATURE render.Material/Start
         -- FEATURE render.Material.setShaders/Impl
+        -- FEATURE render.Material.setUniform/Impl
 -- FEATURE render.Material/End
 
 resource = {}

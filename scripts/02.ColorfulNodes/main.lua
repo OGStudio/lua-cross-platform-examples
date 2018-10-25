@@ -195,6 +195,25 @@ function render.createMaterial(name)
             )
         end,
         -- render.Material.setShaders End
+        -- render.Material.setUniform Start
+        setUniform = function(self, name, rawValue)
+            local key = "application.materialPool.material.setUniform"
+            local params = {self.__name, name}
+            -- Array.
+            if (type(rawValue) == "table")
+            then
+                for _, value in pairs(rawValue)
+                do
+                    table.insert(params, value)
+                end
+            -- Single value.
+            else
+                table.insert(params, rawValue)
+            end
+        
+            ENV:call(key, params)
+        end,
+        -- render.Material.setUniform End
 -- render.Material Start
     }
     return instance
@@ -481,6 +500,9 @@ do
     local material = materialPool:createMaterial("plain")
     material:setShaders(shaderVert, shaderFrag)
     root:setMaterial(material)
+
+    -- Set material color.
+    material:setUniform("color", {0.5, 0.5, 0.5})
 end
 -- testColorfulNodes End
 

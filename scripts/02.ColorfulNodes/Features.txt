@@ -21,6 +21,7 @@ main.application.resourcePool.setLocations
 # render
 render.Material
 render.Material.setShaders
+render.Material.setUniform
 
 # resource
 resource.Resource

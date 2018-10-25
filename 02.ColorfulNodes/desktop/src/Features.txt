@@ -27,6 +27,7 @@ Example+loadCLIScript
 #Example+application.camera.clearColor
 Example+application.materialPool.createMaterial
 Example+application.materialPool.material.setShaders
+Example+application.materialPool.material.setUniform
 Example+application.mouse
 Example+application.nodePool.createSphere
 Example+application.nodePool.node.addChild
