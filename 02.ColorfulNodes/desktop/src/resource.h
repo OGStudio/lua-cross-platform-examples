@@ -69,7 +69,7 @@ struct Resource
     Resource(
         const std::string &group,
         const std::string &name,
-        unsigned char *contents,
+        const std::string &contents,
         unsigned int len
     ) :
         group(group),
@@ -80,7 +80,7 @@ struct Resource
 
     std::string group;
     std::string name;
-    unsigned char *contents;
+    std::string contents;
     unsigned int len;
 };
 // Resource End
@@ -90,7 +90,7 @@ struct ResourceStreamBuffer : std::streambuf
 {
     ResourceStreamBuffer(const Resource &resource)
     {
-        char *contents = reinterpret_cast<char *>(resource.contents);
+        char *contents = const_cast<char *>(resource.contents.data());
         this->setg(contents, contents, contents + resource.len);
     }
     // Implement 'seekoff()' to support 'seekg()' calls.
@@ -130,38 +130,6 @@ std::string extension(const Resource &resource)
     return resource.name.substr(dotPosition + 1);
 }
 // extension End
-// string Start
-std::string string(const Resource &resource)
-{
-    const char *contents = reinterpret_cast<const char *>(resource.contents);
-    return std::string(contents, resource.len);
-}
-// string End
-// stringToResourceContents Start
-unsigned char * stringToResourceContents(const std::string &str)
-{
-    auto dat = const_cast<char *>(str.data());
-    if (!dat)
-    {
-        RESOURCE_LOG(
-            "ERROR Could not convert string to resource contents "
-            "at 'const char * -> char *' stage"
-        );
-        return 0;
-    }
-    auto contents = reinterpret_cast<unsigned char *>(dat);
-    if (!contents)
-    {
-        RESOURCE_LOG(
-            "ERROR Could not convert string to resource contents "
-            "at 'char * -> usigned char *' stage"
-        );
-        return 0;
-    }
-
-    return contents;
-}
-// stringToResourceContents End
 
 
 // Pool Start
@@ -220,7 +188,7 @@ class Pool
                         resource::Resource res(
                             group,
                             name,
-                            resource::stringToResourceContents(fileContents),
+                            fileContents,
                             fileContents.length()
                         );
                         // Add resource.

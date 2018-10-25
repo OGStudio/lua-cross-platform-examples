@@ -26,7 +26,7 @@ public:
                 resource::Resource res(
                     group,
                     name,
-                    resource::stringToResourceContents(fileContents),
+                    fileContents,
                     fileContents.length()
                 );
                 // Add resource.

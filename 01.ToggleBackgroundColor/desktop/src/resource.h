@@ -54,7 +54,7 @@ struct Resource
     Resource(
         const std::string &group,
         const std::string &name,
-        unsigned char *contents,
+        const std::string &contents,
         unsigned int len
     ) :
         group(group),
@@ -65,7 +65,7 @@ struct Resource
 
     std::string group;
     std::string name;
-    unsigned char *contents;
+    std::string contents;
     unsigned int len;
 };
 // Resource End
@@ -75,7 +75,7 @@ struct ResourceStreamBuffer : std::streambuf
 {
     ResourceStreamBuffer(const Resource &resource)
     {
-        char *contents = reinterpret_cast<char *>(resource.contents);
+        char *contents = const_cast<char *>(resource.contents.data());
         this->setg(contents, contents, contents + resource.len);
     }
     // Implement 'seekoff()' to support 'seekg()' calls.

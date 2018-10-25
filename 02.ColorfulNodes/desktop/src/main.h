@@ -692,9 +692,10 @@ struct Example
     
                 auto prog =
                     render::createShaderProgram(
-                        resource::string(*vertexShader),
-                        resource::string(*fragmentShader)
+                        vertexShader->contents,
+                        fragmentShader->contents
                     );
+    
                 material->setAttribute(prog);
             }
     
