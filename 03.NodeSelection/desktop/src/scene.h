@@ -31,6 +31,14 @@ freely, subject to the following restrictions:
 #include <osg/ShapeDrawable>
 
 // createShape End
+// simplePosition Start
+#include <osg/MatrixTransform>
+
+// simplePosition End
+// setSimplePosition Start
+#include <osg/MatrixTransform>
+
+// setSimplePosition End
 
 // Pool Start
 #include <osg/MatrixTransform>
@@ -62,6 +70,27 @@ osg::MatrixTransform *createSphere(float radius)
 }
 // createSphere End
 
+// setSimplePosition Start
+//! Set node position.
+//! NOTE Only works for non-rotated/scaled nodes.
+void setSimplePosition(osg::MatrixTransform *node, const osg::Vec3f &position)
+{
+    auto matrix = node->getMatrix();
+    node->setMatrix(
+        osg::Matrix::scale(matrix.getScale()) *
+        osg::Matrix::rotate(matrix.getRotate()) *
+        osg::Matrix::translate(position)
+    );
+}
+// setSimplePosition End
+// simplePosition Start
+//! Get node position.
+//! NOTE Only works for non-rotated/scaled nodes.
+osg::Vec3f simplePosition(osg::MatrixTransform *node)
+{
+    return node->getMatrix().getTrans();
+}
+// simplePosition End
 
 
 

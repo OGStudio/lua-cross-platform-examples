@@ -30,6 +30,7 @@ resource.Resource
 scene.Node
 scene.Node.addChild
 scene.Node.setMaterial
+scene.Node.setPosition
 
 # test
-testColorfulNodes
+testNodeSelection

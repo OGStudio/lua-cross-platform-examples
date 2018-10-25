@@ -33,6 +33,7 @@ Example+application.nodePool.createSphere
 Example+application.nodePool.node.addChild
 Example+application.nodePool.node.exists
 Example+application.nodePool.node.setMaterial
+Example+application.nodePool.node.setPosition
 Example+application.parameters
 Example+application.resourcePool.loadResource
 Example+application.resourcePool.locations
@@ -91,6 +92,8 @@ Pool+createSphere
 Pool+node
 createShape
 createSphere
+simplePosition
+setSimplePosition
 
 # script
 SCRIPT_ENVIRONMENT_CLIENT_CALL

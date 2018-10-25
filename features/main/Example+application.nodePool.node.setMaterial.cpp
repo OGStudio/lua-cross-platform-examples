@@ -44,7 +44,7 @@ private:
             {
                 MAIN_EXAMPLE_LOG(
                     "ERROR Could not set material '%s' for node '%s' "
-                    "because node do(es) not exist",
+                    "because node does not exist",
                     materialName.c_str(),
                     nodeName.c_str()
                 );

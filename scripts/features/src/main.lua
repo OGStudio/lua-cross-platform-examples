@@ -46,6 +46,7 @@ scene = {}
 -- FEATURE scene.Node/Start
         -- FEATURE scene.Node.addChild/Impl
         -- FEATURE scene.Node.setMaterial/Impl
+        -- FEATURE scene.Node.setPosition/Impl
 -- FEATURE scene.Node/End
 
 main = {}
@@ -71,6 +72,7 @@ main = {}
 
 -- FEATURE testBackgroundColorToggle/Impl
 -- FEATURE testColorfulNodes/Impl
+-- FEATURE testNodeSelection/Impl
 
 -- Example domain ends --
 

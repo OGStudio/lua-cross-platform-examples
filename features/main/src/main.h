@@ -116,6 +116,7 @@ namespace main
         // FEATURE Example+application.nodePool.node.addChild/Setup
         // FEATURE Example+application.nodePool.node.exists/Setup
         // FEATURE Example+application.nodePool.node.setMaterial/Setup
+        // FEATURE Example+application.nodePool.node.setPosition/Setup
         // FEATURE Example+application.parameters/Setup
         // FEATURE Example+application.resourcePool.loadResource/Setup
         // FEATURE Example+application.resourcePool.locations/Setup
@@ -143,6 +144,7 @@ namespace main
     // FEATURE Example+application.nodePool.node.addChild/Impl
     // FEATURE Example+application.nodePool.node.exists/Impl
     // FEATURE Example+application.nodePool.node.setMaterial/Impl
+    // FEATURE Example+application.nodePool.node.setPosition/Impl
     // FEATURE Example+application.parameters/Impl
     // FEATURE Example+application.resourcePool.loadResource/Impl
     // FEATURE Example+application.resourcePool.locations/Impl

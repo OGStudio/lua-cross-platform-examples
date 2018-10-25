@@ -268,6 +268,21 @@ function scene.createNode(name)
             ENV:call(key, params)
         end,
         -- scene.Node.setMaterial End
+        -- scene.Node.setPosition Start
+        setPosition = function(self, position)
+            local key = "application.nodePool.node.setPosition"
+            local node = self.__name
+            ENV:call(
+                key,
+                {
+                    node,
+                    position[1],
+                    position[2],
+                    position[3],
+                }
+            )
+        end,
+        -- scene.Node.setPosition End
 -- scene.Node Start
     }
     return instance
@@ -439,7 +454,7 @@ end
 
 -- Example domain begins --
 
--- testColorfulNodes Start
+-- testNodeSelection Start
 do
     -- Enable verbose Environment logging.
     --ENV:setVerbose(true)
@@ -457,12 +472,24 @@ do
 
     local nodePool = main.application.nodePool
 
-    -- Create sphere node.
-    local name = "sphere"
-    local radius = 1
-    local sphere = nodePool:createSphere(name, radius)
     local root = nodePool:node("root")
-    root:addChild(sphere)
+
+    -- Create first node.
+    do
+        local name = "sphere-1"
+        local radius = 1
+        local sphere = nodePool:createSphere(name, radius)
+        root:addChild(sphere)
+    end
+
+    -- Create second node.
+    do
+        local name = "sphere-2"
+        local radius = 0.5
+        local sphere = nodePool:createSphere(name, radius)
+        root:addChild(sphere)
+        sphere:setPosition({-1.5, 0, 0})
+    end
 
     local resourcePool = main.application.resourcePool
     print("Loading resources...")
@@ -504,7 +531,7 @@ do
     -- Set material color.
     material:setUniform("color", {0.5, 0.5, 0.5})
 end
--- testColorfulNodes End
+-- testNodeSelection End
 
 -- Example domain ends --
 
