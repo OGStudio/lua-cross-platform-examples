@@ -7,8 +7,8 @@
 # * EXAMPLE_BINARY_NAME
 # * LCPE_LINK_LIBS
 
-PROJECT(LCPE02_COLORFUL_NODES)
-SET(EXAMPLE_BINARY_NAME "lcpe02-colorful-nodes")
+PROJECT(LCPE02_COLORFUL_NODE)
+SET(EXAMPLE_BINARY_NAME "lcpe02-colorful-node")
 SET(OSGCPE_DIR ${LCPE_DIR}/../openscenegraph-cross-platform-examples)
 
 # Build OpenSceneGraph statically.
