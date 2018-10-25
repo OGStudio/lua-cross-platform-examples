@@ -92,6 +92,30 @@ bool stringStartsWith(const std::string &s, const std::string &prefix)
         ;
 }
 // stringStartsWith End
+// stringsToString Start
+//! Combine several strings into single one
+std::string stringsToString(
+    const std::vector<std::string> &strings,
+    const std::string &separator = ", "
+) {
+    std::string result;
+    for (auto item : strings)
+    {
+        // Items after the first one.
+        if (!result.empty())
+        {
+            result += separator + item;
+        }
+        // First item.
+        else
+        {
+            result = item;
+        }
+    }
+
+    return result;
+}
+// stringsToString End
 
 // commandLineArgumentsToParameters Start
 typedef std::map<std::string, std::string> Parameters;

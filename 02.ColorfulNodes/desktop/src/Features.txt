@@ -48,6 +48,7 @@ commandLineArgumentsToParameters
 printfString
 splitString
 stringStartsWith
+stringsToString
 
 # input
 INPUT_MOUSE_LOG

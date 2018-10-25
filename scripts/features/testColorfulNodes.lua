@@ -1,5 +1,8 @@
 FEATURE main.lua/Impl
 do
+    -- Enable verbose Environment logging.
+    ENV:setVerbose(true)
+
     -- Make sure data directory has been specified.
     local dataDir = main.application.parameters["data"]
     if (dataDir == nil)
