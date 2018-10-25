@@ -18,6 +18,7 @@ FEATURES_FILENAME=Features.txt
 EXAMPLES="
 01.ToggleBackgroundColor
 02.ColorfulNode
+03.NodeSelection
 "
 
 # Platform -> Path to Features.txt

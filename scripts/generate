@@ -19,6 +19,7 @@ FEATURES_DIR=features
 SCRIPTS="
 01.ToggleBackgroundColor
 02.ColorfulNode
+03.NodeSelection
 "
 
 main()

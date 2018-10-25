@@ -1,0 +1,35 @@
+# core
+core.PropertiesMT
+core.Reporter
+
+# main
+main.application
+main.application.camera
+#main.application.camera.clearColor
+main.application.materialPool
+main.application.materialPool.createMaterial
+main.application.mouse
+main.application.nodePool
+main.application.nodePool.createSphere
+main.application.nodePool.node
+main.application.parameters
+main.application.resourcePool
+main.application.resourcePool.loadResource
+main.application.resourcePool.resource
+main.application.resourcePool.setLocations
+
+# render
+render.Material
+render.Material.setShaders
+render.Material.setUniform
+
+# resource
+resource.Resource
+
+# scene
+scene.Node
+scene.Node.addChild
+scene.Node.setMaterial
+
+# test
+testColorfulNodes

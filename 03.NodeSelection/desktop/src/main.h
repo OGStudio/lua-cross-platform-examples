@@ -376,9 +376,9 @@ class Application
 };
 // Application End
 
-// Example+02 Start
-const auto EXAMPLE_TITLE = "LCPE-02: Colorful node";
-// Example+02 End
+// Example+03 Start
+const auto EXAMPLE_TITLE = "LCPE-03: Node selection";
+// Example+03 End
 
 // Example Start
 struct Example
