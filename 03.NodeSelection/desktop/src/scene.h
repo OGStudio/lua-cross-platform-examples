@@ -128,6 +128,15 @@ class Pool
         }
     // Pool+Root End
 
+    // Pool+createNode Start
+    public:
+        osg::MatrixTransform *createNode(const std::string &name)
+        {
+            auto node = new osg::MatrixTransform;
+            this->nodes[name] = node;
+            return node;
+        }
+    // Pool+createNode End
     // Pool+createSphere Start
     public:
         osg::MatrixTransform *createSphere(

@@ -55,6 +55,7 @@ namespace scene
 // FEATURE Pool/Impl
     // FEATURE Pool+Root/Impl
 
+    // FEATURE Pool+createNode/Impl
     // FEATURE Pool+createSphere/Impl
     // FEATURE Pool+node/Impl
 // FEATURE Pool/End

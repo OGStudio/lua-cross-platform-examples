@@ -112,6 +112,7 @@ namespace main
         // FEATURE Example+application.materialPool.material.setShaders/Setup
         // FEATURE Example+application.materialPool.material.setUniform/Setup
         // FEATURE Example+application.mouse/Setup
+        // FEATURE Example+application.nodePool.createNode/Setup
         // FEATURE Example+application.nodePool.createSphere/Setup
         // FEATURE Example+application.nodePool.node.addChild/Setup
         // FEATURE Example+application.nodePool.node.exists/Setup
@@ -140,6 +141,7 @@ namespace main
     // FEATURE Example+application.materialPool.material.setShaders/Impl
     // FEATURE Example+application.materialPool.material.setUniform/Impl
     // FEATURE Example+application.mouse/Impl
+    // FEATURE Example+application.nodePool.createNode/Impl
     // FEATURE Example+application.nodePool.createSphere/Impl
     // FEATURE Example+application.nodePool.node.addChild/Impl
     // FEATURE Example+application.nodePool.node.exists/Impl

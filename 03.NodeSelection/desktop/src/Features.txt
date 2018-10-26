@@ -29,6 +29,7 @@ Example+application.materialPool.createMaterial
 Example+application.materialPool.material.setShaders
 Example+application.materialPool.material.setUniform
 Example+application.mouse
+Example+application.nodePool.createNode
 Example+application.nodePool.createSphere
 Example+application.nodePool.node.addChild
 Example+application.nodePool.node.exists
@@ -88,6 +89,7 @@ extension
 # scene
 Pool
 Pool+Root
+Pool+createNode
 Pool+createSphere
 Pool+node
 createShape

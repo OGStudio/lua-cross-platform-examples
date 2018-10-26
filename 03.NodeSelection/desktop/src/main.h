@@ -416,6 +416,10 @@ struct Example
         this->setupApplicationMouse();
         
         // Example+application.mouse End
+        // Example+application.nodePool.createNode Start
+        this->setup_application_nodePool_createNode();
+        
+        // Example+application.nodePool.createNode End
         // Example+application.nodePool.createSphere Start
         this->setup_application_nodePool_createSphere();
         
@@ -852,6 +856,41 @@ struct Example
             );
         }
     // Example+application.mouse End
+    // Example+application.nodePool.createNode Start
+    private:
+        void setup_application_nodePool_createNode()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.nodePool.createNode"
+                },
+                this->process_application_nodePool_createNode
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_nodePool_createNode)
+        {
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there is one component.
+                if (values.size() != 1)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 1"
+                    );
+                    return { };
+                }
+    
+                // Create node.
+                auto pool = this->app->nodePool;
+                auto name = values[0];
+                pool->createNode(name);
+            }
+    
+            return { };
+        }
+    // Example+application.nodePool.createNode End
     // Example+application.nodePool.createSphere Start
     private:
         void setup_application_nodePool_createSphere()

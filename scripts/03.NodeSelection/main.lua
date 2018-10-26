@@ -355,6 +355,13 @@ end
 -- main.application.nodePool Start
 main.application.nodePool = {}
 -- main.application.nodePool End
+-- main.application.nodePool.createNode Start
+main.application.nodePool.createNode = function(self, name)
+    local key = "application.nodePool.createNode"
+    ENV:call(key, {name})
+    return scene.createNode(name)
+end
+-- main.application.nodePool.createNode End
 -- main.application.nodePool.createSphere Start
 main.application.nodePool.createSphere = function(self, name, radius)
     local key = "application.nodePool.createSphere"
@@ -474,22 +481,12 @@ do
 
     local root = nodePool:node("root")
 
-    -- Create first node.
-    do
-        local name = "sphere-1"
-        local radius = 1
-        local sphere = nodePool:createSphere(name, radius)
-        root:addChild(sphere)
-    end
-
-    -- Create second node.
-    do
-        local name = "sphere-2"
-        local radius = 0.5
-        local sphere = nodePool:createSphere(name, radius)
-        root:addChild(sphere)
-        sphere:setPosition({-1.5, 0, 0})
-    end
+    -- Create two nodes.
+    local sphere1 = nodePool:createSphere("sphere-1", 1)
+    local sphere2 = nodePool:createSphere("sphere-2", 0.5)
+    sphere2:setPosition({-1, 0, 0})
+    root:addChild(sphere1)
+    root:addChild(sphere2)
 
     local resourcePool = main.application.resourcePool
     print("Loading resources...")

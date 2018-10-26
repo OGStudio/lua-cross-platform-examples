@@ -58,6 +58,7 @@ main = {}
 -- FEATURE main.application.materialPool.createMaterial/Impl
 -- FEATURE main.application.mouse/Impl
 -- FEATURE main.application.nodePool/Impl
+-- FEATURE main.application.nodePool.createNode/Impl
 -- FEATURE main.application.nodePool.createSphere/Impl
 -- FEATURE main.application.nodePool.node/Impl
 -- FEATURE main.application.parameters/Impl

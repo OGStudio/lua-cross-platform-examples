@@ -10,6 +10,7 @@ main.application.materialPool
 main.application.materialPool.createMaterial
 main.application.mouse
 main.application.nodePool
+main.application.nodePool.createNode
 main.application.nodePool.createSphere
 main.application.nodePool.node
 main.application.parameters
