@@ -1,5 +1,6 @@
 # main
 Application
+Application+CameraManipulator
 Application+HTTPClient
 Application+HTTPClientProcessor
 Application+Logging

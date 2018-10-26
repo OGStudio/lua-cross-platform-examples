@@ -21,7 +21,7 @@ do
     -- Create two nodes.
     local sphere1 = nodePool:createSphere("sphere-1", 1)
     local sphere2 = nodePool:createSphere("sphere-2", 0.5)
-    sphere2:setPosition({-1, 0, 0})
+    sphere2:setPosition({1, 0, 0})
     root:addChild(sphere1)
     root:addChild(sphere2)
 
