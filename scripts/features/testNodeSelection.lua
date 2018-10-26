@@ -26,8 +26,9 @@ do
     root:addChild(sphere2)
 
     -- Position camera.
-    main.application.camera.rotation = {0, 0, 0}
-    main.application.camera.position = {0, 0, 7}
+    local camera = main.application.camera
+    camera.rotation = {0, 0, 0}
+    camera.position = {0, 0, 7}
 
     local resourcePool = main.application.resourcePool
     print("Loading resources...")
@@ -68,4 +69,26 @@ do
 
     -- Set material color.
     material:setUniform("color", {0.5, 0.5, 0.5})
+
+    -- Setup selection.
+    local selectionMask = 4
+    sphere1.mask = selectionMask
+    sphere2.mask = selectionMask
+
+    -- Print node name upon selection.
+    local mouse = main.application.mouse
+    mouse.pressedButtonsChanged:addCallback(
+        function()
+            -- Detect click.
+            if (#mouse.pressedButtons > 0)
+            then
+                local node =
+                    camera.nodeAtPosition(mouse.position, selectionMask)
+                if (node)
+                then
+                    print("Selected node", node.__name)
+                end
+            end
+        end
+    )
 end
