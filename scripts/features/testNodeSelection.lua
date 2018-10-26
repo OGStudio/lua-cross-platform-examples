@@ -21,12 +21,13 @@ do
     -- Create two nodes.
     local sphere1 = nodePool:createSphere("sphere-1", 1)
     local sphere2 = nodePool:createSphere("sphere-2", 0.5)
-    sphere2:setPosition({1, 0, 0})
+    sphere2:setPosition({1.5, 0, 0})
     root:addChild(sphere1)
     root:addChild(sphere2)
 
     -- Position camera.
-    main.application.camera.position = {1, 0, 15}
+    main.application.camera.rotation = {0, 0, 0}
+    main.application.camera.position = {0, 0, 7}
 
     local resourcePool = main.application.resourcePool
     print("Loading resources...")

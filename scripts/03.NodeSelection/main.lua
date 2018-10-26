@@ -314,6 +314,21 @@ do
     )
 end
 -- main.application.camera.position End
+-- main.application.camera.rotation Start
+do
+    local shortKey = "rotation"
+    local key = "application.camera." .. shortKey
+    cameraMT:register(
+        shortKey,
+        function(self)
+            return ENV:call(key, {})
+        end,
+        function(self, value)
+            ENV:call(key, value)
+        end
+    )
+end
+-- main.application.camera.rotation End
 -- main.application.materialPool Start
 main.application.materialPool = {}
 -- main.application.materialPool End
@@ -499,12 +514,13 @@ do
     -- Create two nodes.
     local sphere1 = nodePool:createSphere("sphere-1", 1)
     local sphere2 = nodePool:createSphere("sphere-2", 0.5)
-    sphere2:setPosition({1, 0, 0})
+    sphere2:setPosition({1.5, 0, 0})
     root:addChild(sphere1)
     root:addChild(sphere2)
 
     -- Position camera.
-    main.application.camera.position = {1, 0, 15}
+    main.application.camera.rotation = {0, 0, 0}
+    main.application.camera.position = {0, 0, 7}
 
     local resourcePool = main.application.resourcePool
     print("Loading resources...")

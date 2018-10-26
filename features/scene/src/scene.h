@@ -40,6 +40,7 @@ namespace scene
 // FEATURE createSphere/Impl
 
 // FEATURE degreesToQuaternion/Impl
+// FEATURE quaternionToDegrees/Impl
 // FEATURE setSimplePosition/Impl
 // FEATURE simplePosition/Impl
 // FEATURE setSimpleRotation/Impl

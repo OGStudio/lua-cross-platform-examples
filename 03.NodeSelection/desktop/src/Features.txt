@@ -97,6 +97,8 @@ Pool+createSphere
 Pool+node
 createShape
 createSphere
+degreesToQuaternion
+quaternionToDegrees
 simplePosition
 setSimplePosition
 

@@ -1,18 +1,18 @@
 FEATURE main.h/Setup
-this->setup_application_camera_position();
+this->setup_application_camera_rotation();
 
 FEATURE main.h/Impl
 private:
-    void setup_application_camera_position()
+    void setup_application_camera_rotation()
     {
         MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
             {
-                "application.camera.position"
+                "application.camera.rotation"
             },
-            this->process_application_camera_position
+            this->process_application_camera_rotation
         );
     }
-    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_camera_position)
+    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_camera_rotation)
     {
         auto manipulator = this->app->cameraManipulator();
         osg::Vec3d pos;
@@ -32,20 +32,22 @@ private:
                 return { };
             }
 
-            // Apply position.
-            pos = {
+            // Apply rotation.
+            osg::Vec3d rot = {
                 atof(values[0].c_str()),
                 atof(values[1].c_str()),
                 atof(values[2].c_str()),
             };
+            q = scene::degreesToQuaternion(rot);
             manipulator->setTransformation(pos, q);
         }
 
         // Return current position for Get and after Set.
         manipulator->getTransformation(pos, q);
+        auto rot = scene::quaternionToDegrees(q);
         return {
-            format::printfString("%f", pos.x()),
-            format::printfString("%f", pos.y()),
-            format::printfString("%f", pos.z()),
+            format::printfString("%f", rot.x()),
+            format::printfString("%f", rot.y()),
+            format::printfString("%f", rot.z()),
         };
     }

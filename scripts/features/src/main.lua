@@ -55,6 +55,7 @@ main = {}
 -- FEATURE main.application.camera/Impl
 -- FEATURE main.application.camera.clearColor/Impl
 -- FEATURE main.application.camera.position/Impl
+-- FEATURE main.application.camera.rotation/Impl
 -- FEATURE main.application.materialPool/Impl
 -- FEATURE main.application.materialPool.createMaterial/Impl
 -- FEATURE main.application.mouse/Impl
