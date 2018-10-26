@@ -6,6 +6,7 @@ core.Reporter
 main.application
 main.application.camera
 #main.application.camera.clearColor
+main.application.camera.position
 main.application.materialPool
 main.application.materialPool.createMaterial
 main.application.mouse

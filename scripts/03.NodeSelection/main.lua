@@ -299,6 +299,21 @@ main.application.camera = {}
 local cameraMT = core.createPropertiesMT()
 setmetatable(main.application.camera, cameraMT)
 -- main.application.camera End
+-- main.application.camera.position Start
+do
+    local shortKey = "position"
+    local key = "application.camera." .. shortKey
+    cameraMT:register(
+        shortKey,
+        function(self)
+            return ENV:call(key, {})
+        end,
+        function(self, value)
+            ENV:call(key, value)
+        end
+    )
+end
+-- main.application.camera.position End
 -- main.application.materialPool Start
 main.application.materialPool = {}
 -- main.application.materialPool End
@@ -487,6 +502,9 @@ do
     sphere2:setPosition({1, 0, 0})
     root:addChild(sphere1)
     root:addChild(sphere2)
+
+    -- Position camera.
+    main.application.camera.position = {1, 0, 15}
 
     local resourcePool = main.application.resourcePool
     print("Loading resources...")

@@ -25,6 +25,9 @@ do
     root:addChild(sphere1)
     root:addChild(sphere2)
 
+    -- Position camera.
+    main.application.camera.position = {1, 0, 15}
+
     local resourcePool = main.application.resourcePool
     print("Loading resources...")
 

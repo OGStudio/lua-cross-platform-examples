@@ -30,6 +30,10 @@ freely, subject to the following restrictions:
 
 // Application+frame+Reporting End
 
+// Application+CameraManipulator Start
+#include <osgGA/TrackballManipulator>
+
+// Application+CameraManipulator End
 // Application+HTTPClient Start
 #include "network.h"
 
@@ -121,6 +125,10 @@ class Application
             this->setupRendering();
             
             // Application+Rendering End
+            // Application+CameraManipulator Start
+            this->setupCameraManipulator();
+            
+            // Application+CameraManipulator End
             // Application+Mouse Start
             this->setupMouse();
             
@@ -230,6 +238,21 @@ class Application
         }
     // Application+setupWindow-desktop End
 
+    // Application+CameraManipulator Start
+    private:
+        osg::ref_ptr<osgGA::TrackballManipulator> cameraManip;
+        void setupCameraManipulator()
+        {
+            // Create manipulator: CRITICAL for mobile and web.
+            this->cameraManip = new osgGA::TrackballManipulator;
+            this->viewer->setCameraManipulator(this->cameraManip);
+        }
+    public:
+        osgGA::TrackballManipulator *cameraManipulator()
+        {
+            return this->cameraManip;
+        }
+    // Application+CameraManipulator End
     // Application+HTTPClient Start
     public:
         network::HTTPClient *httpClient;
@@ -400,6 +423,10 @@ struct Example
         this->setupScriptingEnvironment();
         
         // Example+ScriptingEnvironment End
+        // Example+application.camera.position Start
+        this->setup_application_camera_position();
+        
+        // Example+application.camera.position End
         // Example+application.materialPool.createMaterial Start
         this->setup_application_materialPool_createMaterial();
         
@@ -603,6 +630,54 @@ struct Example
         }
     // Example+ScriptingEnvironment End
 
+    // Example+application.camera.position Start
+    private:
+        void setup_application_camera_position()
+        {
+            MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
+                {
+                    "application.camera.position"
+                },
+                this->process_application_camera_position
+            );
+        }
+        MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_camera_position)
+        {
+            auto manipulator = this->app->cameraManipulator();
+            osg::Vec3d pos;
+            osg::Quat q;
+    
+            // Set.
+            if (!values.empty())
+            {
+                // Make sure there are three components.
+                if (values.size() != 3)
+                {
+                    MAIN_EXAMPLE_LOG(
+                        "ERROR Could not set value for key '%s' "
+                        "because values' count is not 3"
+                    );
+                    return { };
+                }
+    
+                // Apply position.
+                pos = {
+                    atof(values[0].c_str()),
+                    atof(values[1].c_str()),
+                    atof(values[2].c_str()),
+                };
+                manipulator->setTransformation(pos, q);
+            }
+    
+            // Return current position for Get and after Set.
+            manipulator->getTransformation(pos, q);
+            return {
+                format::printfString("%f", pos.x()),
+                format::printfString("%f", pos.y()),
+                format::printfString("%f", pos.z()),
+            };
+        }
+    // Example+application.camera.position End
     // Example+application.materialPool.createMaterial Start
     private:
         void setup_application_materialPool_createMaterial()

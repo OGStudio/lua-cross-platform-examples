@@ -26,6 +26,8 @@ Example+ScriptingEnvironment
 Example+loadCLIScript
 
 #Example+application.camera.clearColor
+Example+application.camera.position
+Example+application.camera.rotation
 Example+application.materialPool.createMaterial
 Example+application.materialPool.material.setShaders
 Example+application.materialPool.material.setUniform

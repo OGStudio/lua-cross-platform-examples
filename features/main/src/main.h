@@ -29,6 +29,7 @@ freely, subject to the following restrictions:
 // FEATURE Application+handleEvent-web/Include
 // FEATURE Application+setupWindow-web/Include
 
+// FEATURE Application+CameraManipulator/Include
 // FEATURE Application+HTTPClient/Include
 // FEATURE Application+Logging/Include
 // FEATURE Application+MaterialPool/Include
@@ -59,6 +60,7 @@ namespace main
 // FEATURE Application/Setup
             // FEATURE Application+Logging/Setup
             // FEATURE Application+Rendering/Setup
+            // FEATURE Application+CameraManipulator/Setup
             // FEATURE Application+Mouse/Setup
             // FEATURE Application+NodePool/Setup
             // FEATURE Application+MaterialPool/Setup
@@ -86,6 +88,7 @@ namespace main
     // FEATURE Application+setupWindow-ios/Impl
     // FEATURE Application+setupWindow-web/Impl
 
+    // FEATURE Application+CameraManipulator/Impl
     // FEATURE Application+HTTPClient/Impl
     // FEATURE Application+HTTPClientProcessor/Impl
     // FEATURE Application+Logging/Impl
@@ -108,6 +111,8 @@ namespace main
         // FEATURE Example+VBO/Setup
         // FEATURE Example+ScriptingEnvironment/Setup
         // FEATURE Example+application.camera.clearColor/Setup
+        // FEATURE Example+application.camera.position/Setup
+        // FEATURE Example+application.camera.rotation/Setup
         // FEATURE Example+application.materialPool.createMaterial/Setup
         // FEATURE Example+application.materialPool.material.setShaders/Setup
         // FEATURE Example+application.materialPool.material.setUniform/Setup
@@ -137,6 +142,8 @@ namespace main
     // FEATURE Example+VBO/Impl
 
     // FEATURE Example+application.camera.clearColor/Impl
+    // FEATURE Example+application.camera.position/Impl
+    // FEATURE Example+application.camera.rotation/Impl
     // FEATURE Example+application.materialPool.createMaterial/Impl
     // FEATURE Example+application.materialPool.material.setShaders/Impl
     // FEATURE Example+application.materialPool.material.setUniform/Impl
