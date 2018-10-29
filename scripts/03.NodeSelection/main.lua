@@ -275,21 +275,6 @@ function scene.createNode(name)
             ENV:call(key, params)
         end,
         -- scene.Node.setMaterial End
-        -- scene.Node.setPosition Start
-        setPosition = function(self, position)
-            local key = "application.nodePool.node.setPosition"
-            local node = self.__name
-            ENV:call(
-                key,
-                {
-                    node,
-                    position[1],
-                    position[2],
-                    position[3],
-                }
-            )
-        end,
-        -- scene.Node.setPosition End
 -- scene.Node Start
     }
 
@@ -298,6 +283,31 @@ function scene.createNode(name)
     setmetatable(instance, propertiesMT)
 
 -- scene.Node End
+    -- scene.Node.position Start
+    do
+        local shortKey = "position"
+        local key = "application.nodePool.node." .. shortKey
+        propertiesMT:register(
+            shortKey,
+            function(self)
+                local node = self.__name
+                return ENV:call(key, {node})
+            end,
+            function(self, position)
+                local node = self.__name
+                ENV:call(
+                    key,
+                    {
+                        node,
+                        position[1],
+                        position[2],
+                        position[3],
+                    }
+                )
+            end
+        )
+    end
+    -- scene.Node.position End
 -- scene.Node Start
     return instance
 end
@@ -558,7 +568,7 @@ do
     -- Create two nodes.
     local sphere1 = nodePool:createSphere("sphere-1", 1)
     local sphere2 = nodePool:createSphere("sphere-2", 0.5)
-    sphere2:setPosition({1.5, 0, 0})
+    sphere2.position = {1.5, 0, 0}
     root:addChild(sphere1)
     root:addChild(sphere2)
 

@@ -33,9 +33,9 @@ resource.Resource
 # scene
 scene.Node
 scene.Node.addChild
+scene.Node.position
 scene.Node.setMask
 scene.Node.setMaterial
-scene.Node.setPosition
 
 # test
 testNodeSelection

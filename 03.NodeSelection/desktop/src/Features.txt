@@ -37,9 +37,9 @@ Example+application.nodePool.createNode
 Example+application.nodePool.createSphere
 Example+application.nodePool.node.addChild
 Example+application.nodePool.node.exists
+Example+application.nodePool.node.position
 Example+application.nodePool.node.setMask
 Example+application.nodePool.node.setMaterial
-Example+application.nodePool.node.setPosition
 Example+application.parameters
 Example+application.resourcePool.loadResource
 Example+application.resourcePool.locations
