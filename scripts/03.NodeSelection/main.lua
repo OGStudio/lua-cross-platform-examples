@@ -255,6 +255,13 @@ function scene.createNode(name)
             ENV:call(key, {parent, child})
         end,
         -- scene.Node.addChild End
+        -- scene.Node.setMask Start
+        setMask = function(self, mask)
+            local key = "application.nodePool.node.setMask"
+            local node = self.__name
+            ENV:call(key, {node, mask})
+        end,
+        -- scene.Node.setMask End
         -- scene.Node.setMaterial Start
         setMaterial = function(self, material)
             local key = "application.nodePool.node.setMaterial"
@@ -285,6 +292,13 @@ function scene.createNode(name)
         -- scene.Node.setPosition End
 -- scene.Node Start
     }
+
+    -- Set metatable to have properties easily.
+    local propertiesMT = core.createPropertiesMT()
+    setmetatable(instance, propertiesMT)
+
+-- scene.Node End
+-- scene.Node Start
     return instance
 end
 -- scene.Node End
@@ -519,8 +533,9 @@ do
     root:addChild(sphere2)
 
     -- Position camera.
-    main.application.camera.rotation = {0, 0, 0}
-    main.application.camera.position = {0, 0, 7}
+    local camera = main.application.camera
+    camera.rotation = {0, 0, 0}
+    camera.position = {0, 0, 7}
 
     local resourcePool = main.application.resourcePool
     print("Loading resources...")
@@ -561,6 +576,33 @@ do
 
     -- Set material color.
     material:setUniform("color", {0.5, 0.5, 0.5})
+
+    -- Setup selection.
+    local selectionMask = 4
+    sphere1:setMask(selectionMask)
+    sphere2:setMask(selectionMask)
+
+    local mouse = main.application.mouse
+
+    local function selectNode()
+        local node = nil
+            --TODO camera.nodeAtPosition(mouse.position, selectionMask)
+        if (node)
+        then
+            print("Selected node", node.__name)
+        end
+    end
+
+    -- Try to select a node upon mouse click.
+    mouse.pressedButtonsChanged:addCallback(
+        function()
+            -- Detect click.
+            if (#mouse.pressedButtons > 0)
+            then
+                selectNode()
+            end
+        end
+    )
 end
 -- testNodeSelection End
 

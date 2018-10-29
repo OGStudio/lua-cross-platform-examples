@@ -270,6 +270,13 @@ function scene.createNode(name)
         -- scene.Node.setMaterial End
 -- scene.Node Start
     }
+
+    -- Set metatable to have properties easily.
+    local propertiesMT = core.createPropertiesMT()
+    setmetatable(instance, propertiesMT)
+
+-- scene.Node End
+-- scene.Node Start
     return instance
 end
 -- scene.Node End

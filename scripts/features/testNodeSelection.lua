@@ -72,22 +72,27 @@ do
 
     -- Setup selection.
     local selectionMask = 4
-    sphere1.mask = selectionMask
-    sphere2.mask = selectionMask
+    sphere1:setMask(selectionMask)
+    sphere2:setMask(selectionMask)
 
-    -- Print node name upon selection.
     local mouse = main.application.mouse
+
+    local function selectNode()
+        local node = nil
+            --TODO camera.nodeAtPosition(mouse.position, selectionMask)
+        if (node)
+        then
+            print("Selected node", node.__name)
+        end
+    end
+
+    -- Try to select a node upon mouse click.
     mouse.pressedButtonsChanged:addCallback(
         function()
             -- Detect click.
             if (#mouse.pressedButtons > 0)
             then
-                local node =
-                    camera.nodeAtPosition(mouse.position, selectionMask)
-                if (node)
-                then
-                    print("Selected node", node.__name)
-                end
+                selectNode()
             end
         end
     )
