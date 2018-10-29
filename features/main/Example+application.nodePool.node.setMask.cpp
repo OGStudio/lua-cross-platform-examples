@@ -39,7 +39,7 @@ private:
         }
 
         // Set mask.
-        int mask = atof(values[1].c_str());
+        int mask = atoi(values[1].c_str());
         node->setNodeMask(node->getNodeMask() & ~mask);
 
         return { };

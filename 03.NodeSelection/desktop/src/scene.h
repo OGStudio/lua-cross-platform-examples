@@ -139,6 +139,45 @@ osg::Vec3f simplePosition(osg::MatrixTransform *node)
 }
 // simplePosition End
 
+// nodeAtPosition Start
+//! Pick node at the specified position using camera's point of view
+
+// \param excludedNodeMask Take the node into consideration if it excludes specified mask.
+osg::Node *nodeAtPosition(
+    const osg::Vec2f &position,
+    osg::Camera *camera,
+    unsigned int excludedNodeMask
+) {
+    // Find intersections.
+    osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
+        new osgUtil::LineSegmentIntersector(
+            osgUtil::Intersector::WINDOW,
+            position.x(),
+            position.y()
+        );
+    osgUtil::IntersectionVisitor iv(intersector.get());
+    camera->accept(iv);
+
+    // No intersections found.
+    if (!intersector->containsIntersections())
+    {
+        return 0;
+    }
+
+    // Get closest intersection.
+    auto intersection = intersector->getFirstIntersection();
+    for (auto node : intersection.nodePath)
+    {
+        // Make sure node mask is excluded.
+        if ((node->getNodeMask() & excludedNodeMask) != excludedNodeMask)
+        {
+            return node;
+        }
+    }
+
+    return 0;
+}
+// nodeAtPosition End
 
 
 // Pool Start
@@ -180,6 +219,7 @@ class Pool
         osg::MatrixTransform *createNode(const std::string &name)
         {
             auto node = new osg::MatrixTransform;
+            node->setName(name);
             this->nodes[name] = node;
             return node;
         }
@@ -191,6 +231,7 @@ class Pool
             float radius
         ) {
             auto sphere = scene::createSphere(radius);
+            sphere->setName(name);
             this->nodes[name] = sphere;
             return sphere;
         }

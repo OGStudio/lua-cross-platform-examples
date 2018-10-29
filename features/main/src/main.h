@@ -111,6 +111,7 @@ namespace main
         // FEATURE Example+VBO/Setup
         // FEATURE Example+ScriptingEnvironment/Setup
         // FEATURE Example+application.camera.clearColor/Setup
+        // FEATURE Example+application.camera.nodeAtPosition/Setup
         // FEATURE Example+application.camera.position/Setup
         // FEATURE Example+application.camera.rotation/Setup
         // FEATURE Example+application.materialPool.createMaterial/Setup
@@ -143,6 +144,7 @@ namespace main
     // FEATURE Example+VBO/Impl
 
     // FEATURE Example+application.camera.clearColor/Impl
+    // FEATURE Example+application.camera.nodeAtPosition/Impl
     // FEATURE Example+application.camera.position/Impl
     // FEATURE Example+application.camera.rotation/Impl
     // FEATURE Example+application.materialPool.createMaterial/Impl

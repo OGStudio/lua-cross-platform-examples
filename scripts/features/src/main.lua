@@ -54,10 +54,14 @@ scene = {}
 main = {}
 
 -- FEATURE main.application/Impl
--- FEATURE main.application.camera/Impl
--- FEATURE main.application.camera.clearColor/Impl
--- FEATURE main.application.camera.position/Impl
--- FEATURE main.application.camera.rotation/Impl
+
+-- FEATURE main.application.camera/Methods
+    -- FEATURE main.application.camera.nodeAtPosition/Impl
+-- FEATURE main.application.camera/Properties
+    -- FEATURE main.application.camera.clearColor/Impl
+    -- FEATURE main.application.camera.position/Impl
+    -- FEATURE main.application.camera.rotation/Impl
+
 -- FEATURE main.application.materialPool/Impl
 -- FEATURE main.application.materialPool.createMaterial/Impl
 -- FEATURE main.application.mouse/Impl

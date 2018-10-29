@@ -184,26 +184,34 @@ main = {}
 -- main.application Start
 main.application = {}
 -- main.application End
+
 -- main.application.camera Start
-main.application.camera = {}
+main.application.camera = {
+
+-- main.application.camera End
+-- main.application.camera Start
+}
+
+-- Set metatable to have properties easily.
 local cameraMT = core.createPropertiesMT()
 setmetatable(main.application.camera, cameraMT)
 -- main.application.camera End
--- main.application.camera.clearColor Start
-do
-    local shortKey = "clearColor"
-    local key = "application.camera." .. shortKey
-    cameraMT:register(
-        shortKey,
-        function(self)
-            return ENV:call(key, {})
-        end,
-        function(self, value)
-            ENV:call(key, value)
-        end
-    )
-end
--- main.application.camera.clearColor End
+    -- main.application.camera.clearColor Start
+    do
+        local shortKey = "clearColor"
+        local key = "application.camera." .. shortKey
+        cameraMT:register(
+            shortKey,
+            function(self)
+                return ENV:call(key, {})
+            end,
+            function(self, value)
+                ENV:call(key, value)
+            end
+        )
+    end
+    -- main.application.camera.clearColor End
+
 -- main.application.mouse Start
 -- Create mouse.
 main.application.mouse = {

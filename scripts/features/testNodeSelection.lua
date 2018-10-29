@@ -78,8 +78,8 @@ do
     local mouse = main.application.mouse
 
     local function selectNode()
-        local node = nil
-            --TODO camera.nodeAtPosition(mouse.position, selectionMask)
+        local node =
+            camera:nodeAtPosition(mouse.position, selectionMask)
         if (node)
         then
             print("Selected node", node.__name)

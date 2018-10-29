@@ -26,6 +26,7 @@ Example+ScriptingEnvironment
 Example+loadCLIScript
 
 #Example+application.camera.clearColor
+Example+application.camera.nodeAtPosition
 Example+application.camera.position
 Example+application.camera.rotation
 Example+application.materialPool.createMaterial
@@ -99,6 +100,7 @@ Pool+node
 createShape
 createSphere
 degreesToQuaternion
+nodeAtPosition
 quaternionToDegrees
 simplePosition
 setSimplePosition

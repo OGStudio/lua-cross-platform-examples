@@ -308,41 +308,71 @@ main = {}
 -- main.application Start
 main.application = {}
 -- main.application End
+
 -- main.application.camera Start
-main.application.camera = {}
+main.application.camera = {
+
+-- main.application.camera End
+    -- main.application.camera.nodeAtPosition Start
+    nodeAtPosition = function(self, position, selectionMask)
+        local key = "application.camera.nodeAtPosition"
+        local values = ENV:call(
+            key,
+            {
+                position[1],
+                position[2],
+                selectionMask,
+            }
+        )
+    
+        local name = values[1]
+    
+        if (name)
+        then
+            return scene.createNode(name)
+        end
+    
+        return nil
+    end,
+    -- main.application.camera.nodeAtPosition End
+-- main.application.camera Start
+}
+
+-- Set metatable to have properties easily.
 local cameraMT = core.createPropertiesMT()
 setmetatable(main.application.camera, cameraMT)
 -- main.application.camera End
--- main.application.camera.position Start
-do
-    local shortKey = "position"
-    local key = "application.camera." .. shortKey
-    cameraMT:register(
-        shortKey,
-        function(self)
-            return ENV:call(key, {})
-        end,
-        function(self, value)
-            ENV:call(key, value)
-        end
-    )
-end
--- main.application.camera.position End
--- main.application.camera.rotation Start
-do
-    local shortKey = "rotation"
-    local key = "application.camera." .. shortKey
-    cameraMT:register(
-        shortKey,
-        function(self)
-            return ENV:call(key, {})
-        end,
-        function(self, value)
-            ENV:call(key, value)
-        end
-    )
-end
--- main.application.camera.rotation End
+    -- main.application.camera.position Start
+    do
+        local shortKey = "position"
+        local key = "application.camera." .. shortKey
+        cameraMT:register(
+            shortKey,
+            function(self)
+                return ENV:call(key, {})
+            end,
+            function(self, value)
+                ENV:call(key, value)
+            end
+        )
+    end
+    -- main.application.camera.position End
+    -- main.application.camera.rotation Start
+    do
+        local shortKey = "rotation"
+        local key = "application.camera." .. shortKey
+        cameraMT:register(
+            shortKey,
+            function(self)
+                return ENV:call(key, {})
+            end,
+            function(self, value)
+                ENV:call(key, value)
+            end
+        )
+    end
+    -- main.application.camera.rotation End
+
 -- main.application.materialPool Start
 main.application.materialPool = {}
 -- main.application.materialPool End
@@ -585,8 +615,8 @@ do
     local mouse = main.application.mouse
 
     local function selectNode()
-        local node = nil
-            --TODO camera.nodeAtPosition(mouse.position, selectionMask)
+        local node =
+            camera:nodeAtPosition(mouse.position, selectionMask)
         if (node)
         then
             print("Selected node", node.__name)

@@ -106,6 +106,7 @@ class Pool
             float radius
         ) {
             auto sphere = scene::createSphere(radius);
+            sphere->setName(name);
             this->nodes[name] = sphere;
             return sphere;
         }

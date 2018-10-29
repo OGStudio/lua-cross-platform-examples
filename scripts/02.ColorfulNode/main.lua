@@ -286,11 +286,19 @@ main = {}
 -- main.application Start
 main.application = {}
 -- main.application End
+
 -- main.application.camera Start
-main.application.camera = {}
+main.application.camera = {
+
+-- main.application.camera End
+-- main.application.camera Start
+}
+
+-- Set metatable to have properties easily.
 local cameraMT = core.createPropertiesMT()
 setmetatable(main.application.camera, cameraMT)
 -- main.application.camera End
+
 -- main.application.materialPool Start
 main.application.materialPool = {}
 -- main.application.materialPool End
