@@ -77,12 +77,18 @@ do
 
     local mouse = main.application.mouse
 
+    -- Create selection material.
+    local selectionMaterial = materialPool:createMaterial("plain-selected")
+    selectionMaterial:setShaders(shaderVert, shaderFrag)
+    selectionMaterial:setUniform("color", {1.0, 0.5, 0.5})
+
     local function selectNode()
         local node =
             camera:nodeAtPosition(mouse.position, selectionMask)
         if (node)
         then
             print("Selected node", node.__name)
+            node:setMaterial(selectionMaterial)
         end
     end
 
