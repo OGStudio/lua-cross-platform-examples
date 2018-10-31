@@ -49,6 +49,7 @@ scene = {}
         -- FEATURE scene.Node.setMaterial/Impl
 -- FEATURE scene.Node/Properties
     -- FEATURE scene.Node.position/Impl
+    -- FEATURE scene.Node.rotation/Impl
 -- FEATURE scene.Node/End
 
 main = {}
