@@ -36,6 +36,7 @@ render = {}
         -- FEATURE render.Material.setUniform/Impl
 -- FEATURE render.Material/End
 
+-- FEATURE render.materialsDefinitionToMaterialNames/Impl
 -- FEATURE render.materialsDefinitionToShaderResources/Impl
 
 resource = {}
