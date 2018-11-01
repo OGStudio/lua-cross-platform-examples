@@ -36,6 +36,8 @@ render = {}
         -- FEATURE render.Material.setUniform/Impl
 -- FEATURE render.Material/End
 
+-- FEATURE render.materialsDefinitionToShaderResources/Impl
+
 resource = {}
 
 -- FEATURE resource.Resource/Start
@@ -53,6 +55,10 @@ scene = {}
 -- FEATURE scene.Node/End
 
 main = {}
+
+-- FEATURE main.MaterialLoader/Start
+    -- FEATURE main.MaterialLoader.loadMaterials/Impl
+-- FEATURE main.MaterialLoader/End
 
 -- FEATURE main.application/Impl
 
