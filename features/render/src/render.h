@@ -31,6 +31,8 @@ freely, subject to the following restrictions:
 // FEATURE setupCamera/Include
 // FEATURE VBOSetupVisitor/Include
 
+// FEATURE RENDER_MATERIAL_POOL_LOG/Impl
+
 namespace lcpe
 {
 namespace render
@@ -42,6 +44,7 @@ namespace render
 // FEATURE setupCamera/Impl
 
 // FEATURE MaterialPool/Impl
+    // FEATURE MaterialPool+createMaterialCopy/Impl
 // FEATURE MaterialPool/End
 
 // FEATURE VBOSetupVisitor/Impl

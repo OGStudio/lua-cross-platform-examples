@@ -6,9 +6,11 @@ class MaterialPool
 
         std::map<std::string, osg::ref_ptr<osg::StateSet> > materials;
 
-        void createMaterial(const std::string &name)
+        osg::StateSet *createMaterial(const std::string &name)
         {
-            this->materials[name] = new osg::StateSet;
+            auto material = new osg::StateSet;
+            this->materials[name] = material;
+            return material;
         }
 
         osg::StateSet *material(const std::string &name)

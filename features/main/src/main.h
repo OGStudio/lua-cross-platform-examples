@@ -115,6 +115,7 @@ namespace main
         // FEATURE Example+application.camera.position/Setup
         // FEATURE Example+application.camera.rotation/Setup
         // FEATURE Example+application.materialPool.createMaterial/Setup
+        // FEATURE Example+application.materialPool.createMaterialCopy/Setup
         // FEATURE Example+application.materialPool.material.exists/Setup
         // FEATURE Example+application.materialPool.material.setShaders/Setup
         // FEATURE Example+application.materialPool.material.setUniform/Setup
@@ -150,6 +151,7 @@ namespace main
     // FEATURE Example+application.camera.position/Impl
     // FEATURE Example+application.camera.rotation/Impl
     // FEATURE Example+application.materialPool.createMaterial/Impl
+    // FEATURE Example+application.materialPool.createMaterialCopy/Impl
     // FEATURE Example+application.materialPool.material.exists/Impl
     // FEATURE Example+application.materialPool.material.setShaders/Impl
     // FEATURE Example+application.materialPool.material.setUniform/Impl
