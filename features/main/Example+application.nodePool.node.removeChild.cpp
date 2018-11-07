@@ -1,18 +1,18 @@
 FEATURE main.h/Setup
-this->setup_application_nodePool_node_addChild();
+this->setup_application_nodePool_node_removeChild();
 
 FEATURE main.h/Impl
 private:
-    void setup_application_nodePool_node_addChild()
+    void setup_application_nodePool_node_removeChild()
     {
         MAIN_EXAMPLE_REGISTER_ENVIRONMENT_CLIENT(
             {
-                "application.nodePool.node.addChild"
+                "application.nodePool.node.removeChild"
             },
-            this->process_application_nodePool_node_addChild
+            this->process_application_nodePool_node_removeChild
         );
     }
-    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_nodePool_node_addChild)
+    MAIN_EXAMPLE_ENVIRONMENT_FUNCTION(process_application_nodePool_node_removeChild)
     {
         // Set.
         if (!values.empty())
@@ -37,7 +37,7 @@ private:
             if (!parent || !child)
             {
                 MAIN_EXAMPLE_LOG(
-                    "ERROR Could not add '%s' child node to '%s' parent node "
+                    "ERROR Could not remove '%s' child node from '%s' parent node "
                     "because of the node(s) do(es) not exist",
                     childName.c_str(),
                     parentName.c_str()
@@ -45,7 +45,7 @@ private:
                 return { };
             }
 
-            parent->addChild(child);
+            parent->removeChild(child);
         }
 
         return { };

@@ -48,6 +48,7 @@ scene = {}
 
 -- FEATURE scene.Node/Methods
         -- FEATURE scene.Node.addChild/Impl
+        -- FEATURE scene.Node.removeChild/Impl
         -- FEATURE scene.Node.setMask/Impl
         -- FEATURE scene.Node.setMaterial/Impl
 -- FEATURE scene.Node/Properties

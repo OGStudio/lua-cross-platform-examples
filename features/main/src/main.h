@@ -124,6 +124,7 @@ namespace main
         // FEATURE Example+application.nodePool.createSphere/Setup
         // FEATURE Example+application.nodePool.node.addChild/Setup
         // FEATURE Example+application.nodePool.node.exists/Setup
+        // FEATURE Example+application.nodePool.node.removeChild/Setup
         // FEATURE Example+application.nodePool.node.setMask/Setup
         // FEATURE Example+application.nodePool.node.setMaterial/Setup
         // FEATURE Example+application.nodePool.node.position/Setup
@@ -160,6 +161,7 @@ namespace main
     // FEATURE Example+application.nodePool.createSphere/Impl
     // FEATURE Example+application.nodePool.node.addChild/Impl
     // FEATURE Example+application.nodePool.node.exists/Impl
+    // FEATURE Example+application.nodePool.node.removeChild/Impl
     // FEATURE Example+application.nodePool.node.setMask/Impl
     // FEATURE Example+application.nodePool.node.setMaterial/Impl
     // FEATURE Example+application.nodePool.node.position/Impl
