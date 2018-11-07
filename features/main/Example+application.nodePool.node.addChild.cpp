@@ -38,7 +38,7 @@ private:
             {
                 MAIN_EXAMPLE_LOG(
                     "ERROR Could not add '%s' child node to '%s' parent node "
-                    "because of the node(s) do(es) not exist",
+                    "because node(s) do(es) not exist",
                     childName.c_str(),
                     parentName.c_str()
                 );
